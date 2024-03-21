@@ -1,0 +1,29 @@
+header.header
+  .header__logo
+    h1
+      a(href="/") 🍿Eye Client
+
+  //- 
+    .header__button
+      i.fas.fa-bars
+  if(ext.page !== 'download') 
+    form.header__search#form-search(method="get", action="/media")
+      input#search-input(type="search", name="search", placeholder="Search for anything", required)
+  
+  span
+  
+  //- 
+    select#filter.select-basic(name="filter")
+      optgroup
+        option(value="reset") reset
+      optgroup
+        option(value="movies") movies
+        option(value="series") series
+        option(value="games") games
+        option(value="collections") collections
+      optgroup
+        option(value="new") new
+        option(value="old") old
+      optgroup
+        option(value="asc") asc
+        option(value="desc") desc

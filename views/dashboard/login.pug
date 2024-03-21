@@ -1,0 +1,25 @@
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client | Dashbaord - Login
+
+  body 
+    section.form.form-7
+      h3.form__heading.margin-b4 🍿 
+        br 
+        |Admin Login
+      form#login-form
+        .form-group
+          label.label-basic(for="email") email
+          input#email.input-basic(type="text", name="email", placeholder="email" required)
+        .form-group
+          label.label-basic(for="password") password
+          input#password.input-basic(type="password", name="password", placeholder="password" required)
+
+        .btn-center
+            button.btn.btn-primary.btn-full#btn-login Login
+    
+  script(src=`/javascript/${ext.js}.js` type='module') 

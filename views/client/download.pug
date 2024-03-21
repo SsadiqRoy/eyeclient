@@ -1,0 +1,76 @@
+extends ../externals/clientBase
+
+
+block metaTags
+  meta(name="keywords" content=`index of movies,index of movies 2024, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links, Free Direct Download links, New Movies, Trending Movies, Top Rated Movies`)
+  meta(name="description" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}. High Resoulution Direct Download Link`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="eyeclient")
+  meta(name="topic" content=`Download Links For Movies, Tv Series & Games`)
+  meta(name="summary", content=`Download Movies, Tv Series & Games on EYE client for free and fast. Free direct download links`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content=`https://wwww.eyeclient.com/download/${link.id}`)
+  meta(name="identifier-URL" content=`https://wwww.eyeclient.com/download/${link.id}`)
+  meta(name="pagename" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}`)
+  meta(name="category" content=`${media.type}`)
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content=`media Page`)
+
+  meta(name="og:title" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}`)
+  meta(name="og:type" content="media")
+  meta(name="og:url" content=`https://wwww.eyeclient.com/download/${link.id}`)
+  meta(name="og:image" content=`${media.poster}`)
+  meta(name="og:image:height" content=`1500`)
+  meta(name="og:image:width" content=`1000`)
+  meta(name="og:site_name" content="Eye Client")
+  meta(name="og:description" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}. High Resoulution Direct Download Link`)
+  //- meta(name="og:country-name" content=`${media.country}`)
+
+  meta(name="twitter:title" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}`)
+  meta(name="twitter:description" content=`Download ${linkNames.media}${linkNames.episode} ${linkNames.name}. High Resoulution Direct Download Link`)
+  meta(name="twitter:image" content=`${media.poster}`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`Eye Client`)
+  meta(name="twitter:creator" content=`@eyeclient`)
+  
+
+
+block content
+  main.main
+    .center-element
+      h2= linkNames.media
+      h2.margin-t2= linkNames.episode
+
+    .center-element.margin-t2
+      h2= linkNames.name
+      
+    .center-element.margin-t6
+      span.tag.tag-primary-alt#counter(style='display: inline;') 10
+
+    .center-element-2.margin-t6
+      button.tag.tag-primary.tag-button#download(data-link-id=`${link.id}` disabled)
+        | Download 
+        i.fas.fa-download
+
+
+block script 
+  script.
+    const search = document.getElementById('search-input');
+    
+      search.addEventListener('focus', () => {
+        if (window.innerWidth > 600) return;
+        search.parentElement.previousElementSibling.style.display = 'none';
+        search.parentElement.nextElementSibling.style.display = 'none';
+      });
+    
+      search.addEventListener('blur', () => {
+        if (window.innerWidth > 600) return;
+        search.parentElement.previousElementSibling.style.display = 'initial';
+        search.parentElement.nextElementSibling.style.display = 'initial';
+      });
+    

@@ -1,0 +1,184 @@
+.form {
+  width: 100%;
+  margin: 6rem auto;
+  padding: 4rem 2rem;
+  border-radius: 1rem;
+  background-color: $white;
+
+  @include theme(dark) {
+    background-color: $secondary;
+  }
+
+  &__heading {
+    width: 100%;
+    font-size: $fs-large;
+    font-weight: bolder;
+    text-align: center;
+    text-transform: uppercase;
+    // color: $primary;
+  }
+}
+
+.form-7 {
+  max-width: 700px;
+}
+.form-9 {
+  max-width: 900px;
+}
+
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-double {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  font-size: $fs-normal;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: $primary;
+  color: $white;
+}
+
+.btn-primary-alt {
+  background-color: transparent;
+  color: $primary;
+  border: 3px solid $primary;
+}
+
+.btn-secondary {
+  background-color: $secondary;
+  color: $white;
+}
+
+.btn-secondary-alt {
+  color: $secondary;
+  border: 3px solid $secondary;
+  background-color: transparent;
+}
+
+.btn-secondary-dark {
+  background-color: $secondary;
+  color: $white;
+
+  @include theme(dark) {
+    background-color: $background-dark;
+  }
+}
+
+.btn-full {
+  padding: 1.2rem 3rem;
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-weight: bold;
+}
+
+.btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.form-group {
+  margin-block: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label-basic {
+  display: block;
+  width: max-content;
+  font-size: $fs-normal;
+  margin-left: 2rem;
+  text-transform: capitalize;
+}
+
+.input-basic,
+.select-basic {
+  padding: 1.2rem 2.5rem;
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: $font;
+  font-size: $fs-normal;
+
+  background-color: $background;
+
+  @include theme(dark) {
+    background-color: $background-dark;
+    color: $white;
+  }
+
+  &::placeholder {
+    text-transform: capitalize;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: rgba(128, 0, 128, 0.1);
+  }
+}
+
+.textarea-basic {
+  border-radius: 1rem;
+  padding: 2rem;
+  font-family: $font;
+  border: none;
+  outline: none;
+
+  background-color: $background;
+
+  @include theme(dark) {
+    background-color: $background-dark;
+    color: $white;
+  }
+}
+
+.links {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  margin-inline: auto;
+  margin-bottom: 10rem;
+}
+
+.link-item {
+  width: 100%;
+  padding: 1rem 4rem;
+  border-radius: 100px;
+  font-size: $fs-normal;
+  margin-block: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: $white;
+
+  @include theme(dark) {
+    background-color: $secondary;
+  }
+
+  span:last-child {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: $fs-big;
+
+    i {
+      cursor: pointer;
+    }
+  }
+}

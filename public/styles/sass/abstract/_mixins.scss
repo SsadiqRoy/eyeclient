@@ -1,0 +1,68 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == mini {
+    @media (max-width: 18.75em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == small {
+    @media (max-width: 25em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == port {
+    @media (max-width: 56.25em) {
+      @content;
+    }
+  }
+  @if $breakpoint == land {
+    @media (max-width: 75em) {
+      @content;
+    }
+  }
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      @content;
+    }
+  }
+}
+
+@mixin theme($mode) {
+  @media (prefers-color-scheme: $mode) {
+    @content;
+  }
+}
+
+@mixin scroll-bar {
+  &::-webkit-scrollbar {
+    background-color: $background;
+
+    @include theme(dark) {
+      background-color: $background-dark;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $white;
+    border: 3px solid $background;
+    border-radius: 1rem;
+
+    @include theme(dark) {
+      background-color: $secondary-light;
+      border-color: $background-dark;
+    }
+  }
+}
+
+@mixin no-scroll-bar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

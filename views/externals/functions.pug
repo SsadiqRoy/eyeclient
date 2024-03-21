@@ -1,0 +1,54 @@
+-
+  function unmergeDate(iso) {
+    const a = new Date(iso);
+    const y = `${a.getFullYear()}`.padStart(2, '0');
+    const m = `${a.getMonth() + 1}`.padStart(2, '0');
+    const d = `${a.getDate()}`.padStart(2, '0');
+
+    const hh = `${a.getHours()}`.padStart(2, '0');
+    const mm = `${a.getMinutes()}`.padStart(2, '0');
+
+    const date = `${y}-${m}-${d}`;
+    const time = `${hh}:${mm}`;
+    return { date, time };
+  }
+
+  function getTime(iso) {
+    const s = new Date(iso);
+    const time = s.toLocaleTimeString(undefined, { hour: 'numeric', minute: 'numeric' });
+    const date = s.toDateString();
+    const localDate = s.toLocaleDateString();
+    const simple = s.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    const lateralDate = s.toLocaleDateString(undefined, {
+      weekday: 'short',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    const fullLocalDate = `${localDate}   ${time}`;
+    const fullDate = new Intl.DateTimeFormat(undefined, {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format(s);
+    const complete = new Intl.DateTimeFormat(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format(s);
+    const simpleDate = new Intl.DateTimeFormat(undefined, {
+      year: '2-digit',
+      month: 'short',
+      day: 'numeric',
+    }).format(s);
+
+    let timeZone = s.toLocaleTimeString(undefined, { timeZoneName: 'short' }).split(' ').at(-1).slice(0, 3);
+
+    return { time, date, simpleDate, localDate, lateralDate, fullDate, fullLocalDate, timeZone, simple, complete };
+  }

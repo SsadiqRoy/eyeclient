@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+
+  body 
+    include ../externals/functions
+    include ../externals/cards
+
+    section.form.form-9
+      h3.form__heading.margin-b4 season #{season} episode #{episode.episode}
+      form#form-episode
+        .form-group
+          label.label-basic(for="imdb-id") IMDB Id
+          input#imdb-id.input-basic(type="text", name="imdb-id", placeholder="IMDB Id" value=`${episode && episode.imdbId || ''}`)
+        .form-group
+          label.label-basic(for="imdb-series") IMDB series
+          input#imdb-series.input-basic(type="text", name="imdb-series", placeholder="IMDB series" value=`${episode && episode.imdbSeries || ''}`)
+        .form-group
+          label.label-basic(for="rated") rated
+          input#rated.input-basic(type="text", name="rated", placeholder="rated" value=`${episode && episode.rated || ''}`)
+        .form-group
+          label.label-basic(for="episode") episode
+          input#episode.input-basic(type="number", name="episode", placeholder="episode" value=`${episode && episode.episode || ''}` required step='1')
+        .form-group
+          label.label-basic(for="title") title
+          input#title.input-basic(type="text", name="title", placeholder="title" value=`${episode && episode.title || ''}` required)
+        .form-group
+          label.label-basic(for="plot") plot
+          input#plot.input-basic(type="text", name="plot", placeholder="plot" value=`${episode && episode.plot || ''}`)
+        .form-group
+          label.label-basic(for="poster") poster
+          input#poster.input-basic(type="text", name="poster", placeholder="poster" value=`${episode && episode.poster || ''}`)
+        .form-group
+          label.label-basic(for="runtime") runtime
+          input#runtime.input-basic(type="text", name="runtime", placeholder="runtime" value=`${episode && episode.runtime || ''}`)
+        .form-group
+          label.label-basic(for="imdb-id") IMDB Rating
+          input#imdb-rating.input-basic(type="text", name="imdb-id", placeholder="IMDB rating" value=`${episode && episode.imdbRating || ''}`)
+        .form-group
+          label.label-basic(for="released") released
+          input#released.input-basic(type="date", name="released", placeholder="released" value=`${episode && unmergeDate(episode.released).date || ''}` required)
+          
+        .margin-t2.btn-double
+          button.btn.btn-primary-alt#soft-update(type='button') Soft Update
+          button.btn.btn-primary#update-episode Hard Update
+        
+    
+    .btn-center(style="margin-top: 12rem")
+      button.btn.btn-secondary#new-link Add New Link
+    
+    section.links#cards-container
+      each link in episode.Links
+        - const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
+        +dlinkCard(link, undefined, ext)
+    
+    section.popup#link-popup.display-off
+      .popup__container.form-7
+        .popup__heading
+          span
+          h3 Add / Update Link
+          i.fas.fa-times.close-popup
+           
+        .popup__content
+          form#form-link
+            .form-group
+              label.label-basic(for="resolution") resolution
+              select.select-basic#resolution
+                option(value="480") 480
+                option(value="720") 720
+                option(value="1080") 1080
+                option(value="2160") 2160
+                option(value="720x256") 720x256
+                option(value="1080x256") 1080x256
+                option(value="hdcam") hdcam
+                option(value="other") other
+            .form-group#group-other.display-off
+              label.label-basic(for="link-name-other") link name other
+              input#other-name.input-basic(type="text", name="link-name-other", placeholder="link name Other")
+            .form-group
+              label.label-basic(for="link") link
+              input#link.input-basic(type="text", name="link", placeholder="link")
+              
+            .btn-center.display-off
+              button.btn.btn-primary-alt#btn-link save
+
+        .popup__bottom
+          .btn-center
+            button.btn.btn-primary.btn-full#btn-link-alt save
+
+  script(src=`/javascript/${ext.js}.js`)
+  //- script.
+    function fullOpenPopup (elementid, popupid, afterclose, beforeopen){
+      const elem = document.getElementById(elementid)
+      const popup = document.getElementById(popupid)
+
+      elem.addEventListener('click', (e)=>{
+        if(beforeopen) beforeopen()
+        popup.classList.toggle('display-off')
+      })
+
+      popup.addEventListener('click', (ev)=>{
+        if(!ev.target.classList.contains('close-popup')) return 
+        popup.classList.toggle('display-off')
+        if(afterclose) afterclose()
+      })
+    }
+
+    fullOpenPopup('new-link', 'link-popup')
+
+    const resolution = document.getElementById('resolution')
+    const otherName = document.getElementById('group-other')
+    resolution.addEventListener('change', ()=>{
+      const {value} = resolution
+      if(value === 'other') return otherName.classList.remove('display-off')
+      otherName.classList.add('display-off')
+    })

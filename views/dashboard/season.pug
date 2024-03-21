@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+
+  body(data-next=`${season.Episodes.length + 1}` data-season=`${season.season}`)
+    include ../externals/functions
+    include ../externals/cards
+
+    section.form.form-9
+      h3.form__heading.margin-b4 Season #{season.season}
+      form#form-season
+        .form-group
+          label.label-basic(for="season") season
+          input#season.input-basic(type="text", name="season", placeholder="season" value=`${season && season.season || ''}` required)
+        .form-group
+          label.label-basic(for="poster") poster
+          input#poster.input-basic(type="text", name="poster", placeholder="Poster" value=`${season && season.poster || ''}` )
+        .form-group
+          label.label-basic(for="released") released
+          input#released.input-basic(type="date", name="released", placeholder="Released" value=`${season && unmergeDate(season.released).date || ''}` required)
+        
+        .margin-t2.btn-center
+          //- button.btn.btn-primary-alt(type='button') Soft Update
+          button.btn.btn-primary#btn-update Update Season
+    
+    .btn-double.form-7(style="margin: 12rem auto 0 auto")
+      button.btn.btn-primary#soft-add Soft Add Episode
+      button.btn.btn-secondary#hard-add Hard Add Episode
+      //- button.btn.btn-secondary-alt Add New Link
+    
+    section.links#cards-container
+      each episode in season.Episodes
+        - const redirect = `/executive/episode?id=${episode.id}&season=${season.season}`
+        +dlinkCard(episode, 'Episode ', undefined, redirect)
+    
+    section.popup#soft-add-popup.display-off
+      .popup__container.form-7
+        .popup__heading
+          span
+          h3 Soft Add Episode
+          i.fas.fa-times.close-popup
+           
+        .popup__content
+          form#form-soft-add
+            .form-group
+              label.label-basic(for="imdb-id") IMDB ID
+              input#imdb-id.input-basic(type="text", name="imdb-id", placeholder="IMDB ID")
+
+            .btn-center.display-off
+              button.btn.btn-primary-alt#btn-soft-add save
+              
+        .popup__bottom
+          .btn-center
+            button.btn.btn-primary.btn-full#btn-soft-add-alt save
+    
+    section.popup#hard-add-popup.display-off
+      .popup__container.form-7
+        .popup__heading
+          span
+          h3 Hard Add Episode
+          i.fas.fa-times.close-popup
+           
+        .popup__content
+          form#form-hard-add
+            .form-group
+              label.label-basic(for="imdb-id") IMDB Id
+              input#imdb-id-hard.input-basic(type="text", name="imdb-id", placeholder="IMDB Id")
+            .form-group
+              label.label-basic(for="imdb-series") IMDB series
+              input#imdb-series.input-basic(type="text", name="imdb-series", placeholder="IMDB series")
+            .form-group
+              label.label-basic(for="rated") rated
+              input#rated.input-basic(type="text", name="rated", placeholder="rated")
+            .form-group
+              label.label-basic(for="episode") episode
+              input#episode.input-basic(type="number", name="episode", step='1' min='1' value=`${season.Episodes.length + 1}`)
+            .form-group
+              label.label-basic(for="title") title
+              input#title.input-basic(type="text", name="title", placeholder="title")
+            .form-group
+              label.label-basic(for="plot") plot
+              input#plot.input-basic(type="text", name="plot", placeholder="plot")
+            .form-group
+              label.label-basic(for="poster") poster
+              input#poster.input-basic(type="text", name="poster", placeholder="poster")
+            .form-group
+              label.label-basic(for="runtime") runtime
+              input#runtime.input-basic(type="text", name="runtime", placeholder="runtime")
+            .form-group
+              label.label-basic(for="imdb-id") IMDB Rating
+              input#imdb-rating.input-basic(type="text", name="imdb-id", placeholder="IMDB rating")
+            .form-group
+              label.label-basic(for="released") released
+              input#released.input-basic(type="date", name="released", placeholder="released")
+
+            .btn-center.display-off
+              button.btn.btn-primary-alt#btn-hard-add save
+              
+        .popup__bottom
+          .btn-center
+            button.btn.btn-primary.btn-full#btn-hard-add-alt save
+
+  script(src=`/javascript/${ext.js}.js`)
+  //- script.
+    function fullOpenPopup (elementid, popupid, afterclose, beforeopen){
+      const elem = document.getElementById(elementid)
+      const popup = document.getElementById(popupid)
+
+      elem.addEventListener('click', (e)=>{
+        if(beforeopen) beforeopen()
+        popup.classList.toggle('display-off')
+      })
+
+      popup.addEventListener('click', (ev)=>{
+        if(!ev.target.classList.contains('close-popup')) return 
+        popup.classList.toggle('display-off')
+        if(afterclose) afterclose()
+      })
+    }
+
+    fullOpenPopup('soft-add-episode', 'soft-add-popup')
+    fullOpenPopup('hard-add-episode', 'hard-add-popup')
+
+    //- const resolution = document.getElementById('resolution')
+    //- const otherName = document.getElementById('group-other')
+    //- resolution.addEventListener('change', ()=>{
+    //-   const {value} = resolution
+    //-   if(value === 'other') return otherName.classList.remove('display-off')
+    //-   otherName.classList.add('display-off')
+    //- })

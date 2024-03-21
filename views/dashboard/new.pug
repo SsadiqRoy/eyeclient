@@ -1,0 +1,32 @@
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client | Dashbaord - New Admin
+
+  body 
+    section.form.form-9
+      h3.form__heading.margin-b4 New Admin
+      form#form-new-user
+        .form-group
+          label.label-basic(for="name") name
+          input#name.input-basic(type="text", name="name", placeholder="name" required)
+        .form-group
+          label.label-basic(for="email") email
+          input#email.input-basic(type="email", name="email", placeholder="email" required)
+        .form-group
+          label.label-basic(for="password") password
+          input#password.input-basic(type="password", name="password", placeholder="password" required)
+        .form-group
+          label.label-basic(for="confirm-password") confirm password
+          input#confirm-password.input-basic(type="password", name="confirm-password", placeholder="confirm password" required)
+        .form-group
+          label.label-basic(for="acces") acces code
+          input#acces.input-basic(type="password", name="acces", placeholder="acces code" required)
+
+        .btn-center
+            button.btn.btn-primary.btn-full#btn-new-user Add Admin
+
+  script(type="module", src=`/javascript/${ext.js}.js`) 

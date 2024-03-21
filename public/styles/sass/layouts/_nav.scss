@@ -1,0 +1,19 @@
+.nav {
+  padding: 2rem 3rem;
+
+  display: flex;
+  gap: 1.5rem;
+
+  overflow-y: auto;
+
+  & > * {
+    flex-shrink: 0;
+  }
+
+  @include scroll-bar;
+  @include no-scroll-bar;
+}
+
+.nav--block {
+  flex-wrap: wrap;
+}

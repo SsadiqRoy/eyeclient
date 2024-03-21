@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+
+  body 
+    include ../externals/functions
+    include ../externals/cards
+
+    section.form.form-9
+      h3.form__heading  #{game ? 'Update' : 'New'} tv series
+      .center-element.marbin-b4(style='font-size: 1.6rem;')
+        p= series && series.title || ''
+      form#form-series
+        .form-group
+          label.label-basic(for="imdb-id") IMDB Id
+          input#imdb-id.input-basic(type="text", name="imdb-id", placeholder="IMDB Id" value=`${series && series.imdbId || ''}`)
+        .form-group
+          label.label-basic(for="type") Media Type
+          input#type.input-basic(type="email", name="type", placeholder="Media Type" value='series' disabled required)
+        .form-group
+          label.label-basic(for="title") Series Title
+          input#title.input-basic(type="text", name="title", placeholder="Series Title" value=`${series && series.title || ''}` required)
+        .form-group
+          label.label-basic(for="year") Year
+          input#year.input-basic(type="text", name="year", placeholder="Year" value=`${series && series.year || ''}`)
+        .form-group
+          label.label-basic(for="rated") Rated
+          input#rated.input-basic(type="text", name="rated", placeholder="Rated" value=`${series && series.rated || ''}`)
+        .form-group
+          label.label-basic(for="released") released
+          input#released.input-basic(type="date", name="released", placeholder="Released" value=`${series && unmergeDate(series.released).date   || ''}` required)
+        .form-group
+          label.label-basic(for="genre") genre
+          input#genre.input-basic(type="text", name="genre", placeholder="Genre" value=`${series && series.genre || ''}`)
+        .form-group
+          label.label-basic(for="directors") directors
+          input#directors.input-basic(type="text", name="directors", placeholder="Directors" value=`${series && series.directors || ''}`)
+        .form-group
+          label.label-basic(for="writers") writers
+          input#writers.input-basic(type="text", name="writers", placeholder="Writers" value=`${series && series.writers || ''}`)
+        .form-group
+          label.label-basic(for="actors") actors
+          input#actors.input-basic(type="text", name="actors", placeholder="Actors" value=`${series && series.actors || ''}`)
+        .form-group
+          label.label-basic(for="plot") plot
+          textarea#plot.textarea-basic(type="text", name="plot", placeholder="Plot" required)= series && series.plot || '' 
+        .form-group
+          label.label-basic(for="poster") poster
+          input#poster.input-basic(type="text", name="poster", placeholder="Poster" value=`${series && series.poster || ''}` required)
+        .form-group
+          label.label-basic(for="language") language
+          input#language.input-basic(type="text", name="language", placeholder="Language" value=`${series && series.language || ''}`)
+        .form-group
+          label.label-basic(for="country") country
+          input#country.input-basic(type="text", name="country", placeholder="country" value=`${series && series.country || ''}`)
+        .form-group
+          label.label-basic(for="runtime") runtime
+          input#runtime.input-basic(type="text", name="runtime", placeholder="runtime" value=`${series && series.runtime || ''}`)
+        .form-group
+          label.label-basic(for="imdb-rating") IMDB Rating
+          input#imdb-rating.input-basic(type="text", name="imdb-rating", placeholder="IMDB Rating" value=`${series && series.imdbRating || ''}`)
+        .form-group
+          label.label-basic(for="keywords") keywords
+          input#keywords.input-basic(type="text", name="keywords", placeholder="keywords" value=`${series && series.keywords || ''}`)
+        
+        if(series)
+          .margin-t2.btn-double
+            button.btn.btn-primary-alt#soft-update(type='button') Soft Update
+            button.btn.btn-primary#update-series Hard Update
+        if(!series)
+          .margin-t2.btn-center
+            button.btn.btn-primary#add-series Save Series
+    
+    if(series)
+      .btn-center(style="margin-top: 12rem")
+        button.btn.btn-secondary#new-season Add New Season
+    
+      section.links#cards-container
+        each season in series.Seasons
+            - const redirect = `/executive/season?id=${season.id}&series=${season.series}`
+            +dlinkCard(season, 'Season ', undefined, redirect)
+      
+      section.popup#season-popup.display-off
+        .popup__container.form-7
+          .popup__heading
+            span
+            h3 Add New Season
+            i.fas.fa-times.close-popup
+            
+          .popup__content
+            form#form-season
+              .form-group
+                label.label-basic(for="season") Number
+                input#season.input-basic(type="number", name="season", placeholder="season number" step='1' min='1' value=`${series.Seasons.length + 1}`)
+              .form-group
+                label.label-basic(for="season-poster") poster
+                input#season-poster.input-basic(type="text", name="season-poster", placeholder="season poster")
+              .form-group
+                label.label-basic(for="season-released") released
+                input#season-released.input-basic(type="date", name="season-released", placeholder="season released")
+              
+              .btn-center.display-off
+                button.btn.btn-primary-alt#btn-season save
+                
+          .popup__bottom
+            .btn-center
+              button.btn.btn-primary.btn-full#btn-season-alt save
+
+  script(src=`/javascript/${ext.js}.js`)
+  //- script.
+    //- function fullOpenPopup (elementid, popupid, afterclose, beforeopen){
+    //-   const elem = document.getElementById(elementid)
+    //-   const popup = document.getElementById(popupid)
+
+    //-   elem.addEventListener('click', (e)=>{
+    //-     if(beforeopen) beforeopen()
+    //-     popup.classList.toggle('display-off')
+    //-   })
+
+    //-   popup.addEventListener('click', (ev)=>{
+    //-     if(!ev.target.classList.contains('close-popup')) return 
+    //-     popup.classList.toggle('display-off')
+    //-     if(afterclose) afterclose()
+    //-   })
+    //- }
+
+    //- fullOpenPopup('new-season', 'season-popup')
+
+    //- const resolution = document.getElementById('resolution')
+    //- const otherName = document.getElementById('group-other')
+    //- resolution.addEventListener('change', ()=>{
+    //-   const {value} = resolution
+    //-   if(value === 'other') return otherName.classList.remove('display-off')
+    //-   otherName.classList.add('display-off')
+    //- })
+
+

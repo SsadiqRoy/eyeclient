@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+html 
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/collection.css")
+    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+
+  body
+    include ../externals/functions
+    include ../externals/cards
+
+    main.main
+      section.main__section
+        .main__container
+          .form-9.main__container-heading(style="margin: 4rem auto; justify-content: right")
+            button.btn.btn-primary#left-back
+              | Return 
+              i.fas.fa-angle-right
+          .form-9#included-cards-container(style="margin: 4rem auto")
+            each coll in collection.Collections
+              +dmediaCard(coll, 'negative')
+      
+
+      section.main__section
+        .form-9.btn-double(style="margin: 4rem auto; width: calc(100% - 2rem)")
+          button.btn.btn-primary#view-media
+            i.fas.fa-angle-left 
+            | View Media
+          button.btn.btn-secondary#add-media
+            | Add Media 
+            i.fas.fa-angle-right
+        .main__container.form.form-9
+          h3.form__heading Collection
+          .center-element.margin-b4(style="font-size:1.6rem;")
+            p= collection.title
+          form#form-collection
+            .form-group
+              label.label-basic(for="imdb-id") IMDB Id
+              input#imdb-id.input-basic(type="text", name="imdb-id", placeholder="IMDB Id" value=`${collection.imdbId || ''}`)
+            .form-group
+              label.label-basic(for="type") Media Type
+              input#type.input-basic(type="text", name="type", placeholder="Media Type" value='collection' disabled)
+            .form-group
+              label.label-basic(for="title") Title
+              input#title.input-basic(type="text", name="title", placeholder="Movie Title" value=`${collection.title || ''}`, required)
+            .form-group
+              label.label-basic(for="password") Year
+              input#year.input-basic(type="text", name="year", placeholder="Year" value=`${collection.year || ''}`)
+            .form-group
+              label.label-basic(for="rated") Rated
+              input#rated.input-basic(type="text", name="rated", placeholder="Rated" value=`${collection.rated || ''}`)
+            .form-group
+              label.label-basic(for="released") released
+              input#released.input-basic(type="date", name="released", placeholder="Released" value=`${unmergeDate(collection.released).date || ''}`)
+            .form-group
+              label.label-basic(for="genre") genre
+              input#genre.input-basic(type="text", name="genre", placeholder="Genre" value=`${collection.genre || ''}`)
+            .form-group
+              label.label-basic(for="directors") directors
+              input#directors.input-basic(type="text", name="directors", placeholder="Directors" value=`${collection.directors || ''}`)
+            .form-group
+              label.label-basic(for="writers") writers
+              input#writers.input-basic(type="text", name="writers", placeholder="Writers" value=`${collection.writers || ''}`)
+            .form-group
+              label.label-basic(for="actors") actors
+              input#actors.input-basic(type="text", name="actors", placeholder="Actors" value=`${collection.actors || ''}`)
+            .form-group
+              label.label-basic(for="plot") plot
+              textarea#plot.textarea-basic(type="text", name="plot", placeholder="Plot")= collection.plot || ''
+            .form-group
+              label.label-basic(for="poster") poster
+              input#poster.input-basic(type="text", name="poster", placeholder="Poster" value=`${collection.poster || ''}`)
+            .form-group
+              label.label-basic(for="language") language
+              input#language.input-basic(type="text", name="language", placeholder="Language" value=`${collection.language || ''}`)
+            .form-group
+              label.label-basic(for="country") country
+              input#country.input-basic(type="text", name="country", placeholder="country" value=`${collection.country || ''}`)
+            .form-group
+              label.label-basic(for="runtime") runtime
+              input#runtime.input-basic(type="text", name="runtime", placeholder="runtime" value=`${collection.runtime || ''}`)
+            .form-group
+              label.label-basic(for="imdb-rating") IMDB Rating
+              input#imdb-rating.input-basic(type="text", name="imdb-rating", placeholder="IMDB Rating" value=`${collection.imdbRating || ''}`)
+            .form-group
+              label.label-basic(for="keywords") keywords
+              input#keywords.input-basic(type="text", name="keywords", placeholder="keywords" value=`${collection.keywords || ''}`)
+            .form-group
+              label.label-basic(for="collection-type") collection type
+              input#collection-type.input-basic(type="text", name="collection-type", placeholder="collection type" value=`${collection.collectionType || ''}`)
+            
+            .margin-t2.btn-double
+              button.btn.btn-primary-alt#soft-update(type='button') Soft Update
+              button.btn.btn-primary#update-collection Hard Update
+
+        
+              
+      section.main__section
+        .main__container
+          .form-9.main__container-heading(style="margin: 4rem auto; justify-content: left")
+            button.btn.btn-secondary#right-back
+              i.fas.fa-angle-left 
+              | Return
+            form#form-search
+              input#search-input(type="search", name="collection", placeholder="Find Media for this collection")
+            span
+                      
+          .form-9#search-cards-container(style="margin: 4rem auto")
+            
+
+
+
+
+  script(src=`/javascript/${ext.js}.js`)
+  script.
+    
+      

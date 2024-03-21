@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
+    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+
+    block append meta
+
+  body
+    section.master
+      aside.master__aside#sidebar
+        .master__aside-container
+          .master__aside-heading
+            h1 🍿Eye Client
+            i.fas.fa-circle-chevron-left#close-sidebar
+          .master__aside__box
+            ul
+              li(class=`${ext.page === 'media'? 'aside--active': ''}`)
+                a(href="/executive/") Media
+              li(class=`${ext.page === 'users'? 'aside--active': ''}`)
+                a(href="/executive/users") Users
+
+          if(ext.page === 'media')
+            .master__aside__box
+              ul
+                li.unlinked#open-soft-add-popup + Soft Add
+            .master__aside__box
+              ul
+                li
+                  a(href="/executive/movie") + Hard Movie
+                li
+                  a(href="/executive/series") + Hard Series
+                li
+                  a(href="/executive/game") + Hard Game
+                //- li.unlinked#open-collection-popup + New Collection
+        .master__aside__box
+          ul
+            li(class=`${ext.page === 'account'? 'aside--active': ''}`)
+              a(href="/executive/account") Ssadiq Roy
+      //
+        
+            
+      main.master__main
+        if(ext.page !== 'account')
+          header.header
+            .header__button#open-sidebar
+              i.fas.fa-bars
+            form#form-search.header__search
+              input(type="search", name="search", placeholder="Search for anything")
+            
+            if(ext.page==='media')
+              select#filter.select-basic(name="filter")
+                optgroup
+                  option(value="reset") reset
+                optgroup
+                  option(value="?type=movie") movies
+                  option(value="?type=series") series
+                  option(value="?type=game") games
+                  option(value="?type=collection") collections
+                optgroup
+                  option(value="?order=-released") new
+                  option(value="?order=released") old
+                optgroup
+                  option(value="?order=title") asc
+                  option(value="?order=-title") desc
+            else 
+              span
+          
+          
+                
+        .master__main-body
+          block content
+
+    
+    block popups
+
+
+  script(src=`/javascript/${ext.js}.js`) 

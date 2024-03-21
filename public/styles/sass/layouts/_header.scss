@@ -1,0 +1,83 @@
+.header {
+  background-color: $white;
+  padding: 2rem 3rem;
+
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo {
+    font-family: $logo-font;
+    flex-shrink: 0;
+    color: $secondary;
+  }
+
+  &__button {
+    i {
+      font-size: 2.5rem;
+      display: none;
+
+      @include respond(port) {
+        display: initial;
+      }
+    }
+  }
+
+  &__search {
+    width: 100%;
+    max-width: 700px;
+
+    input[type='search'] {
+      // border: 3px solid $background;
+      padding: 1rem;
+      border-radius: 100px;
+      background-color: $background;
+      width: 100%;
+      font-weight: 500;
+      font-size: $fs-normal;
+      text-align: center;
+      color: $secondary;
+      border: none;
+      outline: none;
+
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: $secondary;
+      }
+    }
+  }
+
+  .select-basic {
+    font-size: $fs-normal;
+    padding: 0.5rem 1rem;
+    font-family: $font;
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    width: max-content;
+
+    background-color: $background;
+
+    @include theme(dark) {
+      background-color: $background-dark;
+      color: $white;
+    }
+  }
+
+  @include theme(dark) {
+    background-color: $secondary;
+
+    &__logo {
+      color: $primary;
+    }
+
+    &__search {
+      input[type='search'] {
+        background-color: $background-dark;
+        color: $white;
+      }
+    }
+  }
+}

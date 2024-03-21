@@ -1,0 +1,88 @@
+//- include ./functions
+
+mixin dlinkCard(link, pre='', post='', redirect=false)
+  .link-item(data-link-id=`${link.id}` data-link=`${JSON.stringify(link)}`)
+    span= `${pre || ''}${link.name || link.episode || link.season}${post || ''}`
+    span
+      if(redirect)
+        a(href=`${redirect}`)
+          i.fas.fa-edit.i-secondary
+      else 
+        i.fas.fa-edit.i-secondary.edit-link
+      i.fas.fa-trash-alt.i-primary.delete-link
+
+mixin linkItem(link, pre='', post='', redirect, type='game')
+  if(type==='game' && !link.filled)
+    .center-element= link.name
+  else
+    a.main__links-item(href=`${redirect}`)
+      span= `${pre || ''}${link.name || link.episode || link.season}${post || ''}`
+      span
+        i.fas.fa-angle-right
+
+
+mixin episodeItem(episode)
+  .main__links-episode
+    .main__links-episode__item
+      span Episode #{episode.episode}
+      span
+        i.fas.fa-angle-down.open-episode
+      
+    .main__links-episode__details
+      .main__links-episode__details-content
+        .main__links-episode__details-content-image
+          img(src=`${episode.poster}`, alt=`${episode.title}`)
+        .main__links-episode__details-content-detail
+          .mledcd-heading
+            h4= episode.title
+            span= getTime(episode.released || Date.now()).date
+          p.mledcd-heading= episode.plot || ''
+      
+      each link in episode.Links.length ? episode.Links : []
+        - const post = link.resolution > 10 & link.resolution < 10000 ? 'p' : ''
+        +linkItem(link, undefined, post, `/download/${link.id}`)
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span 480p
+      //-   span
+      //-     i.fas.fa-angle-right
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span 720p
+      //-   span
+      //-     i.fas.fa-angle-right
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span 1080p
+      //-   span
+      //-     i.fas.fa-angle-right
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span 2160p
+      //-   span
+      //-     i.fas.fa-angle-right
+
+
+mixin dmediaCard(media, buttonType = '')
+  - const action = buttonType === 'positive' ? 'add' : buttonType === 'negative' ? 'remove' : '';
+
+  .dmedia-card(data-media-id=`${media.id}` data-action=`${action}`)
+    .dmedia-card__image
+      img(src=`${media.poster}`)
+    .dmedia-card__details
+      h4.dmedia-card__details-title= media.title
+      ul
+        li= media.type
+        li
+          | #{media.imdbRating} 
+          i.fas.fa-star.i-primary
+        li= getTime(media.released).date
+      .dmedia-card__details-button
+        span
+          if(!buttonType)
+            a(href=`/executive/${media.type}?id=${media.id}`)
+              i.fas.fa-edit.i-secondary
+            i.fas.fa-trash-alt.i-primary.delete-media
+          if(buttonType === 'positive')
+            button.btn.btn-secondary-dark.add-to-collection add to collection
+          if(buttonType === 'negative')
+            button.btn.btn-primary.remove-from-collection remove 
+
+
+

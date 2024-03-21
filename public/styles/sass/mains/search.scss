@@ -1,0 +1,14 @@
+// @import '../base/fonts';
+// @import '../abstract/variables';
+// @import '../abstract/mixins';
+
+@import '../base/base';
+
+@import '../layouts/header';
+@import '../layouts/nav';
+
+@import '../components/media-card';
+@import '../layouts/cards-container';
+@import '../layouts/footer';
+
+@import '../pages/search';

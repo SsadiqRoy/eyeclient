@@ -1,0 +1,31 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node server",
+    "start": "nodemon server.js",
+    "client": "parcel ./public/javascript/controllers/client/details.js ./public/javascript/controllers/client/download.js ./public/javascript/controllers/client/home.js ./public/javascript/controllers/client/search.js --dist-dir  ./public/javascript/watch/client",
+    "bclient": "parcel --build ./public/javascript/controllers/client/details.js ./public/javascript/controllers/client/download.js ./public/javascript/controllers/client/home.js ./public/javascript/controllers/client/search.js --no-source-maps --dist-dir  ./public/javascript/build/client",
+    "dashboard": "parcel ./public/javascript/controllers/dashboard/about.js ./public/javascript/controllers/dashboard/account.js ./public/javascript/controllers/dashboard/collection.js ./public/javascript/controllers/dashboard/episode.js ./public/javascript/controllers/dashboard/game.js ./public/javascript/controllers/dashboard/login.js ./public/javascript/controllers/dashboard/media.js ./public/javascript/controllers/dashboard/movie.js ./public/javascript/controllers/dashboard/new.js ./public/javascript/controllers/dashboard/season.js ./public/javascript/controllers/dashboard/series.js ./public/javascript/controllers/dashboard/users.js --dist-dir  ./public/javascript/watch/dashboard",
+    "bdashboard": "parcel --build ./public/javascript/controllers/dashboard/about.js ./public/javascript/controllers/dashboard/account.js ./public/javascript/controllers/dashboard/collection.js ./public/javascript/controllers/dashboard/episode.js ./public/javascript/controllers/dashboard/game.js ./public/javascript/controllers/dashboard/login.js ./public/javascript/controllers/dashboard/media.js ./public/javascript/controllers/dashboard/movie.js ./public/javascript/controllers/dashboard/new.js ./public/javascript/controllers/dashboard/season.js ./public/javascript/controllers/dashboard/series.js ./public/javascript/controllers/dashboard/users.js --no-source-maps --dist-dir  ./public/javascript/watch/dashboard"
+  },
+  "author": "Ssadiq Roy",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "pug": "^3.0.2"
+  },
+  "engines": {
+    "node": ">20.10.0"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.12.0"
+  }
+}

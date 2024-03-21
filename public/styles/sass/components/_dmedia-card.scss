@@ -1,0 +1,61 @@
+.dmedia-card {
+  width: 100%;
+  background-color: $white;
+  margin-bottom: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @include theme(dark) {
+    background-color: $secondary;
+  }
+  @include respond(small) {
+    display: block;
+  }
+
+  &__image {
+    height: 15rem;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &__details {
+    flex-grow: 1;
+    font-size: $fs-normal;
+    padding: 2rem;
+
+    &-title {
+      font-size: $fs-big;
+    }
+
+    ul {
+      list-style-type: disc;
+
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 4rem;
+      padding-left: 1.6rem;
+    }
+
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 2rem;
+
+      i {
+        cursor: pointer;
+        font-size: $fs-big;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.main {
+  background-color: $white;
+  padding: 3rem;
+  border-radius: 20px;
+  width: calc(100% - 2rem);
+  max-width: 1000px;
+  margin-inline: auto;
+  margin-block: 15rem;
+  font-size: $fs-normal;
+
+  @include theme(dark) {
+    background-color: $secondary;
+  }
+
+  @include respond(phone) {
+    font-size: $fs-small;
+  }
+  @include respond(small) {
+    font-size: $fs-mini;
+  }
+}

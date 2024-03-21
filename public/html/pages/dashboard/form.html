@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/assets/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="/public/styles/css/form.css" />
+
+    <title>🍿Eye Client | Dashbaord - Form</title>
+  </head>
+  <body>
+    <section class="form form-9">
+      <h3 class="form__heading margin-b4">Movie</h3>
+
+      <form>
+        <div class="form-group">
+          <label for="name" class="label-basic">User's Name</label>
+          <input type="text" name="name" id="name" class="input-basic" placeholder="User's Name" />
+        </div>
+        <div class="form-group">
+          <label for="email" class="label-basic">User's email</label>
+          <input type="email" name="email" id="email" class="input-basic" placeholder="User's email" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="label-basic">User's Password</label>
+          <input type="password" name="password" id="password" class="input-basic" placeholder="User's Password" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="label-basic">User's Confirm</label>
+          <input type="password" name="password-confirm" id="password-confirm" class="input-basic" placeholder="Confirm User's Password" />
+        </div>
+        <div class="form-group">
+          <label for="access" class="label-basic">Access Code</label>
+          <input type="access" name="access" id="access" class="input-basic" placeholder="Access Code" />
+        </div>
+
+        <div class="margin-t6 btn-center">
+          <button class="btn btn-secondary-dark">About Game</button>
+        </div>
+        <div class="margin-t2 btn-double">
+          <button class="btn btn-primary-alt">Soft Update</button>
+          <button class="btn btn-primary">Hard Update</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="btn-center" style="margin-top: 12rem">
+      <button class="btn btn-secondary">Add New Link</button>
+      <button class="btn btn-secondary-alt">Add New Link</button>
+    </div>
+
+    <section class="links">
+      <div class="link-item">
+        <span>480p</span><span><i class="fas fa-edit i-secondary"></i><i class="fas fa-trash-alt i-primary"></i></span>
+      </div>
+      <div class="link-item">
+        <span>720p</span><span><i class="fas fa-edit i-secondary"></i><i class="fas fa-trash-alt i-primary"></i></span>
+      </div>
+      <div class="link-item">
+        <span>1080p</span><span><i class="fas fa-edit i-secondary"></i><i class="fas fa-trash-alt i-primary"></i></span>
+      </div>
+      <div class="link-item">
+        <span>2160p</span><span><i class="fas fa-edit i-secondary"></i><i class="fas fa-trash-alt i-primary"></i></span>
+      </div>
+    </section>
+
+    <section class="popup">
+      <div class="popup__container form-7">
+        <div class="popup__heading">
+          <span></span>
+          <h3>Soft Add / Update</h3>
+          <i class="fas fa-times"></i>
+        </div>
+        <!-- 
+
+         -->
+        <div class="popup__content">
+          <form>
+            <div class="form-group">
+              <label for="access" class="label-basic">IMDB id</label>
+              <input type="access" name="access" id="access" class="input-basic" placeholder="Access Code" />
+            </div>
+          </form>
+        </div>
+        <!-- 
+
+         -->
+        <div class="popup__bottom">
+          <div class="btn-double">
+            <button class="btn btn-primary-alt">close</button>
+            <button class="btn btn-primary">save</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

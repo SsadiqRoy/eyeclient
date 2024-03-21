@@ -1,0 +1,1331 @@
+extends ../externals/clientBase
+
+
+block metaTags
+  meta(name="keywords" content=`index of movies,index of movies 2024, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links, Free Direct Download links, New Movies, Trending Movies, Top Rated Movies`)
+  meta(name="description" content=`Download Movies, TV Series and Games on Eye Client for free and fast. Free Direct Download links. Index of Movies. Index of Tv Series. Index of Games`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="eyeclient")
+  meta(name="topic" content=`Download Links For Movies, Tv Series & Games`)
+  meta(name="summary", content=`Download Movies, Tv Series & Games on EYE client for free and fast. Free direct download links`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="https://wwww.eyeclient.com")
+  meta(name="identifier-URL" content="https://wwww.eyeclient.com")
+  meta(name="pagename" content=`Eye Client | Download Movies, Tv Series & Games: Free Download Links`)
+  meta(name="category" content=`media`)
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content=`media Page`)
+
+  meta(name="og:title" content=`Eye Client | Download Movies, Tv Series & Games: Free Download Links`)
+  meta(name="og:type" content="media")
+  meta(name="og:url" content=`https://wwww.eyeclient.com`)
+  meta(name="og:image" content=`/assets/images/eyeclient-flyer.jpg`)
+  meta(name="og:image:height" content=`1500`)
+  meta(name="og:image:width" content=`1000`)
+  meta(name="og:site_name" content="Eye Client")
+  meta(name="og:description" content=`Download Movies, TV Series and Games on Eye Client for free and fast. Free Direct Download links. Index of Movies. Index of Tv Series. Index of Games`)
+  //- meta(name="og:country-name" content=`${media.country}`)
+
+  meta(name="twitter:title" content=`Eye Client | Download Movies, Tv Series & Games: Free Download Links`)
+  meta(name="twitter:description" content=`Download Movies, TV Series and Games on Eye Client for free and fast. Free Direct Download links. Index of Movies. Index of Tv Series. Index of Games`)
+  //- meta(name="twitter:image" content=`/assets/images/eyeclient-flyer.jpg`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`Eye Client`)
+  meta(name="twitter:creator" content=`@eyeclient`)
+  
+  //- meta(name="imdb:pageType" content=`title`)
+  //- meta(name="imdb:subPageType" content=`main`)
+  //- meta(name="imdb:pageConst" content=`${media.imdbId||''}`)
+
+block content
+  - const textString = ext.page !== 'home' ? ext.textString: ''
+  nav.nav(style="margin-top: 2rem")
+    a.tag(href="/media") All Media
+    a.tag(href="/explore/movies") Movies
+    a.tag(href="/explore/series") Tv Series
+    a.tag(href="/explore/games") Games
+    a.tag(href="/explore/collections") Collections
+    span.tag.tag-empty Filters
+    a.tag(href=`/media?search=korea${textString}`) Korean
+    a.tag(href=`/media?search=african${textString}`) African
+    a.tag(href=`/media?search=indian${textString}`) Indian
+    a.tag(href=`/media?search=hollywood${textString}`) Hollywood
+    a.tag(href=`/media?search=anime${textString}`) Anime
+    a.tag(href=`/media?search=animation${textString}`) Animation
+    a.tag(href=`/media?search=comedy${textString}`) Comedy
+    a.tag(href=`/media?search=sci-fi${textString}`) Sci-Fi
+    a.tag(href=`/media?search=adventure${textString}`) Adventure
+    a.tag(href=`/media?search=action${textString}`) Action
+    a.tag(href=`/media?search=romance${textString}`) Romance
+    a.tag(href=`/media?search=thriller${textString}`) Thriller
+    a.tag(href=`/media?search=horror${textString}`) Horror
+    a.tag(href=`/media?search=drama${textString}`) Drama
+    a.tag(href=`/media?search=crime${textString}`) Crime
+    a.tag(href=`/media?search=war${textString}`) War
+    a.tag(href=`/media?search=reality tv${textString}`) Reality Tv
+    a.tag(href=`/media?search=netflix${textString}`) Neflix
+    a.tag(href=`/media?search=prime video${textString}`) Prime Video
+    a.tag(href=`/media?search=apple${textString}`) Apple Tv
+  //  START OF A SLIDER 
+  //- 
+    section.slider
+      h3.slider__heading New Release
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="/details") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading New episodes out
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading highly rated
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading in theathers
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading Trending
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading Top Picks
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading Fan Favourite
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading Top Anime
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading Major Games
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+    //  START OF A SLIDER 
+    section.slider
+      h3.slider__heading New Release
+      //   
+      .slider__container
+        .slider__button.slider__button--left
+          i.fas.fa-angle-left
+        .slider__content
+          //   
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-1.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-2.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-3.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-4.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-5.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-6.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-7.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-8.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-9.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-10.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          .media-card
+            .media-card__image
+              img(src="/assets/images/img-11.jpg", alt="Media Title")
+            .media-card__details
+              a.media-card__details__title(href="#") A Muder at the end of the world
+              span.media-card__details__rate-type
+                | 7.8 
+                i.fas.fa-star
+                |    
+                span movie
+          //   
+        .slider__button.slider__button--right
+          i.fas.fa-angle-right
+      //   
+    //  END OF A SLIDER 
+
+block script 
+  //- script.
+    const search = document.getElementById('search-input');
+    
+      search.addEventListener('focus', () => {
+        if (window.innerWidth > 600) return;
+        search.parentElement.previousElementSibling.style.display = 'none';
+        search.parentElement.nextElementSibling.style.display = 'none';
+      });
+    
+      search.addEventListener('blur', () => {
+        if (window.innerWidth > 600) return;
+        search.parentElement.previousElementSibling.style.display = 'initial';
+        search.parentElement.nextElementSibling.style.display = 'initial';
+      });
+    

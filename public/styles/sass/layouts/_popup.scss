@@ -1,0 +1,83 @@
+body {
+  position: relative;
+}
+
+.popup {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.537);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    flex-shrink: 0;
+
+    width: 100%;
+    max-height: 90%;
+    padding: 3rem 2rem;
+    background-color: $white;
+    border-radius: 1rem;
+    font-size: $fs-normal;
+
+    display: flex;
+    flex-direction: column;
+
+    @include theme(dark) {
+      background-color: $secondary;
+    }
+  }
+
+  &__heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid $background;
+    padding-bottom: 2rem;
+
+    @include theme(dark) {
+      border-bottom-color: $background-dark;
+    }
+
+    i {
+      color: $primary;
+      cursor: pointer;
+      font-size: $fs-large;
+      font-weight: bolder;
+    }
+  }
+
+  &__content {
+    flex-grow: 1;
+    padding-block: 1rem;
+    overflow: auto;
+
+    @include scroll-bar;
+  }
+
+  &__bottom {
+    border-top: 1px solid $background;
+    padding-top: 2rem;
+
+    @include theme(dark) {
+      border-top-color: $background-dark;
+    }
+
+    .btn {
+      padding-block: 0.7rem;
+    }
+  }
+
+  .form-group {
+    margin-block: 1rem;
+  }
+}

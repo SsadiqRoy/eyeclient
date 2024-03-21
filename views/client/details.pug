@@ -1,0 +1,206 @@
+extends ../externals/clientBase
+
+block metaTags
+  meta(name="description" content=`Download Movies, TV Series and Games on Eye Client for free and fast. Free Direct Download links. Index of Movies. Index of Tv Series. Index of Games`)
+  meta(name="keywords" content=`index of movies,index of movies 2024, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links, Free Direct Download links, New Movies, Trending Movies, Top Rated Movies`)
+
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="eyeclient")
+  meta(name="topic" content=`Download Links For ${media.title}`)
+  meta(name="summary", content=`Download ${media.title} on EYE client for free and fast. Free direct download links`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content=`https://wwww.eyeclient.com/detail/${media.id}`)
+  meta(name="identifier-URL" content=`https://wwww.eyeclient.com/detail/${media.id}`)
+  meta(name="pagename" content=`${media.type} ${media.title} Links and Download Page`)
+  meta(name="category" content=`${media.type}`)
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content=`${media.type} Page`)
+
+  meta(name="og:title" content=`${media.title} | ${media.type} | ${media.imdbRating}⭐`)
+  meta(name="og:type" content=`${media.type}`)
+  meta(name="og:url" content=`https://wwww.eyeclient.com/detail/${media.id}`)
+  meta(name="og:image" content=`${media.poster}`)
+  meta(name="og:image:height" content=`1500`)
+  meta(name="og:image:width" content=`1000`)
+  meta(name="og:site_name" content="Eye Client")
+  meta(name="og:description" content=`${media.plot}`)
+  meta(name="og:country-name" content=`${media.country}`)
+
+  meta(name="twitter:title" content=`${media.title}`)
+  meta(name="twitter:description" content=`${media.plot}`)
+  meta(name="twitter:image" content=`${media.poster}`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`Eye Client`)
+  meta(name="twitter:creator" content=`@eyeclient`)
+  
+  meta(name="imdb:pageType" content=`title`)
+  meta(name="imdb:subPageType" content=`main`)
+  meta(name="imdb:pageConst" content=`${media.imdbId||''}`)
+
+block content
+  include ../externals/functions
+  include ../externals/cards
+
+  main.main
+    section.main__heading
+      .main__heading-image
+        img(src=`${media.poster}`, alt=`${media.title} Poster`)
+      .main__heading-details
+        h1 #{media.title} #{season && `- Season ${season.season}`}
+        .main__heading-details__short
+          div= media.type
+          div
+            | #{media.imdbRating || 'N/A'} 
+            i.fas.fa-star(style="color: #fc6736")
+          div= media.rated
+          div= getTime(media.released).date
+        .main__heading-details__nav
+          each tag in media.genre.split(',')
+            if(tag !== 'N/A')
+              a.tag(href=`/media?search=${tag.trim()}`)= tag.trim()
+        .main__heading-details__plot= media.plot || 'N/A'
+
+    section.main__details
+      .main__details-item
+        span.main__details-item__key Directors
+        span.main__details-item__value
+          each director in media.directors ? media.directors.split(',') : []
+            if(director !== 'N/A')
+              a(href=`/media?search=${director.trim()}`) #{director.trim()}
+              |, 
+          
+      .main__details-item
+        span.main__details-item__key Writers
+        span.main__details-item__value
+          each writer in media.writers ? media.writers.split(',') : []
+            if(writer !== 'N/A')
+              a(href=`/media?search=${writer.trim()}`) #{writer.trim()}
+              |, 
+
+      .main__details-item
+        span.main__details-item__key actors
+        span.main__details-item__value
+          each actor in media.actors ? media.actors.split(',') : []
+            if(actor !== 'N/A')
+              a(href=`/media?search=${actor.trim()}`) #{actor.trim()}
+              |, 
+
+      .main__details-item
+        span.main__details-item__key Country
+        span.main__details-item__value
+          each country in media.country ? media.country.split(',') : []
+            if(country !== 'N/A')
+              a(href=`/media?search=${country.trim()}`) #{country.trim()}
+              |, 
+
+      if(media.about)
+        .main__details-about!= media.about
+
+
+
+
+
+    section.main__links
+      h3.center-element.links-title Download
+      each link in media.Links.length ? media.Links : []
+        - const post = media.type === 'movie' & link.resolution > 10 & link.resolution < 10000 ? 'p' : ''
+        +linkItem(link, undefined, post, `/download/${link.id}`, media.type)
+      
+      if(!season)
+        each season in media.Seasons
+          +linkItem(season, 'Season ', undefined, `/detail/${season.id}`, 'season')
+
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span Season 2
+      //-   span
+      //-     i.fas.fa-angle-right
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span Season 3
+      //-   span
+      //-     i.fas.fa-angle-right
+      //- a.main__links-item(href="/html/pages/download.html")
+      //-   span Season 4
+      //-   span
+      //-     i.fas.fa-angle-right
+
+      if(season)
+        each episode in season.Episodes.length ? season.Episodes : []
+          +episodeItem(episode)
+
+        //- .main__links-episode
+        //-   .main__links-episode__item
+        //-     span Episode 1
+        //-     span
+        //-       i.fas.fa-angle-down
+            
+        //-   .main__links-episode__details
+        //-     .main__links-episode__details-content
+        //-       .main__links-episode__details-content-image
+        //-         //  some content 
+        //-         img(src="/assets/images/episode-1.jpg", alt="Episode Image")
+        //-       .main__links-episode__details-content-detail
+        //-         .mledcd-heading
+        //-           h4 Night Country: Part 1
+        //-           span 14 Jan 2024
+        //-         p.mledcd-heading.
+                  
+        //-           In Ennis, Alaska, the men that operate a research station vanish. To solve the case, Chief Danvers and Navarro will have to confront the darkness themselves, and dig into the haunted truths that lie buried under the eternal ice.
+                  
+        //-     a.main__links-item(href="/html/pages/download.html")
+        //-       span 480p
+        //-       span
+        //-         i.fas.fa-angle-right
+        //-     a.main__links-item(href="/html/pages/download.html")
+        //-       span 720p
+        //-       span
+        //-         i.fas.fa-angle-right
+        //-     a.main__links-item(href="/html/pages/download.html")
+        //-       span 1080p
+        //-       span
+        //-         i.fas.fa-angle-right
+        //-     a.main__links-item(href="/html/pages/download.html")
+        //-       span 2160p
+        //-       span
+        //-         i.fas.fa-angle-right
+
+
+
+block script 
+  script.
+    const search = document.getElementById('search-input');
+    
+    search.addEventListener('focus', () => {
+      if (window.innerWidth > 600) return;
+      search.parentElement.previousElementSibling.style.display = 'none';
+      search.parentElement.nextElementSibling.style.display = 'none';
+    });
+  
+    search.addEventListener('blur', () => {
+      if (window.innerWidth > 600) return;
+      search.parentElement.previousElementSibling.style.display = 'initial';
+      search.parentElement.nextElementSibling.style.display = 'initial';
+    });
+
+    //- document.querySelectorAll('.main__links-episode').forEach(ep=>{
+      //- ep.style.height = '4rem'
+      //- ep.style.height = ep.querySelector('.main__links-episode__item').clientHeight
+    //- })
+
+    document.body.addEventListener('click', (ev)=>{
+      if(!ev.target.classList.contains('open-episode')) return
+
+      const open = ev.target.classList.contains('fa-angle-up')
+
+      if(!open) ev.target.closest('.main__links-episode').style.height = 'max-content'
+      else ev.target.closest('.main__links-episode').style.height = '4rem'
+
+      ev.target.classList.toggle('fa-angle-down')
+      ev.target.classList.toggle('fa-angle-up')
+    })
+
+    

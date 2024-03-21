@@ -1,0 +1,76 @@
+.slider {
+  padding: 2rem 3rem;
+  margin-bottom: 3rem;
+
+  &__heading {
+    color: $primary;
+    font-size: $fs-big;
+    text-transform: capitalize;
+    margin-bottom: 1.5rem;
+  }
+
+  &__container {
+    width: 100%;
+    position: relative;
+  }
+
+  &__content {
+    width: 100%;
+
+    display: flex;
+    gap: 1.5rem;
+
+    overflow-y: auto;
+
+    & > * {
+      flex-shrink: 0;
+    }
+
+    @include scroll-bar;
+    @include no-scroll-bar;
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: $fs-large;
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    color: transparent;
+    transition: all 0.3s ease;
+    font-weight: bolder;
+
+    &:hover {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__button--left {
+    left: 0;
+  }
+  &__button--right {
+    right: 0;
+  }
+
+  .see-more-card {
+    width: 10rem;
+    font-size: $fs-big;
+    color: $primary;
+    margin-inline: 2rem 5rem;
+    // border: 1px solid salmon;
+
+    align-self: center;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}

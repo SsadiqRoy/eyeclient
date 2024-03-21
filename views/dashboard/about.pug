@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client | Dashbaord - Form
+
+  body 
+    section.form.form-9
+      h3.form__heading Game about
+      .center-element.margin-b4(style='font-size: 1.6rem;')
+        p= game.title
+      form#form-about
+        .form-group
+          textarea#about.textarea-basic( name="about", placeholder="Game details" rows='20')= game.about
+        
+        .margin-t2.btn-double
+          button.btn.btn-primary.btn-full#btn-about save
+
+  script(src=`/javascript/tinymce/tinymce.min.js`)
+  script(src=`/javascript/${ext.js}.js`)
+
+    
+    
+    

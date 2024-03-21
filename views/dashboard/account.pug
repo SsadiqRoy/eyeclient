@@ -1,0 +1,32 @@
+extends ../externals/dashboardBase
+
+block content
+  .master__main-body__container
+    .form.form-9
+      h3.form__heading.margin-b4 Update Account
+      form#form-account
+        .form-group
+          label.label-basic(for="name") Admin Name
+          input#name.input-basic(type="text", name="name", value=`${user.name}`)
+        .form-group
+          label.label-basic(for="email") email
+          input#email.input-basic(type="email", name="email", value=`${user.email}`)
+
+        .btn-center
+            button.btn.btn-primary.btn-full#btn-account Update Account
+    
+    .form.form-9
+      h3.form__heading.margin-b4 Change Password
+      form#form-password
+        .form-group
+          label.label-basic(for="current") current Passowrd
+          input#current.input-basic(type="password", name="current", placeholder="current")
+        .form-group
+          label.label-basic(for="password") New password
+          input#password.input-basic(type="password", name="password", placeholder="password")
+        .form-group
+          label.label-basic(for="confirm-password") confirm New password
+          input#confirm-password.input-basic(type="password", name="confirm-password", placeholder="confirm password")
+        .btn-center
+            button.btn.btn-primary.btn-full#btn-password Update Password
+      

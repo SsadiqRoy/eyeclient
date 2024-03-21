@@ -1,0 +1,96 @@
+extends ../externals/dashboardBase
+
+block content
+  .master__main-body__container.form-7#cards-container
+  
+
+
+block popups
+  section.popup#soft-add-popup.display-off
+    .popup__container.form-7
+      .popup__heading
+        span
+        h3 Soft Add Media
+        i.fas.fa-times.close-popup
+        
+      .popup__content
+        form#form-soft-add
+          .form-group
+            label.label-basic(for="imdb-id") IMDB Id
+            input#imdb-id.input-basic(type="text", name="imdb-id", placeholder="imdb id" required)
+          .btn-center.display-off
+            button.btn.btn-primary-alt#btn-soft-add soft add
+            
+      .popup__bottom
+        .btn-center
+          button.btn.btn-primary.btn-full#btn-soft-add-alt soft add
+
+
+  //- section.popup#collection-popup.display-off
+    .popup__container.form-7
+      .popup__heading
+        span
+        h3 Create New Collection
+        i.fas.fa-times.close-popup
+        
+      .popup__content
+        form#form-collection
+          .form-group
+            label.label-basic(for="type") Media Type
+            input#type.input-basic(type="email", name="type", placeholder="Media Type" value='collection' disabled)
+          .form-group
+            label.label-basic(for="title") Title
+            input#title.input-basic(type="text", name="title", placeholder="Movie Title")
+          .form-group
+            label.label-basic(for="password") Year
+            input#year.input-basic(type="text", name="year", placeholder="Year")
+          .form-group
+            label.label-basic(for="rated") Rated
+            input#rated.input-basic(type="text", name="rated", placeholder="Rated")
+          .form-group
+            label.label-basic(for="released") released
+            input#released.input-basic(type="date", name="released", placeholder="Released")
+          .form-group
+            label.label-basic(for="genre") genre
+            input#genre.input-basic(type="text", name="genre", placeholder="Genre")
+          .form-group
+            label.label-basic(for="directors") directors
+            input#directors.input-basic(type="text", name="directors", placeholder="Directors")
+          .form-group
+            label.label-basic(for="writers") writers
+            input#writers.input-basic(type="text", name="writers", placeholder="Writers")
+          .form-group
+            label.label-basic(for="actors") actors
+            input#actors.input-basic(type="text", name="actors", placeholder="Actors")
+          .form-group
+            label.label-basic(for="plot") plot
+            textarea#plot.textarea-basic(type="text", name="plot", placeholder="Plot")
+          .form-group
+            label.label-basic(for="poster") poster
+            input#poster.input-basic(type="text", name="poster", placeholder="Poster")
+          .form-group
+            label.label-basic(for="language") language
+            input#language.input-basic(type="text", name="language", placeholder="Language")
+          .form-group
+            label.label-basic(for="country") country
+            input#country.input-basic(type="text", name="country", placeholder="country")
+          .form-group
+            label.label-basic(for="runtime") runtime
+            input#runtime.input-basic(type="text", name="runtime", placeholder="runtime")
+          .form-group
+            label.label-basic(for="imdb-rating") IMDB Rating
+            input#imdb-rating.input-basic(type="text", name="imdb-rating", placeholder="IMDB Rating")
+          .form-group
+            label.label-basic(for="keywords") keywords
+            input#keywords.input-basic(type="text", name="keywords", placeholder="keywords")
+          
+          .btn-center.display-off
+            button.btn.btn-primary-alt#btn-collection create
+            
+      .popup__bottom
+        .btn-center
+          button.btn.btn-primary.btn-full#btn-collection-alt create
+      
+
+
+

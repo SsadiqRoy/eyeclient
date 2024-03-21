@@ -1,0 +1,31 @@
+body {
+  overflow-y: auto;
+}
+
+.main {
+  padding: 2rem 3rem;
+
+  &__container {
+    display: flex;
+    gap: 5rem 2rem;
+    flex-wrap: wrap;
+
+    & > * {
+      flex-shrink: 0;
+    }
+
+    .media-card {
+      @media (max-width: 400px) {
+        width: 16rem;
+      }
+    }
+  }
+
+  &__buttons {
+    margin-top: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.3rem;
+  }
+}

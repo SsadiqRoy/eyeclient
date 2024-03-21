@@ -1,0 +1,18 @@
+html 
+  head 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/form.css")
+    title 🍿Eye Client ⚠️ Error
+
+  body 
+    section.form.form-9
+      h3.form__heading.margin-b4 ⚠️ Error
+      form.center-element(style='font-size: 1.8rem;')
+        h3= error.message || 'Error Occured'
+        p= error.remedy || 'No suggested Remedy'
+      .center-element.margin-t4(style='font-size: 1.5rem; color: dodgerblue; display: flex; gap: 1.5rem; justify-content: center;')
+        a(href='/') 🍿Eye Client
+        a(href='/executive/login') Log in
+        a(href='/executive') Dashboard 

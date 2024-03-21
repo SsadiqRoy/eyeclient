@@ -1,0 +1,270 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::selection {
+    background-color: $secondary;
+    color: $white;
+
+    @include theme(dark) {
+      background-color: $white;
+      color: $secondary;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    background-color: $background-dark;
+
+    @include theme(dark) {
+      background-color: $background;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $background;
+    border: 3px solid $background-dark;
+    border-radius: 1rem;
+
+    @include theme(dark) {
+      background-color: $background-dark;
+      border-color: $background;
+    }
+  }
+}
+
+html {
+  font-size: 62.5%;
+  font-family: $font;
+
+  @include theme(dark) {
+    color: $white;
+  }
+
+  @include respond(land) {
+    font-size: 56.25%;
+  }
+}
+
+body {
+  position: relative;
+  background-color: $background;
+
+  @include theme(dark) {
+    background-color: $background-dark;
+  }
+
+  &::-webkit-scrollbar {
+    background-color: $background;
+
+    @include theme(dark) {
+      background-color: $background-dark;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary;
+    border: 3px solid $background;
+    border-radius: 1rem;
+
+    @include theme(dark) {
+      background-color: $secondary-light;
+      border-color: $background-dark;
+    }
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+
+input {
+  font-family: $font;
+
+  &::placeholder {
+    font-family: $font;
+  }
+
+  @include theme(dark) {
+    color: $white;
+
+    &::placeholder {
+      color: $white;
+      opacity: 0.5;
+    }
+  }
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.display-off {
+  display: none !important;
+}
+
+.tag {
+  padding: 1rem 1.5rem;
+  background-color: $white;
+  font-size: $fs-normal;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 100px;
+  max-width: max-content;
+  cursor: pointer;
+
+  @include respond(phone) {
+    padding: 0.5rem 1rem;
+    font-size: $fs-small;
+  }
+
+  @include theme(dark) {
+    background-color: $secondary-light;
+    color: $background;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+.tag-primary {
+  background-color: $primary;
+  color: $white;
+}
+.tag-secondary {
+  background-color: $secondary;
+  color: $white;
+}
+.tag-secondary-dark {
+  background-color: $background-dark;
+  color: $white;
+}
+.tag-primary-alt {
+  background-color: transparent;
+  border-color: $primary;
+  color: $primary;
+  border-style: solid;
+  font-weight: 500;
+}
+
+.tag-button {
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+  border-width: 2px;
+}
+.tag-empty {
+  border: none;
+  background-color: transparent;
+  cursor: auto;
+}
+button {
+  outline: none;
+  border: none;
+}
+
+.i-primary {
+  color: $primary;
+}
+.i-secondary {
+  color: $secondary;
+
+  @include theme(dark) {
+    color: $white;
+  }
+}
+i.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.display-off {
+  display: none;
+}
+.center-element {
+  width: 100%;
+  text-align: center;
+}
+.center-element-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.fs-normal {
+  font-size: $fs-normal;
+}
+.fs-big {
+  font-size: $fs-big;
+}
+
+.margin-t2 {
+  margin-top: 2rem;
+}
+
+.margin-t4 {
+  margin-top: 4rem;
+}
+
+.margin-t6 {
+  margin-top: 6rem;
+}
+.margin-b2 {
+  margin-bottom: 2rem;
+}
+
+.margin-b4 {
+  margin-bottom: 4rem;
+}
+
+.margin-b6 {
+  margin-bottom: 6rem;
+}
+
+.alert-message {
+  width: 90%;
+  padding: 1rem 2rem;
+  background-color: #1c791c;
+  color: $white;
+  font-size: $fs-normal;
+  text-align: center;
+  border-radius: 5px;
+  transition: all 01s ease-in-out;
+
+  position: fixed;
+  left: 5%;
+  top: -150%;
+  z-index: 55;
+
+  i {
+    color: gold;
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.alert-message--failed {
+  background-color: #b60a0a;
+}
+.am-in {
+  top: 1rem;
+}

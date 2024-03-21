@@ -1,0 +1,63 @@
+.footer {
+  background-color: $secondary;
+  padding: 10rem 3rem;
+  font-size: $fs-normal;
+  color: $white;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+
+  @include respond(land) {
+    display: block;
+  }
+  @include respond(small) {
+    padding-inline: 1rem;
+  }
+
+  &__disclaimer {
+    p:last-child {
+      margin-top: 2rem;
+    }
+
+    @include respond(land) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__logo {
+    font-family: $logo-font;
+    flex-shrink: 0;
+    color: $white;
+    margin-bottom: 2rem;
+    font-size: $fs-mini;
+  }
+
+  &-link {
+    color: $primary;
+  }
+
+  &__connect {
+    font-size: $fs-large;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    &-socials {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    @include respond(land) {
+      display: block;
+
+      strong {
+        display: block;
+      }
+    }
+  }
+}
