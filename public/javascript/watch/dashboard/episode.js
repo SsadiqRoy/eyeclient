@@ -142,16 +142,15 @@
       this[globalName] = mainExports;
     }
   }
-})({"d0sAS":[function(require,module,exports) {
+})({"iOGPI":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "13decaaee0232934";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -190,7 +189,6 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
-declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -228,14 +226,9 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     var hostname = getHostname();
     var port = getPort();
-    var protocol = HMR_SECURE || location.protocol == "https:" && ![
-        "localhost",
-        "127.0.0.1",
-        "0.0.0.0"
-    ].includes(hostname) ? "wss" : "ws";
+    var protocol = HMR_SECURE || location.protocol == "https:" && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? "wss" : "ws";
     var ws;
-    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
-    else try {
+    try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -305,14 +298,12 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    if (ws instanceof WebSocket) {
-        ws.onerror = function(e) {
-            if (e.message) console.error(e.message);
-        };
-        ws.onclose = function() {
-            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-        };
-    }
+    ws.onerror = function(e) {
+        if (e.message) console.error(e.message);
+    };
+    ws.onclose = function() {
+        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+    };
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -719,7 +710,7 @@ async function deleteRequest(url, fullurl = "api") {
     }
 }
 
-},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/env":"78DsC"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","../utils/env":"78DsC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -1414,7 +1405,7 @@ exports.defineInteropFlag = function(a) {
 };
 exports.exportAll = function(source, dest) {
     Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
         Object.defineProperty(dest, key, {
             enumerable: true,
             get: function() {
@@ -1674,7 +1665,7 @@ var _toFormDataJsDefault = parcelHelpers.interopDefault(_toFormDataJs);
         ")": "%29",
         "~": "%7E",
         "%20": "+",
-        "%00": "\0"
+        "%00": "\x00"
     };
     return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
         return charMap[match];
@@ -4791,7 +4782,9 @@ var _utilsJsDefault = parcelHelpers.interopDefault(_utilsJs);
 var _axiosHeadersJs = require("./AxiosHeaders.js");
 var _axiosHeadersJsDefault = parcelHelpers.interopDefault(_axiosHeadersJs);
 "use strict";
-const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? thing.toJSON() : thing;
+const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? {
+        ...thing
+    } : thing;
 function mergeConfig(config1, config2) {
     // eslint-disable-next-line no-param-reassign
     config2 = config2 || {};
@@ -4940,7 +4933,7 @@ exports.default = {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "VERSION", ()=>VERSION);
-const VERSION = "1.6.7";
+const VERSION = "1.6.8";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45wzn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5125,14 +5118,13 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 exports.default = HttpStatusCode;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78DsC":[function(require,module,exports) {
-// export const api_url = 'http://localhost:3000/v1';
-// export const client_url = 'http://localhost:3100';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "client_url", ()=>client_url);
-const api_url = "https://www.api.eyeclient.com/v1";
-const client_url = "https://www.eyeclient.com";
+const api_url = "http://localhost:3000/v1";
+const client_url = "http://localhost:3100"; // export const api_url = 'https://www.api.eyeclient.com/v1';
+ // export const client_url = 'https://www.eyeclient.com';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cuyrO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5591,7 +5583,254 @@ function softUpdate(btnid, channel = "media") {
     });
 }
 
-},{"../models/model":"4SBHD","./utils":"hiLrG","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hiLrG":[function(require,module,exports) {
+},{"../models/model":"4SBHD","./markup":"kNRSi","./utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "userCard", ()=>userCard);
+parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
+parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
+parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
+var _functions = require("./functions");
+function userCard(user) {
+    const active = user.active ? "pause" : "play";
+    const markup = `
+  <div class="user-card" data-user-id="${user.id}">
+    <div class="user-card__details">
+      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
+      <span>${user.email}</span>
+    </div>
+    <div class="user-card__buttons">
+      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
+      <i class="fas fa-trash-alt i-primary delete-user"></i>
+    </div>
+  </div>`;
+    return markup;
+}
+function dmediaCard(media, buttonType = "") {
+    let buttons = `
+    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
+    <i class="fas fa-trash-alt i-primary delete-media"></i>
+  `;
+    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
+    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
+    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
+    const markup = `
+    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
+      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
+      <div class="dmedia-card__details">
+        <h4 class="dmedia-card__details-title">${media.title}</h4>
+        <ul>
+          <li>${media.type}</li>
+          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
+          <li>${(0, _functions.getTime)(media.released).date}</li>
+        </ul>
+
+        <div class="dmedia-card__details-button">
+          <span>${buttons}</span>
+        </div>
+      </div>
+    </div>
+  `;
+    return markup;
+}
+function dlinkCard(link, pre = "", post = "", redirect = false) {
+    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
+    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
+    const markup = `
+  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
+    <span>${pre}${link.name || link.episode || link.season}${post}</span>
+    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
+  </div>
+  `;
+    return markup;
+}
+function mediaCard(media) {
+    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
+    const markup = `
+  <div class="media-card" data-media-id='${media.id}'>
+    <div class="media-card__image">
+      <img src="${media.poster}" />
+    </div>
+    <div class="media-card__details">
+      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
+      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
+    </div>
+  </div>
+  `;
+    return markup;
+}
+
+},{"./functions":"hZORM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "appError", ()=>appError);
+/**
+ * Turn a query from string to object
+ * @param {String} queryString url search string
+ * @returns Object - query
+ */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
+/**
+ * Turns a query object to a string
+ * @param {Object} query to turn to string
+ * @returns String - url search string
+ */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+/**
+ * Merges the date and the time to one full date
+ * @param {Date} date Date form an input element
+ * @param {Date} time Time from an input element
+ * @returns ISOString
+ */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
+/**
+ * Builds a date and time value for an input element
+ * @param {Date} iso ISOString
+ * @returns Object {date, time}
+ */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
+parcelHelpers.export(exports, "cutString", ()=>cutString);
+/**
+ * Takes a single date and return a user visible data
+ * @param {Date} iso ISOString date
+ * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
+ */ parcelHelpers.export(exports, "getTime", ()=>getTime);
+parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
+function appError(message) {
+    const error = new Error(message);
+    error.isOperational = true;
+    return error;
+}
+function parseQuery(queryString) {
+    const obj = {};
+    queryString.slice(1).split("&").forEach((q)=>{
+        const [key, value] = q.split("=");
+        if (!key.includes("[")) obj[key] = value;
+        else {
+            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
+            const innerKey = last.slice(0, last.length - 1); // the query operator
+            const innerOb = {}; //
+            innerOb[innerKey] = value;
+            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
+            else obj[first] = innerOb; // when the key does not exist we add the inner object
+        }
+    });
+    return obj;
+}
+function stringifyQuery(query) {
+    let string = Object.entries(query);
+    string = string.map(([key, value])=>breakOb(key, value));
+    string = string.join("&");
+    function breakOb(key, value) {
+        if (typeof value !== "object") return `${key}=${value}`;
+        let i = Object.entries(value);
+        i = i.map(([a, b])=>inner(key, a, b));
+        return i.join("&");
+    }
+    function inner(key, op, value) {
+        return `${key}[${op}]=${value}`;
+    }
+    string = `?${string}`;
+    return string;
+}
+function mergeDate(date, time) {
+    if (!date || !time) return;
+    const value = `${date} ${time}`;
+    const newDate = new Date(value).toISOString();
+    return newDate;
+}
+function unmergeDate(iso) {
+    const a = new Date(iso);
+    const y = `${a.getFullYear()}`.padStart(2, "0");
+    const m = `${a.getMonth() + 1}`.padStart(2, "0");
+    const d = `${a.getDate()}`.padStart(2, "0");
+    const hh = `${a.getHours()}`.padStart(2, "0");
+    const mm = `${a.getMinutes()}`.padStart(2, "0");
+    const date = `${y}-${m}-${d}`;
+    const time = `${hh}:${mm}`;
+    return {
+        date,
+        time
+    };
+}
+function cutString(str, endAt = 60) {
+    const cutAt = endAt - 3;
+    if (str.length > endAt) {
+        const newStr = str.slice(0, cutAt);
+        const last = newStr.charAt(newStr.length - 1);
+        let reten;
+        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
+        else reten = `${newStr}...`;
+        return reten;
+    }
+    return str;
+}
+function getTime(iso) {
+    const s = new Date(iso);
+    const time = s.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "numeric"
+    });
+    const date = s.toDateString();
+    const localDate = s.toLocaleDateString();
+    const simple = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    });
+    const lateralDate = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+    const fullLocalDate = `${localDate}   ${time}`;
+    const fullDate = new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const complete = new Intl.DateTimeFormat(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const simpleDate = new Intl.DateTimeFormat(undefined, {
+        year: "2-digit",
+        month: "short",
+        day: "numeric"
+    }).format(s);
+    let timeZone = s.toLocaleTimeString(undefined, {
+        timeZoneName: "short"
+    }).split(" ").at(-1).slice(0, 3);
+    return {
+        time,
+        date,
+        simpleDate,
+        localDate,
+        lateralDate,
+        fullDate,
+        fullLocalDate,
+        timeZone,
+        simple,
+        complete
+    };
+}
+function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
+    for(const key in newquery){
+        if (fields.includes(key)) {
+            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
+            else oldquery[key] = newquery[key];
+            continue;
+        }
+        oldquery[key] = newquery[key];
+    }
+    return oldquery;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hiLrG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
@@ -5845,253 +6084,6 @@ function openPopup(popupid, beforeopen, args = []) {
     popup.classList.toggle("display-off");
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "appError", ()=>appError);
-/**
- * Turn a query from string to object
- * @param {String} queryString url search string
- * @returns Object - query
- */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
-/**
- * Turns a query object to a string
- * @param {Object} query to turn to string
- * @returns String - url search string
- */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
-/**
- * Merges the date and the time to one full date
- * @param {Date} date Date form an input element
- * @param {Date} time Time from an input element
- * @returns ISOString
- */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
-/**
- * Builds a date and time value for an input element
- * @param {Date} iso ISOString
- * @returns Object {date, time}
- */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
-parcelHelpers.export(exports, "cutString", ()=>cutString);
-/**
- * Takes a single date and return a user visible data
- * @param {Date} iso ISOString date
- * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
- */ parcelHelpers.export(exports, "getTime", ()=>getTime);
-parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
-function appError(message) {
-    const error = new Error(message);
-    error.isOperational = true;
-    return error;
-}
-function parseQuery(queryString) {
-    const obj = {};
-    queryString.slice(1).split("&").forEach((q)=>{
-        const [key, value] = q.split("=");
-        if (!key.includes("[")) obj[key] = value;
-        else {
-            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
-            const innerKey = last.slice(0, last.length - 1); // the query operator
-            const innerOb = {}; //
-            innerOb[innerKey] = value;
-            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
-            else obj[first] = innerOb; // when the key does not exist we add the inner object
-        }
-    });
-    return obj;
-}
-function stringifyQuery(query) {
-    let string = Object.entries(query);
-    string = string.map(([key, value])=>breakOb(key, value));
-    string = string.join("&");
-    function breakOb(key, value) {
-        if (typeof value !== "object") return `${key}=${value}`;
-        let i = Object.entries(value);
-        i = i.map(([a, b])=>inner(key, a, b));
-        return i.join("&");
-    }
-    function inner(key, op, value) {
-        return `${key}[${op}]=${value}`;
-    }
-    string = `?${string}`;
-    return string;
-}
-function mergeDate(date, time) {
-    if (!date || !time) return;
-    const value = `${date} ${time}`;
-    const newDate = new Date(value).toISOString();
-    return newDate;
-}
-function unmergeDate(iso) {
-    const a = new Date(iso);
-    const y = `${a.getFullYear()}`.padStart(2, "0");
-    const m = `${a.getMonth() + 1}`.padStart(2, "0");
-    const d = `${a.getDate()}`.padStart(2, "0");
-    const hh = `${a.getHours()}`.padStart(2, "0");
-    const mm = `${a.getMinutes()}`.padStart(2, "0");
-    const date = `${y}-${m}-${d}`;
-    const time = `${hh}:${mm}`;
-    return {
-        date,
-        time
-    };
-}
-function cutString(str, endAt = 60) {
-    const cutAt = endAt - 3;
-    if (str.length > endAt) {
-        const newStr = str.slice(0, cutAt);
-        const last = newStr.charAt(newStr.length - 1);
-        let reten;
-        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
-        else reten = `${newStr}...`;
-        return reten;
-    }
-    return str;
-}
-function getTime(iso) {
-    const s = new Date(iso);
-    const time = s.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "numeric"
-    });
-    const date = s.toDateString();
-    const localDate = s.toLocaleDateString();
-    const simple = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric"
-    });
-    const lateralDate = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-    const fullLocalDate = `${localDate}   ${time}`;
-    const fullDate = new Intl.DateTimeFormat(undefined, {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const complete = new Intl.DateTimeFormat(undefined, {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const simpleDate = new Intl.DateTimeFormat(undefined, {
-        year: "2-digit",
-        month: "short",
-        day: "numeric"
-    }).format(s);
-    let timeZone = s.toLocaleTimeString(undefined, {
-        timeZoneName: "short"
-    }).split(" ").at(-1).slice(0, 3);
-    return {
-        time,
-        date,
-        simpleDate,
-        localDate,
-        lateralDate,
-        fullDate,
-        fullLocalDate,
-        timeZone,
-        simple,
-        complete
-    };
-}
-function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
-    for(const key in newquery){
-        if (fields.includes(key)) {
-            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
-            else oldquery[key] = newquery[key];
-            continue;
-        }
-        oldquery[key] = newquery[key];
-    }
-    return oldquery;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "userCard", ()=>userCard);
-parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
-parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
-parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
-var _functions = require("./functions");
-function userCard(user) {
-    const active = user.active ? "pause" : "play";
-    const markup = `
-  <div class="user-card" data-user-id="${user.id}">
-    <div class="user-card__details">
-      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
-      <span>${user.email}</span>
-    </div>
-    <div class="user-card__buttons">
-      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
-      <i class="fas fa-trash-alt i-primary delete-user"></i>
-    </div>
-  </div>`;
-    return markup;
-}
-function dmediaCard(media, buttonType = "") {
-    let buttons = `
-    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
-    <i class="fas fa-trash-alt i-primary delete-media"></i>
-  `;
-    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
-    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
-    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
-    const markup = `
-    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
-      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
-      <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title">${media.title}</h4>
-        <ul>
-          <li>${media.type}</li>
-          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
-          <li>${(0, _functions.getTime)(media.released).date}</li>
-        </ul>
-
-        <div class="dmedia-card__details-button">
-          <span>${buttons}</span>
-        </div>
-      </div>
-    </div>
-  `;
-    return markup;
-}
-function dlinkCard(link, pre = "", post = "", redirect = false) {
-    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
-    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
-    const markup = `
-  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
-    <span>${pre}${link.name || link.episode || link.season}${post}</span>
-    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
-  </div>
-  `;
-    return markup;
-}
-function mediaCard(media) {
-    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const markup = `
-  <div class="media-card" data-media-id='${media.id}'>
-    <div class="media-card__image">
-      <img src="${media.poster}" />
-    </div>
-    <div class="media-card__details">
-      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
-      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
-    </div>
-  </div>
-  `;
-    return markup;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./functions":"hZORM"}]},["d0sAS","iB90z"], "iB90z", "parcelRequiree8ef")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iOGPI","iB90z"], "iB90z", "parcelRequiree8ef")
 
 //# sourceMappingURL=episode.js.map

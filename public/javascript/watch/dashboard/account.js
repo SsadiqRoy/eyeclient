@@ -142,16 +142,15 @@
       this[globalName] = mainExports;
     }
   }
-})({"9DIqL":[function(require,module,exports) {
+})({"Wx9fQ":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "022b12e3e119756b";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -190,7 +189,6 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
-declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -228,14 +226,9 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     var hostname = getHostname();
     var port = getPort();
-    var protocol = HMR_SECURE || location.protocol == "https:" && ![
-        "localhost",
-        "127.0.0.1",
-        "0.0.0.0"
-    ].includes(hostname) ? "wss" : "ws";
+    var protocol = HMR_SECURE || location.protocol == "https:" && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? "wss" : "ws";
     var ws;
-    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
-    else try {
+    try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -305,14 +298,12 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    if (ws instanceof WebSocket) {
-        ws.onerror = function(e) {
-            if (e.message) console.error(e.message);
-        };
-        ws.onclose = function() {
-            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-        };
-    }
+    ws.onerror = function(e) {
+        if (e.message) console.error(e.message);
+    };
+    ws.onclose = function() {
+        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+    };
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -974,7 +965,7 @@ exports.defineInteropFlag = function(a) {
 };
 exports.exportAll = function(source, dest) {
     Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
         Object.defineProperty(dest, key, {
             enumerable: true,
             get: function() {
@@ -992,14 +983,13 @@ exports.export = function(dest, destName, get) {
 };
 
 },{}],"78DsC":[function(require,module,exports) {
-// export const api_url = 'http://localhost:3000/v1';
-// export const client_url = 'http://localhost:3100';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "client_url", ()=>client_url);
-const api_url = "https://www.api.eyeclient.com/v1";
-const client_url = "https://www.eyeclient.com";
+const api_url = "http://localhost:3000/v1";
+const client_url = "http://localhost:3100"; // export const api_url = 'https://www.api.eyeclient.com/v1';
+ // export const client_url = 'https://www.eyeclient.com';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1248,7 +1238,7 @@ function mediaCard(media) {
     return markup;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./functions":"hZORM"}],"4SBHD":[function(require,module,exports) {
+},{"./functions":"hZORM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4SBHD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getSimple", ()=>getSimple);
@@ -1357,7 +1347,7 @@ async function deleteRequest(url, fullurl = "api") {
     }
 }
 
-},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/env":"78DsC"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","../utils/env":"78DsC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -2282,7 +2272,7 @@ var _toFormDataJsDefault = parcelHelpers.interopDefault(_toFormDataJs);
         ")": "%29",
         "~": "%7E",
         "%20": "+",
-        "%00": "\0"
+        "%00": "\x00"
     };
     return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
         return charMap[match];
@@ -5399,7 +5389,9 @@ var _utilsJsDefault = parcelHelpers.interopDefault(_utilsJs);
 var _axiosHeadersJs = require("./AxiosHeaders.js");
 var _axiosHeadersJsDefault = parcelHelpers.interopDefault(_axiosHeadersJs);
 "use strict";
-const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? thing.toJSON() : thing;
+const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? {
+        ...thing
+    } : thing;
 function mergeConfig(config1, config2) {
     // eslint-disable-next-line no-param-reassign
     config2 = config2 || {};
@@ -5548,7 +5540,7 @@ exports.default = {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "VERSION", ()=>VERSION);
-const VERSION = "1.6.7";
+const VERSION = "1.6.8";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45wzn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5732,6 +5724,6 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 });
 exports.default = HttpStatusCode;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9DIqL","fXs5L"], "fXs5L", "parcelRequiree8ef")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["Wx9fQ","fXs5L"], "fXs5L", "parcelRequiree8ef")
 
 //# sourceMappingURL=account.js.map

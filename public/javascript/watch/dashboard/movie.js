@@ -142,16 +142,15 @@
       this[globalName] = mainExports;
     }
   }
-})({"iS3gg":[function(require,module,exports) {
+})({"fiKpd":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "aa44153639b19916";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -190,7 +189,6 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
-declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -228,14 +226,9 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     var hostname = getHostname();
     var port = getPort();
-    var protocol = HMR_SECURE || location.protocol == "https:" && ![
-        "localhost",
-        "127.0.0.1",
-        "0.0.0.0"
-    ].includes(hostname) ? "wss" : "ws";
+    var protocol = HMR_SECURE || location.protocol == "https:" && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? "wss" : "ws";
     var ws;
-    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
-    else try {
+    try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -305,14 +298,12 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    if (ws instanceof WebSocket) {
-        ws.onerror = function(e) {
-            if (e.message) console.error(e.message);
-        };
-        ws.onclose = function() {
-            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-        };
-    }
+    ws.onerror = function(e) {
+        if (e.message) console.error(e.message);
+    };
+    ws.onclose = function() {
+        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+    };
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -610,477 +601,7 @@ async function init() {
 }
 init();
 
-},{"../../views/dashboard/movieView":"8bvff","../../models/model":"4SBHD"}],"8bvff":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/*
-
-
-
-
-
-*/ // ============================== RENDERES
-parcelHelpers.export(exports, "renderMovie", ()=>renderMovie);
-//
-parcelHelpers.export(exports, "renderLink", ()=>renderLink);
-parcelHelpers.export(exports, "renderDeleteLink", ()=>renderDeleteLink);
-/*
-
-
-
-
-
-*/ // ============================== GETTERS
-parcelHelpers.export(exports, "getData", ()=>getData);
-//
-parcelHelpers.export(exports, "getLinkData", ()=>getLinkData);
-/*
-
-
-
-
-
-*/ // ============================== HANDLERS
-parcelHelpers.export(exports, "handleMovie", ()=>handleMovie);
-parcelHelpers.export(exports, "handleLink", ()=>handleLink);
-parcelHelpers.export(exports, "handleDeleteLink", ()=>handleDeleteLink);
-/*
-
-
-
-
-
-*/ // ============================== INITIALIZER
-parcelHelpers.export(exports, "initialize", ()=>initialize);
-var _independent = require("../../utils/independent");
-var _utils = require("../../utils/utils");
-// ============================= CONSTANT VARIABLES
-const container = document.getElementById("cards-container");
-let currentLink;
-function renderMovie(response, id) {
-    (0, _utils.alertResponse)(response.message);
-    if (id) return window.setTimeout(()=>window.location.reload(), 3000);
-    window.setTimeout(()=>window.location.assign("/executive"), 3000);
-}
-function renderLink(response) {
-    const { message, data: link } = response;
-    const ext = link.resolution < 1000 && link.resolution > 10 ? "p" : "";
-    // const redirect = `/executive/season/${link.id}`;
-    (0, _utils.alertResponse)(message);
-    const card = document.querySelector(`[data-link-id='${link.id}']`);
-    const next = card?.nextElementSibling;
-    const prev = card?.previousElementSibling;
-    card && container.removeChild(card);
-    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
-    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data, undefined, ext));
-    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
-}
-function renderDeleteLink(id) {
-    const card = document.querySelector(`[data-link-id='${id}']`);
-    container.removeChild(card);
-}
-function getData() {
-    const imdbId = document.getElementById("imdb-id").value;
-    const type = document.getElementById("type").value;
-    const title = document.getElementById("title").value;
-    const year = document.getElementById("year").value;
-    const rated = document.getElementById("rated").value;
-    const released = document.getElementById("released").value;
-    const genre = document.getElementById("genre").value;
-    const directors = document.getElementById("directors").value;
-    const writers = document.getElementById("writers").value;
-    const actors = document.getElementById("actors").value;
-    const plot = document.getElementById("plot").value;
-    const poster = document.getElementById("poster").value;
-    const language = document.getElementById("language").value;
-    const country = document.getElementById("country").value;
-    const runtime = document.getElementById("runtime").value;
-    const imdbRating = document.getElementById("imdb-rating").value;
-    const keywords = document.getElementById("keywords").value;
-    return {
-        imdbId,
-        type,
-        title,
-        year,
-        rated,
-        released,
-        genre,
-        directors,
-        writers,
-        actors,
-        plot,
-        poster,
-        language,
-        country,
-        runtime,
-        imdbRating,
-        keywords
-    };
-}
-function getLinkData() {
-    const { id } = (0, _utils.parseQuery)(window.location.search);
-    let name = document.getElementById("resolution").value;
-    const resolution = name === "other" ? 10000 : name === "hdcam" ? 10 : name.split("x")[0];
-    if (name === "other") name = document.getElementById("other-name").value;
-    const link = document.getElementById("link").value;
-    return {
-        media: id,
-        name,
-        resolution,
-        link
-    };
-}
-function handleMovie(controlMovie) {
-    const form = document.getElementById("form-movie");
-    const { id } = (0, _utils.parseQuery)(window.location.search);
-    const bntid = id ? "update-movie" : "add-movie";
-    form.addEventListener("submit", async (ev)=>{
-        ev.preventDefault();
-        (0, _utils.rotateBtn)(bntid);
-        try {
-            await controlMovie(id);
-            (0, _utils.stopRotateBtn)(bntid);
-        } catch (error) {
-            (0, _utils.displayError)(error, bntid);
-        }
-    });
-}
-function handleLink(controlLink) {
-    const form = document.getElementById("form-link");
-    form && form.addEventListener("submit", async (ev)=>{
-        ev.preventDefault();
-        const btnid = "btn-link-alt";
-        (0, _utils.rotateBtn)(btnid);
-        try {
-            const id = currentLink?.id;
-            await controlLink(id);
-            (0, _utils.stopRotateBtn)(btnid);
-            (0, _utils.closePopup)("link-popup", clearLinkPopup);
-        } catch (error) {
-            (0, _utils.displayError)(error, btnid);
-        }
-    });
-}
-function handleDeleteLink(controlDeleteLink) {
-    container && container.addEventListener("click", async (ev)=>{
-        if (!ev.target.classList.contains("delete-link")) return;
-        const link = JSON.parse(ev.target.closest(".link-item").dataset.link);
-        const confirm = window.confirm(`Are you sure you want to delete \n${link.name}`);
-        if (!confirm) return;
-        try {
-            await controlDeleteLink(link.id);
-        } catch (error) {
-            (0, _utils.displayError)(error);
-        }
-    });
-}
-function initialize() {
-    (0, _independent.softUpdate)("soft-update");
-    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup);
-    changeName();
-    (0, _utils.clickOtherBtn)("btn-link-alt", "btn-link");
-    onEditLink();
-}
-/*
-
-
-
-
-
-*/ // ============================== NON-EXPORTING
-function changeName() {
-    const { id } = (0, _utils.parseQuery)(window.location.search);
-    if (!id) return;
-    const resolution = document.getElementById("resolution");
-    const otherName = document.getElementById("group-other");
-    resolution.addEventListener("change", ()=>{
-        const { value } = resolution;
-        if (value === "other") return otherName.classList.remove("display-off");
-        otherName.classList.add("display-off");
-    });
-}
-//
-function clearLinkPopup() {
-    document.getElementById("resolution").value = "480";
-    document.getElementById("link").value = "";
-    document.getElementById("other-name").value = "";
-    document.getElementById("group-other").classList.add("display-off");
-    currentLink = undefined;
-}
-function editLinkPopup(link) {
-    const linkNames = [
-        "480",
-        "720",
-        "1080",
-        "2160",
-        "720x256",
-        "1080x256",
-        "hdcam"
-    ];
-    const include = linkNames.includes(link.name);
-    document.getElementById("resolution").value = include ? link.name : "other";
-    document.getElementById("other-name").value = include ? "" : link.name;
-    document.getElementById("link").value = link.link;
-    if (!include) document.getElementById("group-other").classList.remove("display-off");
-}
-function onEditLink() {
-    container && container.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("edit-link")) return;
-        const card = ev.target.closest(".link-item");
-        currentLink = JSON.parse(card.dataset.link);
-        editLinkPopup(currentLink);
-        (0, _utils.openPopup)("link-popup");
-    });
-}
-
-},{"../../utils/independent":"e0IDO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/utils":"hiLrG"}],"e0IDO":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "pageButtons", ()=>pageButtons);
-//
-parcelHelpers.export(exports, "initialLoad", ()=>initialLoad);
-//
-parcelHelpers.export(exports, "pageLoad", ()=>pageLoad);
-//
-parcelHelpers.export(exports, "search", ()=>search);
-//
-parcelHelpers.export(exports, "filter", ()=>filter);
-//
-parcelHelpers.export(exports, "softUpdate", ()=>softUpdate);
-var _model = require("../models/model");
-var _markup = require("./markup");
-var _utils = require("./utils");
-function pageButtons(containerid, metaName = "meta") {
-    const { total, limit, page, available } = (0, _utils.querMeta)(undefined, metaName);
-    const pages = Math.ceil(total / limit);
-    const viewPrev = page > 1 ? "" : "display-off";
-    const viewNext = available ? "" : "display-off";
-    const markup = `
-  <div class="center-element-2 form-7 np-buttons" style='margin: 4rem 0;'>
-    <span class="tag tag-primary tag-button np-button ${viewPrev}" data-direction="prev"><i class="fas fa-angle-left np-button"></i>prev</span>
-    <span class="tag">${page}/${pages}</span>
-    <span class="tag tag-primary tag-button np-button ${viewNext}" data-direction="next">next <i class="fas fa-angle-right np-button"></i></span>
-  </div>`;
-    const parent = document.getElementById(containerid).parentElement;
-    const npButtons = parent.querySelector(".np-buttons");
-    npButtons && parent.removeChild(npButtons);
-    parent.insertAdjacentHTML("beforeend", markup);
-}
-//
-async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain = false, scroll = false }) {
-    try {
-        const container = document.getElementById(containerid);
-        const { data, meta } = await (0, _model.getFull)(url);
-        (0, _utils.querMeta)(meta);
-        toMetaMain && (0, _utils.querMetaMain)(meta);
-        if (!meta.length) return (0, _utils.noSearchContent)(containerid, "No results found"), aftercall && aftercall({
-            data,
-            meta,
-            card,
-            args,
-            containerid
-        });
-        container.innerHTML = "";
-        data.forEach((item)=>container.insertAdjacentHTML("beforeend", _markup[card](item, ...args)));
-        pageButtons(containerid);
-        scroll && container.parentElement.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-        aftercall && aftercall({
-            data,
-            meta,
-            card,
-            args,
-            containerid
-        });
-    } catch (error) {
-        (0, _utils.displayError)(error);
-    }
-}
-function initialLoad({ containerid, url, card, args = [] }) {
-    (0, _utils.loadingContent)(containerid);
-    makeSearch({
-        url,
-        containerid,
-        card,
-        args,
-        toMetaMain: true
-    });
-}
-function pageLoad({ containerid, url, card, args = [], aftercall }) {
-    const body = document.querySelector("body");
-    body.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("np-button")) return;
-        const { direction } = ev.target.closest("span").dataset;
-        const query = (0, _utils.querMeta)();
-        query.page = direction === "next" ? query.page + 1 : query.page - 1;
-        const newurl = url + (0, _utils.stringifyQuery)(query);
-        makeSearch({
-            url: newurl,
-            containerid,
-            card,
-            args,
-            scroll: true,
-            aftercall
-        });
-    });
-//
-}
-function search({ containerid, url, card, formid, args = [], tagsid, tagclass, aftercall }) {
-    const form = document.getElementById(formid);
-    const [original, urlQ] = url.split("?");
-    const urlQuery = urlQ ? (0, _utils.parseQuery)("?" + urlQ) : undefined;
-    form.addEventListener("submit", (ev)=>{
-        ev.preventDefault();
-        const { value: search } = form.querySelector("input");
-        const oldquery = (0, _utils.querMetaMain)();
-        let query = urlQuery ? (0, _utils.stringifyQuery)({
-            ...urlQuery,
-            search
-        }) : (0, _utils.stringifyQuery)({
-            search
-        });
-        if (!search) query = urlQuery ? {
-            ...urlQuery,
-            ...oldquery
-        } : oldquery;
-        if (search.startsWith("??")) query = (0, _utils.stringifyQuery)((0, _utils.parseQuery)(search.slice(1)));
-        if (oldquery.fields) query.fields = oldquery.fields;
-        let newAftercall = aftercall;
-        if (tagsid && tagclass) newAftercall = (options)=>{
-            const tagsContainer = document.getElementById(tagsid);
-            const tags = tagsContainer.querySelectorAll(`.${tagclass}`);
-            tags.forEach((t)=>t.classList.remove("tag-primary"));
-            aftercall && aftercall(options);
-        };
-        const newurl = original + query;
-        makeSearch({
-            url: newurl,
-            containerid,
-            card,
-            args,
-            aftercall: newAftercall
-        });
-    });
-}
-function filter({ containerid, url, card, selectid, tagsid, args = [], aftercall, tagclass }) {
-    const select = document.getElementById(selectid);
-    const tagsContainer = document.getElementById(tagsid);
-    const [original, urlQ] = url.split("?");
-    const urlQuery = urlQ ? (0, _utils.parseQuery)("?" + urlQ) : undefined;
-    select && select.addEventListener("change", ()=>{
-        if (select.value === "reset") {
-            let query = urlQ ? {
-                ...urlQuery,
-                ...(0, _utils.querMetaMain)()
-            } : (0, _utils.querMetaMain)();
-            query = (0, _utils.stringifyQuery)((0, _utils.querMetaMain)());
-            const newurl = original + query;
-            makeSearch({
-                url: newurl,
-                containerid,
-                card,
-                args,
-                aftercall
-            });
-            return;
-        }
-        let query = (0, _utils.mergeQueries)((0, _utils.querMeta)(), (0, _utils.parseQuery)(select.value), [
-            "order"
-        ]);
-        query = urlQ ? {
-            ...urlQuery,
-            ...query
-        } : query;
-        query = (0, _utils.stringifyQuery)(query);
-        const newurl = url + query;
-        makeSearch({
-            url: newurl,
-            containerid,
-            card,
-            args,
-            aftercall
-        });
-    });
-    tagsContainer && tagclass && tagsContainer.addEventListener("click", (ev)=>{
-        const tag = ev.target;
-        if (!tag.classList.contains(tagclass)) return;
-        const oldquery = (0, _utils.querMeta)();
-        const onFilterList = tag.classList.contains("tag-primary");
-        if (tag.dataset.filter === "reset") {
-            let query = urlQ ? {
-                ...urlQuery,
-                ...(0, _utils.querMetaMain)()
-            } : (0, _utils.querMetaMain)();
-            query = (0, _utils.stringifyQuery)((0, _utils.querMetaMain)());
-            const newurl = original + query;
-            function newAftercall(options) {
-                const tags = tagsContainer.querySelectorAll(`.${tagclass}`);
-                tags.forEach((t)=>t.classList.remove("tag-primary"));
-                aftercall && aftercall(options);
-            }
-            makeSearch({
-                url: newurl,
-                containerid,
-                card,
-                args,
-                aftercall: newAftercall
-            });
-            return;
-        }
-        const tagFilter = (0, _utils.parseQuery)(tag.dataset.filter);
-        const key = Object.keys(tagFilter)[0];
-        let query = {};
-        if (onFilterList) {
-            // removing the current filter value from filter if it is includedd
-            oldquery[key] = oldquery[key].split(",").filter((v)=>v !== tagFilter[key]).join(",");
-            // deleting that filter from query if the current value was the only value on it
-            if (!oldquery[key]) delete oldquery[key];
-            query = oldquery;
-        } else query = (0, _utils.mergeQueries)(oldquery, tagFilter, [
-            key
-        ]);
-        query = (0, _utils.stringifyQuery)(query);
-        function newAftercall(options) {
-            tag.classList.toggle("tag-primary");
-            aftercall && aftercall(options);
-        }
-        const newurl = original + query;
-        makeSearch({
-            url: newurl,
-            containerid,
-            card,
-            args,
-            aftercall: newAftercall
-        });
-    });
-}
-function softUpdate(btnid, channel = "media") {
-    const btn = document.getElementById(btnid);
-    if (!btn) return;
-    const channels = {
-        media: "/media/soft",
-        episode: "/media/episode/soft"
-    };
-    btn.addEventListener("click", async ()=>{
-        (0, _utils.rotateBtn)(btnid);
-        const { id } = (0, _utils.parseQuery)(window.location.search);
-        try {
-            const response = await (0, _model.patchFull)(channels[channel], {
-                id
-            });
-            (0, _utils.alertResponse)(response.message);
-            (0, _utils.stopRotateBtn)(btnid);
-            window.setTimeout(()=>window.location.reload(), 3000);
-        } catch (error) {
-            console.log(error);
-            (0, _utils.displayError)(error, btnid);
-        }
-    });
-}
-
-},{"../models/model":"4SBHD","./utils":"hiLrG","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4SBHD":[function(require,module,exports) {
+},{"../../models/model":"4SBHD","../../views/dashboard/movieView":"8bvff"}],"4SBHD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getSimple", ()=>getSimple);
@@ -1189,7 +710,7 @@ async function deleteRequest(url, fullurl = "api") {
     }
 }
 
-},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/env":"78DsC"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","../utils/env":"78DsC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -1884,7 +1405,7 @@ exports.defineInteropFlag = function(a) {
 };
 exports.exportAll = function(source, dest) {
     Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
         Object.defineProperty(dest, key, {
             enumerable: true,
             get: function() {
@@ -2144,7 +1665,7 @@ var _toFormDataJsDefault = parcelHelpers.interopDefault(_toFormDataJs);
         ")": "%29",
         "~": "%7E",
         "%20": "+",
-        "%00": "\0"
+        "%00": "\x00"
     };
     return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
         return charMap[match];
@@ -5261,7 +4782,9 @@ var _utilsJsDefault = parcelHelpers.interopDefault(_utilsJs);
 var _axiosHeadersJs = require("./AxiosHeaders.js");
 var _axiosHeadersJsDefault = parcelHelpers.interopDefault(_axiosHeadersJs);
 "use strict";
-const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? thing.toJSON() : thing;
+const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? {
+        ...thing
+    } : thing;
 function mergeConfig(config1, config2) {
     // eslint-disable-next-line no-param-reassign
     config2 = config2 || {};
@@ -5410,7 +4933,7 @@ exports.default = {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "VERSION", ()=>VERSION);
-const VERSION = "1.6.7";
+const VERSION = "1.6.8";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45wzn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5595,14 +5118,730 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 exports.default = HttpStatusCode;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78DsC":[function(require,module,exports) {
-// export const api_url = 'http://localhost:3000/v1';
-// export const client_url = 'http://localhost:3100';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "client_url", ()=>client_url);
-const api_url = "https://www.api.eyeclient.com/v1";
-const client_url = "https://www.eyeclient.com";
+const api_url = "http://localhost:3000/v1";
+const client_url = "http://localhost:3100"; // export const api_url = 'https://www.api.eyeclient.com/v1';
+ // export const client_url = 'https://www.eyeclient.com';
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8bvff":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/*
+
+
+
+
+
+*/ // ============================== RENDERES
+parcelHelpers.export(exports, "renderMovie", ()=>renderMovie);
+//
+parcelHelpers.export(exports, "renderLink", ()=>renderLink);
+parcelHelpers.export(exports, "renderDeleteLink", ()=>renderDeleteLink);
+/*
+
+
+
+
+
+*/ // ============================== GETTERS
+parcelHelpers.export(exports, "getData", ()=>getData);
+//
+parcelHelpers.export(exports, "getLinkData", ()=>getLinkData);
+/*
+
+
+
+
+
+*/ // ============================== HANDLERS
+parcelHelpers.export(exports, "handleMovie", ()=>handleMovie);
+parcelHelpers.export(exports, "handleLink", ()=>handleLink);
+parcelHelpers.export(exports, "handleDeleteLink", ()=>handleDeleteLink);
+/*
+
+
+
+
+
+*/ // ============================== INITIALIZER
+parcelHelpers.export(exports, "initialize", ()=>initialize);
+var _independent = require("../../utils/independent");
+var _utils = require("../../utils/utils");
+// ============================= CONSTANT VARIABLES
+const container = document.getElementById("cards-container");
+let currentLink;
+function renderMovie(response, id) {
+    (0, _utils.alertResponse)(response.message);
+    if (id) return window.setTimeout(()=>window.location.reload(), 3000);
+    window.setTimeout(()=>window.location.assign("/executive"), 3000);
+}
+function renderLink(response) {
+    const { message, data: link } = response;
+    const ext = link.resolution < 1000 && link.resolution > 10 ? "p" : "";
+    // const redirect = `/executive/season/${link.id}`;
+    (0, _utils.alertResponse)(message);
+    const card = document.querySelector(`[data-link-id='${link.id}']`);
+    const next = card?.nextElementSibling;
+    const prev = card?.previousElementSibling;
+    card && container.removeChild(card);
+    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
+    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data, undefined, ext));
+    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
+}
+function renderDeleteLink(id) {
+    const card = document.querySelector(`[data-link-id='${id}']`);
+    container.removeChild(card);
+}
+function getData() {
+    const imdbId = document.getElementById("imdb-id").value;
+    const type = document.getElementById("type").value;
+    const title = document.getElementById("title").value;
+    const year = document.getElementById("year").value;
+    const rated = document.getElementById("rated").value;
+    const released = document.getElementById("released").value;
+    const genre = document.getElementById("genre").value;
+    const directors = document.getElementById("directors").value;
+    const writers = document.getElementById("writers").value;
+    const actors = document.getElementById("actors").value;
+    const plot = document.getElementById("plot").value;
+    const poster = document.getElementById("poster").value;
+    const language = document.getElementById("language").value;
+    const country = document.getElementById("country").value;
+    const runtime = document.getElementById("runtime").value;
+    const imdbRating = document.getElementById("imdb-rating").value;
+    const keywords = document.getElementById("keywords").value;
+    return {
+        imdbId,
+        type,
+        title,
+        year,
+        rated,
+        released,
+        genre,
+        directors,
+        writers,
+        actors,
+        plot,
+        poster,
+        language,
+        country,
+        runtime,
+        imdbRating,
+        keywords
+    };
+}
+function getLinkData() {
+    const { id } = (0, _utils.parseQuery)(window.location.search);
+    let name = document.getElementById("resolution").value;
+    const resolution = name === "other" ? 10000 : name === "hdcam" ? 10 : name.split("x")[0];
+    if (name === "other") name = document.getElementById("other-name").value;
+    const link = document.getElementById("link").value;
+    return {
+        media: id,
+        name,
+        resolution,
+        link
+    };
+}
+function handleMovie(controlMovie) {
+    const form = document.getElementById("form-movie");
+    const { id } = (0, _utils.parseQuery)(window.location.search);
+    const bntid = id ? "update-movie" : "add-movie";
+    form.addEventListener("submit", async (ev)=>{
+        ev.preventDefault();
+        (0, _utils.rotateBtn)(bntid);
+        try {
+            await controlMovie(id);
+            (0, _utils.stopRotateBtn)(bntid);
+        } catch (error) {
+            (0, _utils.displayError)(error, bntid);
+        }
+    });
+}
+function handleLink(controlLink) {
+    const form = document.getElementById("form-link");
+    form && form.addEventListener("submit", async (ev)=>{
+        ev.preventDefault();
+        const btnid = "btn-link-alt";
+        (0, _utils.rotateBtn)(btnid);
+        try {
+            const id = currentLink?.id;
+            await controlLink(id);
+            (0, _utils.stopRotateBtn)(btnid);
+            (0, _utils.closePopup)("link-popup", clearLinkPopup);
+        } catch (error) {
+            (0, _utils.displayError)(error, btnid);
+        }
+    });
+}
+function handleDeleteLink(controlDeleteLink) {
+    container && container.addEventListener("click", async (ev)=>{
+        if (!ev.target.classList.contains("delete-link")) return;
+        const link = JSON.parse(ev.target.closest(".link-item").dataset.link);
+        const confirm = window.confirm(`Are you sure you want to delete \n${link.name}`);
+        if (!confirm) return;
+        try {
+            await controlDeleteLink(link.id);
+        } catch (error) {
+            (0, _utils.displayError)(error);
+        }
+    });
+}
+function initialize() {
+    (0, _independent.softUpdate)("soft-update");
+    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup);
+    changeName();
+    (0, _utils.clickOtherBtn)("btn-link-alt", "btn-link");
+    onEditLink();
+}
+/*
+
+
+
+
+
+*/ // ============================== NON-EXPORTING
+function changeName() {
+    const { id } = (0, _utils.parseQuery)(window.location.search);
+    if (!id) return;
+    const resolution = document.getElementById("resolution");
+    const otherName = document.getElementById("group-other");
+    resolution.addEventListener("change", ()=>{
+        const { value } = resolution;
+        if (value === "other") return otherName.classList.remove("display-off");
+        otherName.classList.add("display-off");
+    });
+}
+//
+function clearLinkPopup() {
+    document.getElementById("resolution").value = "480";
+    document.getElementById("link").value = "";
+    document.getElementById("other-name").value = "";
+    document.getElementById("group-other").classList.add("display-off");
+    currentLink = undefined;
+}
+function editLinkPopup(link) {
+    const linkNames = [
+        "480",
+        "720",
+        "1080",
+        "2160",
+        "720x256",
+        "1080x256",
+        "hdcam"
+    ];
+    const include = linkNames.includes(link.name);
+    document.getElementById("resolution").value = include ? link.name : "other";
+    document.getElementById("other-name").value = include ? "" : link.name;
+    document.getElementById("link").value = link.link;
+    if (!include) document.getElementById("group-other").classList.remove("display-off");
+}
+function onEditLink() {
+    container && container.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("edit-link")) return;
+        const card = ev.target.closest(".link-item");
+        currentLink = JSON.parse(card.dataset.link);
+        editLinkPopup(currentLink);
+        (0, _utils.openPopup)("link-popup");
+    });
+}
+
+},{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageButtons", ()=>pageButtons);
+//
+parcelHelpers.export(exports, "initialLoad", ()=>initialLoad);
+//
+parcelHelpers.export(exports, "pageLoad", ()=>pageLoad);
+//
+parcelHelpers.export(exports, "search", ()=>search);
+//
+parcelHelpers.export(exports, "filter", ()=>filter);
+//
+parcelHelpers.export(exports, "softUpdate", ()=>softUpdate);
+var _model = require("../models/model");
+var _markup = require("./markup");
+var _utils = require("./utils");
+function pageButtons(containerid, metaName = "meta") {
+    const { total, limit, page, available } = (0, _utils.querMeta)(undefined, metaName);
+    const pages = Math.ceil(total / limit);
+    const viewPrev = page > 1 ? "" : "display-off";
+    const viewNext = available ? "" : "display-off";
+    const markup = `
+  <div class="center-element-2 form-7 np-buttons" style='margin: 4rem 0;'>
+    <span class="tag tag-primary tag-button np-button ${viewPrev}" data-direction="prev"><i class="fas fa-angle-left np-button"></i>prev</span>
+    <span class="tag">${page}/${pages}</span>
+    <span class="tag tag-primary tag-button np-button ${viewNext}" data-direction="next">next <i class="fas fa-angle-right np-button"></i></span>
+  </div>`;
+    const parent = document.getElementById(containerid).parentElement;
+    const npButtons = parent.querySelector(".np-buttons");
+    npButtons && parent.removeChild(npButtons);
+    parent.insertAdjacentHTML("beforeend", markup);
+}
+//
+async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain = false, scroll = false }) {
+    try {
+        const container = document.getElementById(containerid);
+        const { data, meta } = await (0, _model.getFull)(url);
+        (0, _utils.querMeta)(meta);
+        toMetaMain && (0, _utils.querMetaMain)(meta);
+        if (!meta.length) return (0, _utils.noSearchContent)(containerid, "No results found"), aftercall && aftercall({
+            data,
+            meta,
+            card,
+            args,
+            containerid
+        });
+        container.innerHTML = "";
+        data.forEach((item)=>container.insertAdjacentHTML("beforeend", _markup[card](item, ...args)));
+        pageButtons(containerid);
+        scroll && container.parentElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+        aftercall && aftercall({
+            data,
+            meta,
+            card,
+            args,
+            containerid
+        });
+    } catch (error) {
+        (0, _utils.displayError)(error);
+    }
+}
+function initialLoad({ containerid, url, card, args = [] }) {
+    (0, _utils.loadingContent)(containerid);
+    makeSearch({
+        url,
+        containerid,
+        card,
+        args,
+        toMetaMain: true
+    });
+}
+function pageLoad({ containerid, url, card, args = [], aftercall }) {
+    const body = document.querySelector("body");
+    body.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("np-button")) return;
+        const { direction } = ev.target.closest("span").dataset;
+        const query = (0, _utils.querMeta)();
+        query.page = direction === "next" ? query.page + 1 : query.page - 1;
+        const newurl = url + (0, _utils.stringifyQuery)(query);
+        makeSearch({
+            url: newurl,
+            containerid,
+            card,
+            args,
+            scroll: true,
+            aftercall
+        });
+    });
+//
+}
+function search({ containerid, url, card, formid, args = [], tagsid, tagclass, aftercall }) {
+    const form = document.getElementById(formid);
+    const [original, urlQ] = url.split("?");
+    const urlQuery = urlQ ? (0, _utils.parseQuery)("?" + urlQ) : undefined;
+    form.addEventListener("submit", (ev)=>{
+        ev.preventDefault();
+        const { value: search } = form.querySelector("input");
+        const oldquery = (0, _utils.querMetaMain)();
+        let query = urlQuery ? (0, _utils.stringifyQuery)({
+            ...urlQuery,
+            search
+        }) : (0, _utils.stringifyQuery)({
+            search
+        });
+        if (!search) query = urlQuery ? {
+            ...urlQuery,
+            ...oldquery
+        } : oldquery;
+        if (search.startsWith("??")) query = (0, _utils.stringifyQuery)((0, _utils.parseQuery)(search.slice(1)));
+        if (oldquery.fields) query.fields = oldquery.fields;
+        let newAftercall = aftercall;
+        if (tagsid && tagclass) newAftercall = (options)=>{
+            const tagsContainer = document.getElementById(tagsid);
+            const tags = tagsContainer.querySelectorAll(`.${tagclass}`);
+            tags.forEach((t)=>t.classList.remove("tag-primary"));
+            aftercall && aftercall(options);
+        };
+        const newurl = original + query;
+        makeSearch({
+            url: newurl,
+            containerid,
+            card,
+            args,
+            aftercall: newAftercall
+        });
+    });
+}
+function filter({ containerid, url, card, selectid, tagsid, args = [], aftercall, tagclass }) {
+    const select = document.getElementById(selectid);
+    const tagsContainer = document.getElementById(tagsid);
+    const [original, urlQ] = url.split("?");
+    const urlQuery = urlQ ? (0, _utils.parseQuery)("?" + urlQ) : undefined;
+    select && select.addEventListener("change", ()=>{
+        if (select.value === "reset") {
+            let query = urlQ ? {
+                ...urlQuery,
+                ...(0, _utils.querMetaMain)()
+            } : (0, _utils.querMetaMain)();
+            query = (0, _utils.stringifyQuery)((0, _utils.querMetaMain)());
+            const newurl = original + query;
+            makeSearch({
+                url: newurl,
+                containerid,
+                card,
+                args,
+                aftercall
+            });
+            return;
+        }
+        let query = (0, _utils.mergeQueries)((0, _utils.querMeta)(), (0, _utils.parseQuery)(select.value), [
+            "order"
+        ]);
+        query = urlQ ? {
+            ...urlQuery,
+            ...query
+        } : query;
+        query = (0, _utils.stringifyQuery)(query);
+        const newurl = url + query;
+        makeSearch({
+            url: newurl,
+            containerid,
+            card,
+            args,
+            aftercall
+        });
+    });
+    tagsContainer && tagclass && tagsContainer.addEventListener("click", (ev)=>{
+        const tag = ev.target;
+        if (!tag.classList.contains(tagclass)) return;
+        const oldquery = (0, _utils.querMeta)();
+        const onFilterList = tag.classList.contains("tag-primary");
+        if (tag.dataset.filter === "reset") {
+            let query = urlQ ? {
+                ...urlQuery,
+                ...(0, _utils.querMetaMain)()
+            } : (0, _utils.querMetaMain)();
+            query = (0, _utils.stringifyQuery)((0, _utils.querMetaMain)());
+            const newurl = original + query;
+            function newAftercall(options) {
+                const tags = tagsContainer.querySelectorAll(`.${tagclass}`);
+                tags.forEach((t)=>t.classList.remove("tag-primary"));
+                aftercall && aftercall(options);
+            }
+            makeSearch({
+                url: newurl,
+                containerid,
+                card,
+                args,
+                aftercall: newAftercall
+            });
+            return;
+        }
+        const tagFilter = (0, _utils.parseQuery)(tag.dataset.filter);
+        const key = Object.keys(tagFilter)[0];
+        let query = {};
+        if (onFilterList) {
+            // removing the current filter value from filter if it is includedd
+            oldquery[key] = oldquery[key].split(",").filter((v)=>v !== tagFilter[key]).join(",");
+            // deleting that filter from query if the current value was the only value on it
+            if (!oldquery[key]) delete oldquery[key];
+            query = oldquery;
+        } else query = (0, _utils.mergeQueries)(oldquery, tagFilter, [
+            key
+        ]);
+        query = (0, _utils.stringifyQuery)(query);
+        function newAftercall(options) {
+            tag.classList.toggle("tag-primary");
+            aftercall && aftercall(options);
+        }
+        const newurl = original + query;
+        makeSearch({
+            url: newurl,
+            containerid,
+            card,
+            args,
+            aftercall: newAftercall
+        });
+    });
+}
+function softUpdate(btnid, channel = "media") {
+    const btn = document.getElementById(btnid);
+    if (!btn) return;
+    const channels = {
+        media: "/media/soft",
+        episode: "/media/episode/soft"
+    };
+    btn.addEventListener("click", async ()=>{
+        (0, _utils.rotateBtn)(btnid);
+        const { id } = (0, _utils.parseQuery)(window.location.search);
+        try {
+            const response = await (0, _model.patchFull)(channels[channel], {
+                id
+            });
+            (0, _utils.alertResponse)(response.message);
+            (0, _utils.stopRotateBtn)(btnid);
+            window.setTimeout(()=>window.location.reload(), 3000);
+        } catch (error) {
+            console.log(error);
+            (0, _utils.displayError)(error, btnid);
+        }
+    });
+}
+
+},{"../models/model":"4SBHD","./markup":"kNRSi","./utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "userCard", ()=>userCard);
+parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
+parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
+parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
+var _functions = require("./functions");
+function userCard(user) {
+    const active = user.active ? "pause" : "play";
+    const markup = `
+  <div class="user-card" data-user-id="${user.id}">
+    <div class="user-card__details">
+      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
+      <span>${user.email}</span>
+    </div>
+    <div class="user-card__buttons">
+      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
+      <i class="fas fa-trash-alt i-primary delete-user"></i>
+    </div>
+  </div>`;
+    return markup;
+}
+function dmediaCard(media, buttonType = "") {
+    let buttons = `
+    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
+    <i class="fas fa-trash-alt i-primary delete-media"></i>
+  `;
+    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
+    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
+    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
+    const markup = `
+    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
+      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
+      <div class="dmedia-card__details">
+        <h4 class="dmedia-card__details-title">${media.title}</h4>
+        <ul>
+          <li>${media.type}</li>
+          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
+          <li>${(0, _functions.getTime)(media.released).date}</li>
+        </ul>
+
+        <div class="dmedia-card__details-button">
+          <span>${buttons}</span>
+        </div>
+      </div>
+    </div>
+  `;
+    return markup;
+}
+function dlinkCard(link, pre = "", post = "", redirect = false) {
+    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
+    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
+    const markup = `
+  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
+    <span>${pre}${link.name || link.episode || link.season}${post}</span>
+    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
+  </div>
+  `;
+    return markup;
+}
+function mediaCard(media) {
+    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
+    const markup = `
+  <div class="media-card" data-media-id='${media.id}'>
+    <div class="media-card__image">
+      <img src="${media.poster}" />
+    </div>
+    <div class="media-card__details">
+      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
+      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
+    </div>
+  </div>
+  `;
+    return markup;
+}
+
+},{"./functions":"hZORM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "appError", ()=>appError);
+/**
+ * Turn a query from string to object
+ * @param {String} queryString url search string
+ * @returns Object - query
+ */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
+/**
+ * Turns a query object to a string
+ * @param {Object} query to turn to string
+ * @returns String - url search string
+ */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+/**
+ * Merges the date and the time to one full date
+ * @param {Date} date Date form an input element
+ * @param {Date} time Time from an input element
+ * @returns ISOString
+ */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
+/**
+ * Builds a date and time value for an input element
+ * @param {Date} iso ISOString
+ * @returns Object {date, time}
+ */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
+parcelHelpers.export(exports, "cutString", ()=>cutString);
+/**
+ * Takes a single date and return a user visible data
+ * @param {Date} iso ISOString date
+ * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
+ */ parcelHelpers.export(exports, "getTime", ()=>getTime);
+parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
+function appError(message) {
+    const error = new Error(message);
+    error.isOperational = true;
+    return error;
+}
+function parseQuery(queryString) {
+    const obj = {};
+    queryString.slice(1).split("&").forEach((q)=>{
+        const [key, value] = q.split("=");
+        if (!key.includes("[")) obj[key] = value;
+        else {
+            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
+            const innerKey = last.slice(0, last.length - 1); // the query operator
+            const innerOb = {}; //
+            innerOb[innerKey] = value;
+            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
+            else obj[first] = innerOb; // when the key does not exist we add the inner object
+        }
+    });
+    return obj;
+}
+function stringifyQuery(query) {
+    let string = Object.entries(query);
+    string = string.map(([key, value])=>breakOb(key, value));
+    string = string.join("&");
+    function breakOb(key, value) {
+        if (typeof value !== "object") return `${key}=${value}`;
+        let i = Object.entries(value);
+        i = i.map(([a, b])=>inner(key, a, b));
+        return i.join("&");
+    }
+    function inner(key, op, value) {
+        return `${key}[${op}]=${value}`;
+    }
+    string = `?${string}`;
+    return string;
+}
+function mergeDate(date, time) {
+    if (!date || !time) return;
+    const value = `${date} ${time}`;
+    const newDate = new Date(value).toISOString();
+    return newDate;
+}
+function unmergeDate(iso) {
+    const a = new Date(iso);
+    const y = `${a.getFullYear()}`.padStart(2, "0");
+    const m = `${a.getMonth() + 1}`.padStart(2, "0");
+    const d = `${a.getDate()}`.padStart(2, "0");
+    const hh = `${a.getHours()}`.padStart(2, "0");
+    const mm = `${a.getMinutes()}`.padStart(2, "0");
+    const date = `${y}-${m}-${d}`;
+    const time = `${hh}:${mm}`;
+    return {
+        date,
+        time
+    };
+}
+function cutString(str, endAt = 60) {
+    const cutAt = endAt - 3;
+    if (str.length > endAt) {
+        const newStr = str.slice(0, cutAt);
+        const last = newStr.charAt(newStr.length - 1);
+        let reten;
+        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
+        else reten = `${newStr}...`;
+        return reten;
+    }
+    return str;
+}
+function getTime(iso) {
+    const s = new Date(iso);
+    const time = s.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "numeric"
+    });
+    const date = s.toDateString();
+    const localDate = s.toLocaleDateString();
+    const simple = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    });
+    const lateralDate = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+    const fullLocalDate = `${localDate}   ${time}`;
+    const fullDate = new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const complete = new Intl.DateTimeFormat(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const simpleDate = new Intl.DateTimeFormat(undefined, {
+        year: "2-digit",
+        month: "short",
+        day: "numeric"
+    }).format(s);
+    let timeZone = s.toLocaleTimeString(undefined, {
+        timeZoneName: "short"
+    }).split(" ").at(-1).slice(0, 3);
+    return {
+        time,
+        date,
+        simpleDate,
+        localDate,
+        lateralDate,
+        fullDate,
+        fullLocalDate,
+        timeZone,
+        simple,
+        complete
+    };
+}
+function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
+    for(const key in newquery){
+        if (fields.includes(key)) {
+            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
+            else oldquery[key] = newquery[key];
+            continue;
+        }
+        oldquery[key] = newquery[key];
+    }
+    return oldquery;
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hiLrG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5858,253 +6097,6 @@ function openPopup(popupid, beforeopen, args = []) {
     popup.classList.toggle("display-off");
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "appError", ()=>appError);
-/**
- * Turn a query from string to object
- * @param {String} queryString url search string
- * @returns Object - query
- */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
-/**
- * Turns a query object to a string
- * @param {Object} query to turn to string
- * @returns String - url search string
- */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
-/**
- * Merges the date and the time to one full date
- * @param {Date} date Date form an input element
- * @param {Date} time Time from an input element
- * @returns ISOString
- */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
-/**
- * Builds a date and time value for an input element
- * @param {Date} iso ISOString
- * @returns Object {date, time}
- */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
-parcelHelpers.export(exports, "cutString", ()=>cutString);
-/**
- * Takes a single date and return a user visible data
- * @param {Date} iso ISOString date
- * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
- */ parcelHelpers.export(exports, "getTime", ()=>getTime);
-parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
-function appError(message) {
-    const error = new Error(message);
-    error.isOperational = true;
-    return error;
-}
-function parseQuery(queryString) {
-    const obj = {};
-    queryString.slice(1).split("&").forEach((q)=>{
-        const [key, value] = q.split("=");
-        if (!key.includes("[")) obj[key] = value;
-        else {
-            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
-            const innerKey = last.slice(0, last.length - 1); // the query operator
-            const innerOb = {}; //
-            innerOb[innerKey] = value;
-            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
-            else obj[first] = innerOb; // when the key does not exist we add the inner object
-        }
-    });
-    return obj;
-}
-function stringifyQuery(query) {
-    let string = Object.entries(query);
-    string = string.map(([key, value])=>breakOb(key, value));
-    string = string.join("&");
-    function breakOb(key, value) {
-        if (typeof value !== "object") return `${key}=${value}`;
-        let i = Object.entries(value);
-        i = i.map(([a, b])=>inner(key, a, b));
-        return i.join("&");
-    }
-    function inner(key, op, value) {
-        return `${key}[${op}]=${value}`;
-    }
-    string = `?${string}`;
-    return string;
-}
-function mergeDate(date, time) {
-    if (!date || !time) return;
-    const value = `${date} ${time}`;
-    const newDate = new Date(value).toISOString();
-    return newDate;
-}
-function unmergeDate(iso) {
-    const a = new Date(iso);
-    const y = `${a.getFullYear()}`.padStart(2, "0");
-    const m = `${a.getMonth() + 1}`.padStart(2, "0");
-    const d = `${a.getDate()}`.padStart(2, "0");
-    const hh = `${a.getHours()}`.padStart(2, "0");
-    const mm = `${a.getMinutes()}`.padStart(2, "0");
-    const date = `${y}-${m}-${d}`;
-    const time = `${hh}:${mm}`;
-    return {
-        date,
-        time
-    };
-}
-function cutString(str, endAt = 60) {
-    const cutAt = endAt - 3;
-    if (str.length > endAt) {
-        const newStr = str.slice(0, cutAt);
-        const last = newStr.charAt(newStr.length - 1);
-        let reten;
-        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
-        else reten = `${newStr}...`;
-        return reten;
-    }
-    return str;
-}
-function getTime(iso) {
-    const s = new Date(iso);
-    const time = s.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "numeric"
-    });
-    const date = s.toDateString();
-    const localDate = s.toLocaleDateString();
-    const simple = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric"
-    });
-    const lateralDate = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-    const fullLocalDate = `${localDate}   ${time}`;
-    const fullDate = new Intl.DateTimeFormat(undefined, {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const complete = new Intl.DateTimeFormat(undefined, {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const simpleDate = new Intl.DateTimeFormat(undefined, {
-        year: "2-digit",
-        month: "short",
-        day: "numeric"
-    }).format(s);
-    let timeZone = s.toLocaleTimeString(undefined, {
-        timeZoneName: "short"
-    }).split(" ").at(-1).slice(0, 3);
-    return {
-        time,
-        date,
-        simpleDate,
-        localDate,
-        lateralDate,
-        fullDate,
-        fullLocalDate,
-        timeZone,
-        simple,
-        complete
-    };
-}
-function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
-    for(const key in newquery){
-        if (fields.includes(key)) {
-            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
-            else oldquery[key] = newquery[key];
-            continue;
-        }
-        oldquery[key] = newquery[key];
-    }
-    return oldquery;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "userCard", ()=>userCard);
-parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
-parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
-parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
-var _functions = require("./functions");
-function userCard(user) {
-    const active = user.active ? "pause" : "play";
-    const markup = `
-  <div class="user-card" data-user-id="${user.id}">
-    <div class="user-card__details">
-      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
-      <span>${user.email}</span>
-    </div>
-    <div class="user-card__buttons">
-      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
-      <i class="fas fa-trash-alt i-primary delete-user"></i>
-    </div>
-  </div>`;
-    return markup;
-}
-function dmediaCard(media, buttonType = "") {
-    let buttons = `
-    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
-    <i class="fas fa-trash-alt i-primary delete-media"></i>
-  `;
-    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
-    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
-    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
-    const markup = `
-    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
-      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
-      <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title">${media.title}</h4>
-        <ul>
-          <li>${media.type}</li>
-          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
-          <li>${(0, _functions.getTime)(media.released).date}</li>
-        </ul>
-
-        <div class="dmedia-card__details-button">
-          <span>${buttons}</span>
-        </div>
-      </div>
-    </div>
-  `;
-    return markup;
-}
-function dlinkCard(link, pre = "", post = "", redirect = false) {
-    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
-    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
-    const markup = `
-  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
-    <span>${pre}${link.name || link.episode || link.season}${post}</span>
-    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
-  </div>
-  `;
-    return markup;
-}
-function mediaCard(media) {
-    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const markup = `
-  <div class="media-card" data-media-id='${media.id}'>
-    <div class="media-card__image">
-      <img src="${media.poster}" />
-    </div>
-    <div class="media-card__details">
-      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
-      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
-    </div>
-  </div>
-  `;
-    return markup;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./functions":"hZORM"}]},["iS3gg","ikUk5"], "ikUk5", "parcelRequiree8ef")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fiKpd","ikUk5"], "ikUk5", "parcelRequiree8ef")
 
 //# sourceMappingURL=movie.js.map

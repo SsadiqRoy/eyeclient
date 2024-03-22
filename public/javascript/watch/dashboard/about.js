@@ -142,16 +142,15 @@
       this[globalName] = mainExports;
     }
   }
-})({"CaOUD":[function(require,module,exports) {
+})({"l6Hjc":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "868e6dec117b4240";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -190,7 +189,6 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
-declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -228,14 +226,9 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     var hostname = getHostname();
     var port = getPort();
-    var protocol = HMR_SECURE || location.protocol == "https:" && ![
-        "localhost",
-        "127.0.0.1",
-        "0.0.0.0"
-    ].includes(hostname) ? "wss" : "ws";
+    var protocol = HMR_SECURE || location.protocol == "https:" && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? "wss" : "ws";
     var ws;
-    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
-    else try {
+    try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -305,14 +298,12 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    if (ws instanceof WebSocket) {
-        ws.onerror = function(e) {
-            if (e.message) console.error(e.message);
-        };
-        ws.onclose = function() {
-            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-        };
-    }
+    ws.onerror = function(e) {
+        if (e.message) console.error(e.message);
+    };
+    ws.onclose = function() {
+        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+    };
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -599,667 +590,7 @@ async function init() {
 }
 init();
 
-},{"../../views/dashboard/aboutView":"3o8Fn","../../models/model":"4SBHD"}],"3o8Fn":[function(require,module,exports) {
-// ============================= CONSTANT VARIABLES
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/*
-
-
-
-
-
-*/ // ============================== RENDERES
-parcelHelpers.export(exports, "renderAbout", ()=>renderAbout);
-/*
-
-
-
-
-
-*/ // ============================== GETTERS
-parcelHelpers.export(exports, "getData", ()=>getData);
-/*
-
-
-
-
-
-*/ // ============================== HANDLERS
-parcelHelpers.export(exports, "handleAbout", ()=>handleAbout);
-/*
-
-
-
-
-
-*/ // ============================== INITIALIZER
-parcelHelpers.export(exports, "initialize", ()=>initialize);
-var _utils = require("../../utils/utils");
-function renderAbout(response) {
-    (0, _utils.alertResponse)(response.message);
-}
-function getData() {
-    const editor = tinymce.get("about");
-    const about = editor.getContent();
-    return {
-        about
-    };
-}
-function handleAbout(controlAbout) {
-    const form = document.getElementById("form-about");
-    const btnid = "btn-about";
-    form.addEventListener("submit", async (ev)=>{
-        ev.preventDefault();
-        (0, _utils.rotateBtn)(btnid);
-        const { id } = (0, _utils.parseQuery)(window.location.search);
-        try {
-            await controlAbout(id);
-            (0, _utils.stopRotateBtn)(btnid);
-            window.setTimeout(()=>window.history.back(), 3000);
-        } catch (error) {
-            (0, _utils.displayError)(error, btnid);
-        }
-    });
-}
-function initialize() {
-    initTinymce();
-}
-/*
-
-
-
-
-
-*/ // ============================== NON-EXPORTING
-function initTinymce() {
-    tinymce.init({
-        selector: "#about",
-        // plugins: [
-        //   'advlist autolink link image lists charmap print  anchor ',
-        //   'searchreplace wordcount visualblocks insertdatetime media nonbreaking',
-        //   'table   paste help',
-        // ],
-        plugins: [
-            // 'a11ychecker',
-            // 'advcode',
-            // 'advtable',
-            // 'checklist',
-            // 'export',
-            // 'powerpaste',
-            // 'formatpainter',
-            // 'media',
-            // 'image',
-            "advlist",
-            "autolink",
-            "lists",
-            "link",
-            "charmap",
-            "anchor",
-            "searchreplace",
-            "visualblocks",
-            "insertdatetime",
-            "table",
-            "wordcount"
-        ],
-        // unincluded pulugins: pagebreak visualchars code emoticons template
-        // unwanted plugins : print preview hr fullscreen help
-        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |image media link forecolor backcolor emoticons | help",
-        // unwanted toolbar : print    fullscreen
-        menu: {
-            favs: {
-                title: "My Favorites",
-                items: "code visualaid | searchreplace | emoticons"
-            }
-        },
-        menubar: "favs file edit view insert format tools table help",
-        skin: window.matchMedia("(prefers-color-scheme: dark)").matches ? "oxide-dark" : "oxide",
-        content_css: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default"
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/utils":"hiLrG"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"hiLrG":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
-parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
-parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
-parcelHelpers.export(exports, "displayError", ()=>displayError);
-parcelHelpers.export(exports, "querMeta", ()=>querMeta);
-parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
-parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
-parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
-parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
-parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
-parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
-parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
-parcelHelpers.export(exports, "openPopup", ()=>openPopup);
-parcelHelpers.export(exports, "closePopup", ()=>closePopup);
-parcelHelpers.export(exports, "api_url", ()=>api_url);
-parcelHelpers.export(exports, "client_url", ()=>client_url);
-parcelHelpers.export(exports, "appError", ()=>appError);
-parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
-parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
-parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
-parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
-parcelHelpers.export(exports, "cutString", ()=>cutString);
-parcelHelpers.export(exports, "getTime", ()=>getTime);
-parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
-parcelHelpers.export(exports, "userCard", ()=>userCard);
-parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
-parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
-parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
-var _dom = require("./dom");
-var _env = require("./env");
-var _functions = require("./functions");
-var _markup = require("./markup");
-const rotateBtn = _dom.rotateBtn;
-const stopRotateBtn = _dom.stopRotateBtn;
-const alertResponse = _dom.alertResponse;
-const displayError = _dom.displayError;
-const querMeta = _dom.querMeta;
-const querMetaMain = _dom.querMetaMain;
-const loadingContent = _dom.loadingContent;
-const clickOtherBtn = _dom.clickOtherBtn;
-const noSearchContent = _dom.noSearchContent;
-const expandSearchBar = _dom.expandSearchBar;
-const controlSidebar = _dom.controlSidebar;
-const fullOpenPopup = _dom.fullOpenPopup;
-const openPopup = _dom.openPopup;
-const closePopup = _dom.closePopup;
-const api_url = _env.api_url;
-const client_url = _env.client_url;
-const appError = _functions.appError;
-const parseQuery = _functions.parseQuery;
-const stringifyQuery = _functions.stringifyQuery;
-const mergeDate = _functions.mergeDate;
-const unmergeDate = _functions.unmergeDate;
-const cutString = _functions.cutString;
-const getTime = _functions.getTime;
-const mergeQueries = _functions.mergeQueries;
-const userCard = _markup.userCard;
-const mediaCard = _markup.mediaCard;
-const dmediaCard = _markup.dmediaCard;
-const dlinkCard = _markup.dlinkCard;
-
-},{"./dom":"kc1Pc","./env":"78DsC","./functions":"hZORM","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kc1Pc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
-//
-parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
-//
-parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
-//
-parcelHelpers.export(exports, "displayError", ()=>displayError);
-//
-parcelHelpers.export(exports, "querMeta", ()=>querMeta);
-//
-parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
-/**
- * Inserts a loading spinner in before loading the content
- * @param {String} id the id of the container that will contain the content
- */ parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
-/**
- * displays a no data of search result or any message to the client instead of cards
- * @param {String} id id of the cards container element
- * @param {String} message message to display in the container
- */ parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
-/**
- * Clicks the hidden main submit btn in a form when a representative visible btn is clicked.
- *
- * Mostly used in popup forms
- * @param {String} visibleId id of the visible btn
- * @param {String} hiddenId id of the main btn in the form
- */ parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
-//
-parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
-parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
-//
-parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
-parcelHelpers.export(exports, "closePopup", ()=>closePopup);
-parcelHelpers.export(exports, "openPopup", ()=>openPopup);
-let to1, to2, to3, to4;
-(function removeAlertResponse() {
-    const body = document.querySelector("body");
-    body.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("close-alert-message")) return;
-        clearTimeout(to1);
-        clearTimeout(to2);
-        clearTimeout(to3);
-        clearTimeout(to4);
-        const alertCard = document.querySelector(".alert-message");
-        alertCard.classList.remove("am-in");
-        setTimeout(()=>{
-            body.removeChild(alertCard);
-        }, 400); // 400ms is to allow the elemet to go back up with 300ms (in css transition)
-    });
-})();
-function rotateBtn(btnid) {
-    const btn = document.getElementById(btnid);
-    btn && btn.insertAdjacentHTML("beforeend", ` <i class="fas fa-spinner"></i>`);
-}
-function stopRotateBtn(btnid) {
-    const btn = document.getElementById(btnid);
-    if (!btn) return console.log("No button found", btnid);
-    const i = btn.querySelector(".fa-spinner");
-    i && btn.removeChild(i);
-}
-function alertResponse(message, type = "", duration = 4) {
-    const body = document.querySelector("body");
-    const alertCard = document.querySelector(".alert-message");
-    let waitTime = 0;
-    // Removing message if there is already one
-    if (alertCard) {
-        clearTimeout(to1);
-        clearTimeout(to2);
-        clearTimeout(to3);
-        clearTimeout(to4);
-        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
-        alertCard.classList.remove("am-in");
-        setTimeout(()=>{
-            body.removeChild(alertCard);
-        }, waitTime);
-    }
-    duration = (duration + 0.2) * 1000 + waitTime;
-    const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
-    // Creating the message
-    to1 = setTimeout(()=>{
-        body.insertAdjacentHTML("afterbegin", markup);
-    }, waitTime + 10);
-    // // Sending the message down
-    to2 = setTimeout(()=>{
-        body.querySelector(".alert-message").classList.add("am-in");
-    }, waitTime + 200);
-    // Sending the message back up
-    to3 = setTimeout(()=>{
-        body.querySelector(".alert-message").classList.remove("am-in");
-    }, duration + 30);
-    // Removing the error card from document
-    to4 = setTimeout(()=>{
-        const card = body.querySelector(".alert-message");
-        body.removeChild(card);
-    }, duration + 1500);
-}
-function displayError(error, btnid, type = "failed", duration = 10) {
-    if (!error.isOperational) {
-        console.error("\uD83C\uDF7Feyeclient: ", error);
-        alertResponse("Sorry something went wrong from our side", type, duration);
-    } else alertResponse(error.message || error._message, type, duration);
-    if (btnid) stopRotateBtn(btnid);
-}
-function querMeta(query, metaName = "meta") {
-    const body = document.querySelector("body");
-    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
-    body.dataset[metaName] = JSON.stringify(query);
-}
-function querMetaMain(query, metaName = "meta") {
-    metaName = metaName + "Main";
-    const body = document.querySelector("body");
-    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
-    body.dataset[metaName] = JSON.stringify(query);
-}
-function loadingContent(id) {
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    const markup = `
-      <div class="center-element">
-        <i class='fa-solid fa-spinner'></i>
-      </div>
-    `;
-    container.insertAdjacentHTML("beforeend", markup);
-}
-function noSearchContent(id, message) {
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    const markup = `
-      <div class="center-element" style='font-size: 1.6rem'>
-        <h3>${message}</h3>
-      </div>
-    `;
-    container.insertAdjacentHTML("beforeend", markup);
-}
-function clickOtherBtn(visibleId, hiddenId) {
-    const visible = document.getElementById(visibleId);
-    if (!visible) return console.warn("\u26A0\uFE0Feyeclient: NO VISIBLE BUTTION FOUND");
-    const hidden = document.getElementById(hiddenId);
-    visible.addEventListener("click", ()=>hidden.click());
-}
-function expandSearchBar(formid) {
-    const form = document.getElementById(formid);
-    // form.style.border = '1px solid salmon';
-    const search = form.querySelector("input");
-    search.addEventListener("focus", ()=>{
-        if (window.innerWidth > 600) return;
-        if (form.previousElementSibling) form.previousElementSibling.style.display = "none";
-        if (form.nextElementSibling) form.nextElementSibling.style.display = "none";
-    });
-    search.addEventListener("blur", ()=>{
-        if (window.innerWidth > 600) return;
-        if (form.previousElementSibling) form.previousElementSibling.style.display = "initial";
-        if (form.nextElementSibling) form.nextElementSibling.style.display = "initial";
-    });
-}
-function controlSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const open = document.getElementById("open-sidebar");
-    const close = document.getElementById("close-sidebar");
-    open.addEventListener("click", ()=>sidebar.style.left = "0");
-    close.addEventListener("click", ()=>sidebar.style.left = "-100%");
-}
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = []) {
-    const elem = document.getElementById(elementid);
-    if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
-    const popup = document.getElementById(popupid);
-    elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
-        popup.classList.toggle("display-off");
-    });
-    popup.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("close-popup")) return;
-        popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
-    });
-}
-function closePopup(popupid, afterclose, args = []) {
-    const popup = document.getElementById(popupid);
-    popup.classList.toggle("display-off");
-    if (afterclose) afterclose(...args);
-}
-function openPopup(popupid, beforeopen, args = []) {
-    const popup = document.getElementById(popupid);
-    if (beforeopen) beforeopen(...args);
-    popup.classList.toggle("display-off");
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78DsC":[function(require,module,exports) {
-// export const api_url = 'http://localhost:3000/v1';
-// export const client_url = 'http://localhost:3100';
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "api_url", ()=>api_url);
-parcelHelpers.export(exports, "client_url", ()=>client_url);
-const api_url = "https://www.api.eyeclient.com/v1";
-const client_url = "https://www.eyeclient.com";
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "appError", ()=>appError);
-/**
- * Turn a query from string to object
- * @param {String} queryString url search string
- * @returns Object - query
- */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
-/**
- * Turns a query object to a string
- * @param {Object} query to turn to string
- * @returns String - url search string
- */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
-/**
- * Merges the date and the time to one full date
- * @param {Date} date Date form an input element
- * @param {Date} time Time from an input element
- * @returns ISOString
- */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
-/**
- * Builds a date and time value for an input element
- * @param {Date} iso ISOString
- * @returns Object {date, time}
- */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
-parcelHelpers.export(exports, "cutString", ()=>cutString);
-/**
- * Takes a single date and return a user visible data
- * @param {Date} iso ISOString date
- * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
- */ parcelHelpers.export(exports, "getTime", ()=>getTime);
-parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
-function appError(message) {
-    const error = new Error(message);
-    error.isOperational = true;
-    return error;
-}
-function parseQuery(queryString) {
-    const obj = {};
-    queryString.slice(1).split("&").forEach((q)=>{
-        const [key, value] = q.split("=");
-        if (!key.includes("[")) obj[key] = value;
-        else {
-            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
-            const innerKey = last.slice(0, last.length - 1); // the query operator
-            const innerOb = {}; //
-            innerOb[innerKey] = value;
-            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
-            else obj[first] = innerOb; // when the key does not exist we add the inner object
-        }
-    });
-    return obj;
-}
-function stringifyQuery(query) {
-    let string = Object.entries(query);
-    string = string.map(([key, value])=>breakOb(key, value));
-    string = string.join("&");
-    function breakOb(key, value) {
-        if (typeof value !== "object") return `${key}=${value}`;
-        let i = Object.entries(value);
-        i = i.map(([a, b])=>inner(key, a, b));
-        return i.join("&");
-    }
-    function inner(key, op, value) {
-        return `${key}[${op}]=${value}`;
-    }
-    string = `?${string}`;
-    return string;
-}
-function mergeDate(date, time) {
-    if (!date || !time) return;
-    const value = `${date} ${time}`;
-    const newDate = new Date(value).toISOString();
-    return newDate;
-}
-function unmergeDate(iso) {
-    const a = new Date(iso);
-    const y = `${a.getFullYear()}`.padStart(2, "0");
-    const m = `${a.getMonth() + 1}`.padStart(2, "0");
-    const d = `${a.getDate()}`.padStart(2, "0");
-    const hh = `${a.getHours()}`.padStart(2, "0");
-    const mm = `${a.getMinutes()}`.padStart(2, "0");
-    const date = `${y}-${m}-${d}`;
-    const time = `${hh}:${mm}`;
-    return {
-        date,
-        time
-    };
-}
-function cutString(str, endAt = 60) {
-    const cutAt = endAt - 3;
-    if (str.length > endAt) {
-        const newStr = str.slice(0, cutAt);
-        const last = newStr.charAt(newStr.length - 1);
-        let reten;
-        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
-        else reten = `${newStr}...`;
-        return reten;
-    }
-    return str;
-}
-function getTime(iso) {
-    const s = new Date(iso);
-    const time = s.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "numeric"
-    });
-    const date = s.toDateString();
-    const localDate = s.toLocaleDateString();
-    const simple = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric"
-    });
-    const lateralDate = s.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-    const fullLocalDate = `${localDate}   ${time}`;
-    const fullDate = new Intl.DateTimeFormat(undefined, {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const complete = new Intl.DateTimeFormat(undefined, {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric"
-    }).format(s);
-    const simpleDate = new Intl.DateTimeFormat(undefined, {
-        year: "2-digit",
-        month: "short",
-        day: "numeric"
-    }).format(s);
-    let timeZone = s.toLocaleTimeString(undefined, {
-        timeZoneName: "short"
-    }).split(" ").at(-1).slice(0, 3);
-    return {
-        time,
-        date,
-        simpleDate,
-        localDate,
-        lateralDate,
-        fullDate,
-        fullLocalDate,
-        timeZone,
-        simple,
-        complete
-    };
-}
-function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
-    for(const key in newquery){
-        if (fields.includes(key)) {
-            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
-            else oldquery[key] = newquery[key];
-            continue;
-        }
-        oldquery[key] = newquery[key];
-    }
-    return oldquery;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "userCard", ()=>userCard);
-parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
-parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
-parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
-var _functions = require("./functions");
-function userCard(user) {
-    const active = user.active ? "pause" : "play";
-    const markup = `
-  <div class="user-card" data-user-id="${user.id}">
-    <div class="user-card__details">
-      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
-      <span>${user.email}</span>
-    </div>
-    <div class="user-card__buttons">
-      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
-      <i class="fas fa-trash-alt i-primary delete-user"></i>
-    </div>
-  </div>`;
-    return markup;
-}
-function dmediaCard(media, buttonType = "") {
-    let buttons = `
-    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
-    <i class="fas fa-trash-alt i-primary delete-media"></i>
-  `;
-    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
-    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
-    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
-    const markup = `
-    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
-      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
-      <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title">${media.title}</h4>
-        <ul>
-          <li>${media.type}</li>
-          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
-          <li>${(0, _functions.getTime)(media.released).date}</li>
-        </ul>
-
-        <div class="dmedia-card__details-button">
-          <span>${buttons}</span>
-        </div>
-      </div>
-    </div>
-  `;
-    return markup;
-}
-function dlinkCard(link, pre = "", post = "", redirect = false) {
-    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
-    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
-    const markup = `
-  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
-    <span>${pre}${link.name || link.episode || link.season}${post}</span>
-    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
-  </div>
-  `;
-    return markup;
-}
-function mediaCard(media) {
-    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const markup = `
-  <div class="media-card" data-media-id='${media.id}'>
-    <div class="media-card__image">
-      <img src="${media.poster}" />
-    </div>
-    <div class="media-card__details">
-      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
-      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
-    </div>
-  </div>
-  `;
-    return markup;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./functions":"hZORM"}],"4SBHD":[function(require,module,exports) {
+},{"../../models/model":"4SBHD","../../views/dashboard/aboutView":"3o8Fn"}],"4SBHD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getSimple", ()=>getSimple);
@@ -1368,7 +699,7 @@ async function deleteRequest(url, fullurl = "api") {
     }
 }
 
-},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/env":"78DsC"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","../utils/env":"78DsC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -2050,7 +1381,37 @@ function bind(fn, thisArg) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cpqD8":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"cpqD8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _utilsJs = require("./../utils.js");
@@ -2293,7 +1654,7 @@ var _toFormDataJsDefault = parcelHelpers.interopDefault(_toFormDataJs);
         ")": "%29",
         "~": "%7E",
         "%20": "+",
-        "%00": "\0"
+        "%00": "\x00"
     };
     return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
         return charMap[match];
@@ -5410,7 +4771,9 @@ var _utilsJsDefault = parcelHelpers.interopDefault(_utilsJs);
 var _axiosHeadersJs = require("./AxiosHeaders.js");
 var _axiosHeadersJsDefault = parcelHelpers.interopDefault(_axiosHeadersJs);
 "use strict";
-const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? thing.toJSON() : thing;
+const headersToObject = (thing)=>thing instanceof (0, _axiosHeadersJsDefault.default) ? {
+        ...thing
+    } : thing;
 function mergeConfig(config1, config2) {
     // eslint-disable-next-line no-param-reassign
     config2 = config2 || {};
@@ -5559,7 +4922,7 @@ exports.default = {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "VERSION", ()=>VERSION);
-const VERSION = "1.6.7";
+const VERSION = "1.6.8";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45wzn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5743,6 +5106,635 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 });
 exports.default = HttpStatusCode;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["CaOUD","7Keio"], "7Keio", "parcelRequiree8ef")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78DsC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "client_url", ()=>client_url);
+const api_url = "http://localhost:3000/v1";
+const client_url = "http://localhost:3100"; // export const api_url = 'https://www.api.eyeclient.com/v1';
+ // export const client_url = 'https://www.eyeclient.com';
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3o8Fn":[function(require,module,exports) {
+// ============================= CONSTANT VARIABLES
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/*
+
+
+
+
+
+*/ // ============================== RENDERES
+parcelHelpers.export(exports, "renderAbout", ()=>renderAbout);
+/*
+
+
+
+
+
+*/ // ============================== GETTERS
+parcelHelpers.export(exports, "getData", ()=>getData);
+/*
+
+
+
+
+
+*/ // ============================== HANDLERS
+parcelHelpers.export(exports, "handleAbout", ()=>handleAbout);
+/*
+
+
+
+
+
+*/ // ============================== INITIALIZER
+parcelHelpers.export(exports, "initialize", ()=>initialize);
+var _utils = require("../../utils/utils");
+function renderAbout(response) {
+    (0, _utils.alertResponse)(response.message);
+}
+function getData() {
+    const editor = tinymce.get("about");
+    const about = editor.getContent();
+    return {
+        about
+    };
+}
+function handleAbout(controlAbout) {
+    const form = document.getElementById("form-about");
+    const btnid = "btn-about";
+    form.addEventListener("submit", async (ev)=>{
+        ev.preventDefault();
+        (0, _utils.rotateBtn)(btnid);
+        const { id } = (0, _utils.parseQuery)(window.location.search);
+        try {
+            await controlAbout(id);
+            (0, _utils.stopRotateBtn)(btnid);
+            window.setTimeout(()=>window.history.back(), 3000);
+        } catch (error) {
+            (0, _utils.displayError)(error, btnid);
+        }
+    });
+}
+function initialize() {
+    initTinymce();
+}
+/*
+
+
+
+
+
+*/ // ============================== NON-EXPORTING
+function initTinymce() {
+    tinymce.init({
+        selector: "#about",
+        // plugins: [
+        //   'advlist autolink link image lists charmap print  anchor ',
+        //   'searchreplace wordcount visualblocks insertdatetime media nonbreaking',
+        //   'table   paste help',
+        // ],
+        plugins: [
+            // 'a11ychecker',
+            // 'advcode',
+            // 'advtable',
+            // 'checklist',
+            // 'export',
+            // 'powerpaste',
+            // 'formatpainter',
+            // 'media',
+            // 'image',
+            "advlist",
+            "autolink",
+            "lists",
+            "link",
+            "charmap",
+            "anchor",
+            "searchreplace",
+            "visualblocks",
+            "insertdatetime",
+            "table",
+            "wordcount"
+        ],
+        // unincluded pulugins: pagebreak visualchars code emoticons template
+        // unwanted plugins : print preview hr fullscreen help
+        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |image media link forecolor backcolor emoticons | help",
+        // unwanted toolbar : print    fullscreen
+        menu: {
+            favs: {
+                title: "My Favorites",
+                items: "code visualaid | searchreplace | emoticons"
+            }
+        },
+        menubar: "favs file edit view insert format tools table help",
+        skin: window.matchMedia("(prefers-color-scheme: dark)").matches ? "oxide-dark" : "oxide",
+        content_css: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default"
+    });
+}
+
+},{"../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hiLrG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
+parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
+parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
+parcelHelpers.export(exports, "displayError", ()=>displayError);
+parcelHelpers.export(exports, "querMeta", ()=>querMeta);
+parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
+parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
+parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
+parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
+parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
+parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
+parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
+parcelHelpers.export(exports, "openPopup", ()=>openPopup);
+parcelHelpers.export(exports, "closePopup", ()=>closePopup);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "client_url", ()=>client_url);
+parcelHelpers.export(exports, "appError", ()=>appError);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
+parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
+parcelHelpers.export(exports, "cutString", ()=>cutString);
+parcelHelpers.export(exports, "getTime", ()=>getTime);
+parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
+parcelHelpers.export(exports, "userCard", ()=>userCard);
+parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
+parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
+parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
+var _dom = require("./dom");
+var _env = require("./env");
+var _functions = require("./functions");
+var _markup = require("./markup");
+const rotateBtn = _dom.rotateBtn;
+const stopRotateBtn = _dom.stopRotateBtn;
+const alertResponse = _dom.alertResponse;
+const displayError = _dom.displayError;
+const querMeta = _dom.querMeta;
+const querMetaMain = _dom.querMetaMain;
+const loadingContent = _dom.loadingContent;
+const clickOtherBtn = _dom.clickOtherBtn;
+const noSearchContent = _dom.noSearchContent;
+const expandSearchBar = _dom.expandSearchBar;
+const controlSidebar = _dom.controlSidebar;
+const fullOpenPopup = _dom.fullOpenPopup;
+const openPopup = _dom.openPopup;
+const closePopup = _dom.closePopup;
+const api_url = _env.api_url;
+const client_url = _env.client_url;
+const appError = _functions.appError;
+const parseQuery = _functions.parseQuery;
+const stringifyQuery = _functions.stringifyQuery;
+const mergeDate = _functions.mergeDate;
+const unmergeDate = _functions.unmergeDate;
+const cutString = _functions.cutString;
+const getTime = _functions.getTime;
+const mergeQueries = _functions.mergeQueries;
+const userCard = _markup.userCard;
+const mediaCard = _markup.mediaCard;
+const dmediaCard = _markup.dmediaCard;
+const dlinkCard = _markup.dlinkCard;
+
+},{"./dom":"kc1Pc","./env":"78DsC","./functions":"hZORM","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kc1Pc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
+//
+parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
+//
+parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
+//
+parcelHelpers.export(exports, "displayError", ()=>displayError);
+//
+parcelHelpers.export(exports, "querMeta", ()=>querMeta);
+//
+parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
+/**
+ * Inserts a loading spinner in before loading the content
+ * @param {String} id the id of the container that will contain the content
+ */ parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
+/**
+ * displays a no data of search result or any message to the client instead of cards
+ * @param {String} id id of the cards container element
+ * @param {String} message message to display in the container
+ */ parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
+/**
+ * Clicks the hidden main submit btn in a form when a representative visible btn is clicked.
+ *
+ * Mostly used in popup forms
+ * @param {String} visibleId id of the visible btn
+ * @param {String} hiddenId id of the main btn in the form
+ */ parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
+//
+parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
+parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
+//
+parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
+parcelHelpers.export(exports, "closePopup", ()=>closePopup);
+parcelHelpers.export(exports, "openPopup", ()=>openPopup);
+let to1, to2, to3, to4;
+(function removeAlertResponse() {
+    const body = document.querySelector("body");
+    body.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("close-alert-message")) return;
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        const alertCard = document.querySelector(".alert-message");
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, 400); // 400ms is to allow the elemet to go back up with 300ms (in css transition)
+    });
+})();
+function rotateBtn(btnid) {
+    const btn = document.getElementById(btnid);
+    btn && btn.insertAdjacentHTML("beforeend", ` <i class="fas fa-spinner"></i>`);
+}
+function stopRotateBtn(btnid) {
+    const btn = document.getElementById(btnid);
+    if (!btn) return console.log("No button found", btnid);
+    const i = btn.querySelector(".fa-spinner");
+    i && btn.removeChild(i);
+}
+function alertResponse(message, type = "", duration = 4) {
+    const body = document.querySelector("body");
+    const alertCard = document.querySelector(".alert-message");
+    let waitTime = 0;
+    // Removing message if there is already one
+    if (alertCard) {
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, waitTime);
+    }
+    duration = (duration + 0.2) * 1000 + waitTime;
+    const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
+    // Creating the message
+    to1 = setTimeout(()=>{
+        body.insertAdjacentHTML("afterbegin", markup);
+    }, waitTime + 10);
+    // // Sending the message down
+    to2 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.add("am-in");
+    }, waitTime + 200);
+    // Sending the message back up
+    to3 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.remove("am-in");
+    }, duration + 30);
+    // Removing the error card from document
+    to4 = setTimeout(()=>{
+        const card = body.querySelector(".alert-message");
+        body.removeChild(card);
+    }, duration + 1500);
+}
+function displayError(error, btnid, type = "failed", duration = 10) {
+    if (!error.isOperational) {
+        console.error("\uD83C\uDF7Feyeclient: ", error);
+        alertResponse("Sorry something went wrong from our side", type, duration);
+    } else alertResponse(error.message || error._message, type, duration);
+    if (btnid) stopRotateBtn(btnid);
+}
+function querMeta(query, metaName = "meta") {
+    const body = document.querySelector("body");
+    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
+    body.dataset[metaName] = JSON.stringify(query);
+}
+function querMetaMain(query, metaName = "meta") {
+    metaName = metaName + "Main";
+    const body = document.querySelector("body");
+    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
+    body.dataset[metaName] = JSON.stringify(query);
+}
+function loadingContent(id) {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    const markup = `
+      <div class="center-element">
+        <i class='fa-solid fa-spinner'></i>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", markup);
+}
+function noSearchContent(id, message) {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    const markup = `
+      <div class="center-element" style='font-size: 1.6rem'>
+        <h3>${message}</h3>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", markup);
+}
+function clickOtherBtn(visibleId, hiddenId) {
+    const visible = document.getElementById(visibleId);
+    if (!visible) return console.warn("\u26A0\uFE0Feyeclient: NO VISIBLE BUTTION FOUND");
+    const hidden = document.getElementById(hiddenId);
+    visible.addEventListener("click", ()=>hidden.click());
+}
+function expandSearchBar(formid) {
+    const form = document.getElementById(formid);
+    // form.style.border = '1px solid salmon';
+    const search = form.querySelector("input");
+    search.addEventListener("focus", ()=>{
+        if (window.innerWidth > 600) return;
+        if (form.previousElementSibling) form.previousElementSibling.style.display = "none";
+        if (form.nextElementSibling) form.nextElementSibling.style.display = "none";
+    });
+    search.addEventListener("blur", ()=>{
+        if (window.innerWidth > 600) return;
+        if (form.previousElementSibling) form.previousElementSibling.style.display = "initial";
+        if (form.nextElementSibling) form.nextElementSibling.style.display = "initial";
+    });
+}
+function controlSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const open = document.getElementById("open-sidebar");
+    const close = document.getElementById("close-sidebar");
+    open.addEventListener("click", ()=>sidebar.style.left = "0");
+    close.addEventListener("click", ()=>sidebar.style.left = "-100%");
+}
+function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = []) {
+    const elem = document.getElementById(elementid);
+    if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
+    const popup = document.getElementById(popupid);
+    elem.addEventListener("click", (e)=>{
+        if (beforeopen) beforeopen(...bargs);
+        popup.classList.toggle("display-off");
+    });
+    popup.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("close-popup")) return;
+        popup.classList.toggle("display-off");
+        if (afterclose) afterclose(...aargs);
+    });
+}
+function closePopup(popupid, afterclose, args = []) {
+    const popup = document.getElementById(popupid);
+    popup.classList.toggle("display-off");
+    if (afterclose) afterclose(...args);
+}
+function openPopup(popupid, beforeopen, args = []) {
+    const popup = document.getElementById(popupid);
+    if (beforeopen) beforeopen(...args);
+    popup.classList.toggle("display-off");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "appError", ()=>appError);
+/**
+ * Turn a query from string to object
+ * @param {String} queryString url search string
+ * @returns Object - query
+ */ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
+/**
+ * Turns a query object to a string
+ * @param {Object} query to turn to string
+ * @returns String - url search string
+ */ parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+/**
+ * Merges the date and the time to one full date
+ * @param {Date} date Date form an input element
+ * @param {Date} time Time from an input element
+ * @returns ISOString
+ */ parcelHelpers.export(exports, "mergeDate", ()=>mergeDate);
+/**
+ * Builds a date and time value for an input element
+ * @param {Date} iso ISOString
+ * @returns Object {date, time}
+ */ parcelHelpers.export(exports, "unmergeDate", ()=>unmergeDate);
+parcelHelpers.export(exports, "cutString", ()=>cutString);
+/**
+ * Takes a single date and return a user visible data
+ * @param {Date} iso ISOString date
+ * @returns Object containing {tiem, date, localDate, lateralDate, fullDate, timeZone}
+ */ parcelHelpers.export(exports, "getTime", ()=>getTime);
+parcelHelpers.export(exports, "mergeQueries", ()=>mergeQueries);
+function appError(message) {
+    const error = new Error(message);
+    error.isOperational = true;
+    return error;
+}
+function parseQuery(queryString) {
+    const obj = {};
+    queryString.slice(1).split("&").forEach((q)=>{
+        const [key, value] = q.split("=");
+        if (!key.includes("[")) obj[key] = value;
+        else {
+            const [first, last] = key.split("["); // first = main name of the query field. last = the query operator with "]"
+            const innerKey = last.slice(0, last.length - 1); // the query operator
+            const innerOb = {}; //
+            innerOb[innerKey] = value;
+            if (obj[first]) obj[first][innerKey] = value; // when the key aready exist, we only add the innner key
+            else obj[first] = innerOb; // when the key does not exist we add the inner object
+        }
+    });
+    return obj;
+}
+function stringifyQuery(query) {
+    let string = Object.entries(query);
+    string = string.map(([key, value])=>breakOb(key, value));
+    string = string.join("&");
+    function breakOb(key, value) {
+        if (typeof value !== "object") return `${key}=${value}`;
+        let i = Object.entries(value);
+        i = i.map(([a, b])=>inner(key, a, b));
+        return i.join("&");
+    }
+    function inner(key, op, value) {
+        return `${key}[${op}]=${value}`;
+    }
+    string = `?${string}`;
+    return string;
+}
+function mergeDate(date, time) {
+    if (!date || !time) return;
+    const value = `${date} ${time}`;
+    const newDate = new Date(value).toISOString();
+    return newDate;
+}
+function unmergeDate(iso) {
+    const a = new Date(iso);
+    const y = `${a.getFullYear()}`.padStart(2, "0");
+    const m = `${a.getMonth() + 1}`.padStart(2, "0");
+    const d = `${a.getDate()}`.padStart(2, "0");
+    const hh = `${a.getHours()}`.padStart(2, "0");
+    const mm = `${a.getMinutes()}`.padStart(2, "0");
+    const date = `${y}-${m}-${d}`;
+    const time = `${hh}:${mm}`;
+    return {
+        date,
+        time
+    };
+}
+function cutString(str, endAt = 60) {
+    const cutAt = endAt - 3;
+    if (str.length > endAt) {
+        const newStr = str.slice(0, cutAt);
+        const last = newStr.charAt(newStr.length - 1);
+        let reten;
+        if (last === " ") reten = `${newStr.slice(0, newStr.length - 1)}...`;
+        else reten = `${newStr}...`;
+        return reten;
+    }
+    return str;
+}
+function getTime(iso) {
+    const s = new Date(iso);
+    const time = s.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "numeric"
+    });
+    const date = s.toDateString();
+    const localDate = s.toLocaleDateString();
+    const simple = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    });
+    const lateralDate = s.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+    const fullLocalDate = `${localDate}   ${time}`;
+    const fullDate = new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const complete = new Intl.DateTimeFormat(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    }).format(s);
+    const simpleDate = new Intl.DateTimeFormat(undefined, {
+        year: "2-digit",
+        month: "short",
+        day: "numeric"
+    }).format(s);
+    let timeZone = s.toLocaleTimeString(undefined, {
+        timeZoneName: "short"
+    }).split(" ").at(-1).slice(0, 3);
+    return {
+        time,
+        date,
+        simpleDate,
+        localDate,
+        lateralDate,
+        fullDate,
+        fullLocalDate,
+        timeZone,
+        simple,
+        complete
+    };
+}
+function mergeQueries(oldquery = {}, newquery = {}, fields = []) {
+    for(const key in newquery){
+        if (fields.includes(key)) {
+            if (oldquery[key]) oldquery[key] = `${newquery[key]},${oldquery[key]}`;
+            else oldquery[key] = newquery[key];
+            continue;
+        }
+        oldquery[key] = newquery[key];
+    }
+    return oldquery;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kNRSi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "userCard", ()=>userCard);
+parcelHelpers.export(exports, "dmediaCard", ()=>dmediaCard);
+parcelHelpers.export(exports, "dlinkCard", ()=>dlinkCard);
+parcelHelpers.export(exports, "mediaCard", ()=>mediaCard);
+var _functions = require("./functions");
+function userCard(user) {
+    const active = user.active ? "pause" : "play";
+    const markup = `
+  <div class="user-card" data-user-id="${user.id}">
+    <div class="user-card__details">
+      <strong>${user.name} &nbsp; (${user.accessLevel})</strong>
+      <span>${user.email}</span>
+    </div>
+    <div class="user-card__buttons">
+      <i class="fas fa-${active} i-secondary change-user-status" data-user-status="${user.active}"></i>
+      <i class="fas fa-trash-alt i-primary delete-user"></i>
+    </div>
+  </div>`;
+    return markup;
+}
+function dmediaCard(media, buttonType = "") {
+    let buttons = `
+    <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
+    <i class="fas fa-trash-alt i-primary delete-media"></i>
+  `;
+    if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
+    if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
+    const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
+    const markup = `
+    <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
+      <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
+      <div class="dmedia-card__details">
+        <h4 class="dmedia-card__details-title">${media.title}</h4>
+        <ul>
+          <li>${media.type}</li>
+          <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
+          <li>${(0, _functions.getTime)(media.released).date}</li>
+        </ul>
+
+        <div class="dmedia-card__details-button">
+          <span>${buttons}</span>
+        </div>
+      </div>
+    </div>
+  `;
+    return markup;
+}
+function dlinkCard(link, pre = "", post = "", redirect = false) {
+    let direction = '<i class="fas fa-edit i-secondary edit-link"></i>';
+    if (redirect) direction = `<a href='${redirect}'><i class="fas fa-edit i-secondary"></i></a>`;
+    const markup = `
+  <div class="link-item" data-link-id='${link.id}' data-link='${JSON.stringify(link)}'>
+    <span>${pre}${link.name || link.episode || link.season}${post}</span>
+    <span>${direction}<i class="fas fa-trash-alt i-primary delete-link"></i></span>
+  </div>
+  `;
+    return markup;
+}
+function mediaCard(media) {
+    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
+    const markup = `
+  <div class="media-card" data-media-id='${media.id}'>
+    <div class="media-card__image">
+      <img src="${media.poster}" />
+    </div>
+    <div class="media-card__details">
+      <a href="${link}" class="media-card__details__title" title='${media.year}'>${media.title}</a>
+      <span class="media-card__details__rate-type">${media.imdbRating || "N/A"} <i class="fas fa-star"></i> &nbsp; <span>${media.type}</span></span>
+    </div>
+  </div>
+  `;
+    return markup;
+}
+
+},{"./functions":"hZORM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["l6Hjc","7Keio"], "7Keio", "parcelRequiree8ef")
 
 //# sourceMappingURL=about.js.map
