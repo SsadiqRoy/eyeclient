@@ -10,6 +10,8 @@ dotenv.config({ path: path.join(__dirname, './eyeclientfront.env') });
 
 const app = require('./app');
 
+//
+
 const server = app.listen(process.env.port, process.env.host, () => console.log('🍿Eye Client is Up....'));
 
 process.on('unhandledRejection', (error) => {
