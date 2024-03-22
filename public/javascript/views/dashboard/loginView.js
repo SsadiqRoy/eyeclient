@@ -6,8 +6,6 @@ import { alertResponse, rotateBtn, stopRotateBtn, displayError } from '../../uti
 
 
 
-
-
 */
 
 // ============================== RENDERES
@@ -15,7 +13,7 @@ import { alertResponse, rotateBtn, stopRotateBtn, displayError } from '../../uti
 // export const displayError = DE;
 
 export function renderLogin(data) {
-  alertResponse(`Welcome back ${data.name}`);
+  alertResponse(`Welcome back to eyeclient ${data.name}`);
 
   window.setTimeout(() => window.location.assign('/executive'), 5500);
 }
