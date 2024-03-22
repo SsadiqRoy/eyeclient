@@ -6,7 +6,7 @@ const { js_path, api_url } = process.env;
 exports.home = catchAsync(async (req, res, next) => {
   const ext = {
     page: 'home',
-    title: 'Download Movie, Tv Series and Games',
+    title: 'Download Movies, Tv Series and Games, Free High Quality Download Links',
     css: 'home',
     js: `${js_path}/client/home`,
   };
@@ -52,7 +52,7 @@ exports.details = catchAsync(async (req, res, next) => {
 
   const ext = {
     page: 'details',
-    title: '',
+    title: `${media.title}${season && ' Season ' + season.season}`,
     css: 'details',
     js: `${js_path}/client/details`,
   };
@@ -74,14 +74,12 @@ exports.download = catchAsync(async (req, res, next) => {
     name: link.resolution > 10 && link.resolution < 10000 ? `${link.name}p` : link.name,
   };
 
-  console.log(media);
-
   const ext = {
     page: 'download',
-    title: 'Donwload',
+    title: `Donwload ${linkNames.media} ${linkNames.episode} ${linkNames.name}`,
     css: 'download',
     js: `${js_path}/client/download`,
   };
 
-  res.status(200).render('client/download', { ext, link, linkNames });
+  res.status(200).render('client/download', { ext, link, linkNames, media });
 });
