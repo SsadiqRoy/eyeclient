@@ -91,7 +91,7 @@ export function getLinkData() {
   if (name === '1080x256') resolution = 1090;
   if (name === 'other') {
     name = document.getElementById('other-name').value;
-    resolution = 1000;
+    resolution = 10000;
   }
 
   const link = document.getElementById('link').value;
