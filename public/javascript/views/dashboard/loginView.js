@@ -15,7 +15,7 @@ import { alertResponse, rotateBtn, stopRotateBtn, displayError } from '../../uti
 export function renderLogin(data) {
   alertResponse(`Welcome back to eyeclient ${data.name}`);
 
-  // window.setTimeout(() => window.location.assign('/executive'), 5500);
+  window.setTimeout(() => window.location.assign('/executive'), 5500);
 }
 
 /*

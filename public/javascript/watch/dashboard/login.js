@@ -679,7 +679,7 @@ parcelHelpers.export(exports, "handleLogin", ()=>handleLogin) /*
 var _utils = require("../../utils/utils");
 function renderLogin(data) {
     (0, _utils.alertResponse)(`Welcome back to eyeclient ${data.name}`);
-// window.setTimeout(() => window.location.assign('/executive'), 5500);
+    window.setTimeout(()=>window.location.assign("/executive"), 5500);
 }
 function getLogins() {
     const email = document.getElementById("email").value;
