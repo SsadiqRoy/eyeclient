@@ -85,8 +85,15 @@ export function getLinkData() {
   const { id } = parseQuery(window.location.search);
 
   let name = document.getElementById('resolution').value;
-  const resolution = name === 'other' ? 10000 : name === 'hdcam' ? 10 : name.split('x')[0];
-  if (name === 'other') name = document.getElementById('other-name').value;
+  let resolution = name;
+  if (name === 'hdcam') resolution = 10;
+  if (name === '720x256') resolution = 800;
+  if (name === '1080x256') resolution = 1090;
+  if (name === 'other') {
+    name = document.getElementById('other-name').value;
+    resolution = 1000;
+  }
+
   const link = document.getElementById('link').value;
 
   return { episode: id, name, resolution, link };
