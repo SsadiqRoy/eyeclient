@@ -195,7 +195,7 @@ export function controlSidebar() {
 
 //
 
-export function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = []) {
+export function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
   const elem = document.getElementById(elementid);
   if (!elem) return console.warn(`⚠️eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
   const popup = document.getElementById(popupid);
@@ -203,6 +203,7 @@ export function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs 
   elem.addEventListener('click', (e) => {
     if (beforeopen) beforeopen(...bargs);
     popup.classList.toggle('display-off');
+    afteropen && afteropen(...aoargs);
   });
 
   popup.addEventListener('click', (ev) => {

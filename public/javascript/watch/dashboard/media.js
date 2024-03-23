@@ -629,14 +629,7 @@ parcelHelpers.export(exports, "handleSoftAdd", ()=>handleSoftAdd);
 
 
 */ // ============================== INITIALIZER
-parcelHelpers.export(exports, "initialize", ()=>initialize) /*
-
-
-
-
-
-*/  // ============================== NON-EXPORTING
-;
+parcelHelpers.export(exports, "initialize", ()=>initialize);
 var _independent = require("../../utils/independent");
 var _utils = require("../../utils/utils");
 // ============================= CONSTANT VARIABLES
@@ -689,7 +682,7 @@ function handleSoftAdd(controlSoftAdd) {
 function initialize() {
     (0, _utils.expandSearchBar)("form-search");
     (0, _utils.controlSidebar)();
-    (0, _utils.fullOpenPopup)("open-soft-add-popup", "soft-add-popup");
+    (0, _utils.fullOpenPopup)("open-soft-add-popup", "soft-add-popup", undefined, undefined, undefined, undefined, afterOpenPopup);
     (0, _utils.clickOtherBtn)("btn-soft-add-alt", "btn-soft-add");
     window.addEventListener("DOMContentLoaded", ()=>{
         (0, _independent.initialLoad)({
@@ -715,6 +708,16 @@ function initialize() {
             selectid: "filter"
         });
     });
+}
+/*
+
+
+
+
+
+*/ // ============================== NON-EXPORTING
+function afterOpenPopup() {
+    document.getElementById("imdb-id").focus();
 }
 
 },{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
@@ -5969,13 +5972,14 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = []) {
+function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
         if (beforeopen) beforeopen(...bargs);
         popup.classList.toggle("display-off");
+        afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;

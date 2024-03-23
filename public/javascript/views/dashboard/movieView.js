@@ -206,7 +206,7 @@ export function handleDeleteLink(controlDeleteLink) {
 
 export function initialize() {
   softUpdate('soft-update');
-  fullOpenPopup('new-link', 'link-popup', clearLinkPopup);
+  fullOpenPopup('new-link', 'link-popup', clearLinkPopup, undefined, undefined, undefined, afterOpenPopup);
   changeName();
   clickOtherBtn('btn-link-alt', 'btn-link');
   onEditLink();
@@ -264,4 +264,9 @@ function onEditLink() {
       editLinkPopup(currentLink);
       openPopup('link-popup');
     });
+}
+
+//
+function afterOpenPopup() {
+  document.getElementById('resolution').focus();
 }

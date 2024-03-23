@@ -5301,7 +5301,7 @@ function handleDeleteLink(controlDeleteLink) {
 }
 function initialize() {
     (0, _independent.softUpdate)("soft-update");
-    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup);
+    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup, undefined, undefined, undefined, afterOpenPopup);
     changeName();
     (0, _utils.clickOtherBtn)("btn-link-alt", "btn-link");
     onEditLink();
@@ -5356,6 +5356,10 @@ function onEditLink() {
         editLinkPopup(currentLink);
         (0, _utils.openPopup)("link-popup");
     });
+}
+//
+function afterOpenPopup() {
+    document.getElementById("resolution").focus();
 }
 
 },{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
@@ -6084,13 +6088,14 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = []) {
+function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
         if (beforeopen) beforeopen(...bargs);
         popup.classList.toggle("display-off");
+        afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;

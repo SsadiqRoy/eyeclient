@@ -116,7 +116,7 @@ export function handleSoftAdd(controlSoftAdd) {
 export function initialize() {
   expandSearchBar('form-search');
   controlSidebar();
-  fullOpenPopup('open-soft-add-popup', 'soft-add-popup');
+  fullOpenPopup('open-soft-add-popup', 'soft-add-popup', undefined, undefined, undefined, undefined, afterOpenPopup);
   clickOtherBtn('btn-soft-add-alt', 'btn-soft-add');
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -140,3 +140,6 @@ export function initialize() {
 */
 
 // ============================== NON-EXPORTING
+function afterOpenPopup() {
+  document.getElementById('imdb-id').focus();
+}
