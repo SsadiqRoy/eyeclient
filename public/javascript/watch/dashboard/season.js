@@ -5293,12 +5293,25 @@ function handleDeleteEpisode(controlDeleteEpisode) {
     });
 }
 function initialize() {
-    (0, _utils.fullOpenPopup)("soft-add", "soft-add-popup", clearEpisodePopup, undefined, [
-        "soft"
-    ]);
-    (0, _utils.fullOpenPopup)("hard-add", "hard-add-popup", clearEpisodePopup, undefined, [
-        "hard"
-    ]);
+    (0, _utils.fullOpenPopup)({
+        elementid: "soft-add",
+        popupid: "soft-add-popup",
+        afterclose: clearEpisodePopup,
+        aargs: [
+            "soft"
+        ],
+        afteropen: afterOpenPopup
+    });
+    (0, _utils.fullOpenPopup)({
+        elementid: "hard-add",
+        popupid: "hard-add-popup",
+        afterclose: clearEpisodePopup,
+        aargs: [
+            "hard"
+        ],
+        afteropen: afterOpenPopupHard,
+        openkey: "Comma"
+    });
     (0, _utils.clickOtherBtn)("btn-soft-add-alt", "btn-soft-add");
     (0, _utils.clickOtherBtn)("btn-hard-add-alt", "btn-hard-add");
 }
@@ -5323,6 +5336,14 @@ function clearEpisodePopup(action = "soft") {
     document.getElementById("plot").value = "";
     document.getElementById("runtime").value = "";
     document.getElementById("imdb-rating").value = "";
+}
+//
+//
+function afterOpenPopup() {
+    document.getElementById("imdb-id").focus();
+}
+function afterOpenPopupHard() {
+    document.getElementById("imdb-id-hard").focus();
 }
 
 },{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
@@ -6051,19 +6072,30 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
+        beforeopen && beforeopen(...bargs);
         popup.classList.toggle("display-off");
         afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;
         popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
     });
 }
 function closePopup(popupid, afterclose, args = []) {
@@ -6071,10 +6103,11 @@ function closePopup(popupid, afterclose, args = []) {
     popup.classList.toggle("display-off");
     if (afterclose) afterclose(...args);
 }
-function openPopup(popupid, beforeopen, args = []) {
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
     const popup = document.getElementById(popupid);
     if (beforeopen) beforeopen(...args);
     popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iMQ6F","fdvUo"], "fdvUo", "parcelRequiree8ef")

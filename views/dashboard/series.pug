@@ -7,7 +7,7 @@ html
     link(rel="stylesheet", href="/styles/css/form.css")
     title 🍿Eye Client - Dashboard | #{ext.title || ''}
 
-  body 
+  body(data-next=`${series.Seasons.length+1}`)
     include ../externals/functions
     include ../externals/cards
 

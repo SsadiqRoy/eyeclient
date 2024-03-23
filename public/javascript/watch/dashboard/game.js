@@ -5294,7 +5294,12 @@ function handleDeleteLink(controlDeleteLink) {
 }
 function initialize() {
     (0, _independent.softUpdate)("soft-update");
-    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup);
+    (0, _utils.fullOpenPopup)({
+        elementid: "new-link",
+        popupid: "link-popup",
+        afterclose: clearLinkPopup,
+        afteropen: afterOpenPopup
+    });
     // changeName();
     (0, _utils.clickOtherBtn)("btn-link-alt", "btn-link");
     onEditLink();
@@ -5306,17 +5311,17 @@ function initialize() {
 
 
 */ // ============================== NON-EXPORTING
-function changeName() {
-    const { id } = (0, _utils.parseQuery)(window.location.search);
-    if (!id) return;
-    const resolution = document.getElementById("resolution");
-    const otherName = document.getElementById("group-other");
-    resolution.addEventListener("change", ()=>{
-        const { value } = resolution;
-        if (value === "other") return otherName.classList.remove("display-off");
-        otherName.classList.add("display-off");
-    });
-}
+// function changeName() {
+//   const { id } = parseQuery(window.location.search);
+//   if (!id) return;
+//   const resolution = document.getElementById('resolution');
+//   const otherName = document.getElementById('group-other');
+//   resolution.addEventListener('change', () => {
+//     const { value } = resolution;
+//     if (value === 'other') return otherName.classList.remove('display-off');
+//     otherName.classList.add('display-off');
+//   });
+// }
 //
 function clearLinkPopup() {
     document.getElementById("name").value = "Part ";
@@ -5337,6 +5342,11 @@ function onEditLink() {
         editLinkPopup(currentLink);
         (0, _utils.openPopup)("link-popup");
     });
+}
+//
+//
+function afterOpenPopup() {
+    document.getElementById("name").focus();
 }
 
 },{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
@@ -6065,19 +6075,30 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
+        beforeopen && beforeopen(...bargs);
         popup.classList.toggle("display-off");
         afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;
         popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
     });
 }
 function closePopup(popupid, afterclose, args = []) {
@@ -6085,10 +6106,11 @@ function closePopup(popupid, afterclose, args = []) {
     popup.classList.toggle("display-off");
     if (afterclose) afterclose(...args);
 }
-function openPopup(popupid, beforeopen, args = []) {
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
     const popup = document.getElementById(popupid);
     if (beforeopen) beforeopen(...args);
     popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4ju4O","l63xR"], "l63xR", "parcelRequiree8ef")

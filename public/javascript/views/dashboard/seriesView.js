@@ -37,7 +37,6 @@ export function renderSeries(response, id) {
 export function renderSeason(response) {
   const { message, data: season } = response;
   const redirect = `/executive/season?id=${season.id}&series=${season.series}`;
-  // const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
 
   alertResponse(message);
 
@@ -49,6 +48,8 @@ export function renderSeason(response) {
   if (next) next.insertAdjacentHTML('beforebegin', dlinkCard(season, 'Season ', undefined, redirect));
   else if (prev) prev.insertAdjacentHTML('afterend', dlinkCard(season, 'Season ', undefined, redirect));
   else container.insertAdjacentHTML('afterbegin', dlinkCard(season, 'Season ', undefined, redirect));
+
+  document.querySelector('body').dataset.next = +season.season + 1;
 }
 
 export function renderDeleteSeason(id) {
@@ -196,7 +197,8 @@ export function handleDeleteSeason(controlDeleteSeason) {
 
 export function initialize() {
   softUpdate('soft-update');
-  fullOpenPopup('new-season', 'season-popup', clearSeasonPopup);
+  fullOpenPopup({ elementid: 'new-season', popupid: 'season-popup', afterclose: clearSeasonPopup, afteropen: afterOpenPopup });
+
   // changeName();
   clickOtherBtn('btn-season-alt', 'btn-season');
   onEditSeason();
@@ -214,7 +216,7 @@ export function initialize() {
 
 //
 function clearSeasonPopup() {
-  document.getElementById('season').value = '';
+  document.getElementById('season').value = document.querySelector('body').dataset.next;
   document.getElementById('season-poster').value = '';
   document.getElementById('season-released').value = '';
   currentSeason = undefined;
@@ -237,4 +239,11 @@ function onEditSeason() {
       editSeasonPopup(currentSeason);
       openPopup('season-popup');
     });
+}
+
+//
+
+//
+function afterOpenPopup() {
+  document.getElementById('season').focus();
 }

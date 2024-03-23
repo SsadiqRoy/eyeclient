@@ -179,8 +179,15 @@ export function handleDeleteEpisode(controlDeleteEpisode) {
 // ============================== INITIALIZER
 
 export function initialize() {
-  fullOpenPopup('soft-add', 'soft-add-popup', clearEpisodePopup, undefined, ['soft']);
-  fullOpenPopup('hard-add', 'hard-add-popup', clearEpisodePopup, undefined, ['hard']);
+  fullOpenPopup({ elementid: 'soft-add', popupid: 'soft-add-popup', afterclose: clearEpisodePopup, aargs: ['soft'], afteropen: afterOpenPopup });
+  fullOpenPopup({
+    elementid: 'hard-add',
+    popupid: 'hard-add-popup',
+    afterclose: clearEpisodePopup,
+    aargs: ['hard'],
+    afteropen: afterOpenPopupHard,
+    openkey: 'Comma',
+  });
 
   clickOtherBtn('btn-soft-add-alt', 'btn-soft-add');
   clickOtherBtn('btn-hard-add-alt', 'btn-hard-add');
@@ -212,4 +219,14 @@ function clearEpisodePopup(action = 'soft') {
   document.getElementById('plot').value = '';
   document.getElementById('runtime').value = '';
   document.getElementById('imdb-rating').value = '';
+}
+
+//
+
+//
+function afterOpenPopup() {
+  document.getElementById('imdb-id').focus();
+}
+function afterOpenPopupHard() {
+  document.getElementById('imdb-id-hard').focus();
 }

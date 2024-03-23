@@ -198,7 +198,8 @@ export function handleDeleteLink(controlDeleteLink) {
 
 export function initialize() {
   softUpdate('soft-update');
-  fullOpenPopup('new-link', 'link-popup', clearLinkPopup);
+  fullOpenPopup({ elementid: 'new-link', popupid: 'link-popup', afterclose: clearLinkPopup, afteropen: afterOpenPopup });
+
   // changeName();
   clickOtherBtn('btn-link-alt', 'btn-link');
   onEditLink();
@@ -214,17 +215,17 @@ export function initialize() {
 
 // ============================== NON-EXPORTING
 
-function changeName() {
-  const { id } = parseQuery(window.location.search);
-  if (!id) return;
-  const resolution = document.getElementById('resolution');
-  const otherName = document.getElementById('group-other');
-  resolution.addEventListener('change', () => {
-    const { value } = resolution;
-    if (value === 'other') return otherName.classList.remove('display-off');
-    otherName.classList.add('display-off');
-  });
-}
+// function changeName() {
+//   const { id } = parseQuery(window.location.search);
+//   if (!id) return;
+//   const resolution = document.getElementById('resolution');
+//   const otherName = document.getElementById('group-other');
+//   resolution.addEventListener('change', () => {
+//     const { value } = resolution;
+//     if (value === 'other') return otherName.classList.remove('display-off');
+//     otherName.classList.add('display-off');
+//   });
+// }
 
 //
 function clearLinkPopup() {
@@ -252,4 +253,11 @@ function onEditLink() {
       editLinkPopup(currentLink);
       openPopup('link-popup');
     });
+}
+
+//
+
+//
+function afterOpenPopup() {
+  document.getElementById('name').focus();
 }

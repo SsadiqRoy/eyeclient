@@ -682,7 +682,11 @@ function handleSoftAdd(controlSoftAdd) {
 function initialize() {
     (0, _utils.expandSearchBar)("form-search");
     (0, _utils.controlSidebar)();
-    (0, _utils.fullOpenPopup)("open-soft-add-popup", "soft-add-popup", undefined, undefined, undefined, undefined, afterOpenPopup);
+    (0, _utils.fullOpenPopup)({
+        elementid: "open-soft-add-popup",
+        popupid: "soft-add-popup",
+        afteropen: afterOpenPopup
+    });
     (0, _utils.clickOtherBtn)("btn-soft-add-alt", "btn-soft-add");
     window.addEventListener("DOMContentLoaded", ()=>{
         (0, _independent.initialLoad)({
@@ -5972,19 +5976,30 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
+        beforeopen && beforeopen(...bargs);
         popup.classList.toggle("display-off");
         afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;
         popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
     });
 }
 function closePopup(popupid, afterclose, args = []) {
@@ -5992,10 +6007,11 @@ function closePopup(popupid, afterclose, args = []) {
     popup.classList.toggle("display-off");
     if (afterclose) afterclose(...args);
 }
-function openPopup(popupid, beforeopen, args = []) {
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
     const popup = document.getElementById(popupid);
     if (beforeopen) beforeopen(...args);
     popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["44Tjg","3d6UO"], "3d6UO", "parcelRequiree8ef")

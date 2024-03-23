@@ -195,13 +195,13 @@ export function controlSidebar() {
 
 //
 
-export function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+export function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = 'Period' }) {
   const elem = document.getElementById(elementid);
   if (!elem) return console.warn(`⚠️eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
   const popup = document.getElementById(popupid);
 
   elem.addEventListener('click', (e) => {
-    if (beforeopen) beforeopen(...bargs);
+    beforeopen && beforeopen(...bargs);
     popup.classList.toggle('display-off');
     afteropen && afteropen(...aoargs);
   });
@@ -209,7 +209,20 @@ export function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs 
   popup.addEventListener('click', (ev) => {
     if (!ev.target.classList.contains('close-popup')) return;
     popup.classList.toggle('display-off');
-    if (afterclose) afterclose(...aargs);
+    afterclose && afterclose(...aargs);
+  });
+
+  window.addEventListener('keydown', (ev) => {
+    if (ev.code === 'Escape') {
+      !popup.classList.contains('display-off') && popup.classList.add('display-off');
+      afterclose && afterclose(...aargs);
+    }
+
+    if (ev.ctrlKey && ev.code === openkey) {
+      beforeopen && beforeopen(...bargs);
+      popup.classList.remove('display-off');
+      afteropen && afteropen(...aoargs);
+    }
   });
 }
 
@@ -219,8 +232,9 @@ export function closePopup(popupid, afterclose, args = []) {
   if (afterclose) afterclose(...args);
 }
 
-export function openPopup(popupid, beforeopen, args = []) {
+export function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
   const popup = document.getElementById(popupid);
   if (beforeopen) beforeopen(...args);
   popup.classList.toggle('display-off');
+  afteropen && afteropen(...aoargs);
 }

@@ -206,7 +206,8 @@ export function handleDeleteLink(controlDeleteLink) {
 
 export function initialize() {
   softUpdate('soft-update');
-  fullOpenPopup('new-link', 'link-popup', clearLinkPopup, undefined, undefined, undefined, afterOpenPopup);
+  fullOpenPopup({ elementid: 'new-link', popupid: 'link-popup', afterclose: clearLinkPopup, afteropen: afterOpenPopup });
+
   changeName();
   clickOtherBtn('btn-link-alt', 'btn-link');
   onEditLink();

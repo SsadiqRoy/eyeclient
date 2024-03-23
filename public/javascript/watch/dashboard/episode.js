@@ -5285,10 +5285,20 @@ function handleDeleteLink(controlDeleteLink) {
 }
 function initialize() {
     (0, _independent.softUpdate)("soft-update", "episode");
-    (0, _utils.fullOpenPopup)("new-link", "link-popup", clearLinkPopup, undefined, undefined, undefined, afterOpenPopup);
+    (0, _utils.fullOpenPopup)({
+        elementid: "new-link",
+        popupid: "link-popup",
+        afterclose: clearLinkPopup,
+        afteropen: afterOpenPopup
+    });
     changeName();
     (0, _utils.clickOtherBtn)("btn-link-alt", "btn-link");
     onEditLink();
+    window.addEventListener("keydown", (ev)=>{
+        const { code } = ev;
+        if (code !== "KeyO") return;
+        (0, _utils.openPopup)("link-popup", undefined, undefined, afterOpenPopup);
+    });
 }
 /*
 
@@ -6073,19 +6083,30 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
+        beforeopen && beforeopen(...bargs);
         popup.classList.toggle("display-off");
         afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;
         popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
     });
 }
 function closePopup(popupid, afterclose, args = []) {
@@ -6093,10 +6114,11 @@ function closePopup(popupid, afterclose, args = []) {
     popup.classList.toggle("display-off");
     if (afterclose) afterclose(...args);
 }
-function openPopup(popupid, beforeopen, args = []) {
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
     const popup = document.getElementById(popupid);
     if (beforeopen) beforeopen(...args);
     popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iOGPI","iB90z"], "iB90z", "parcelRequiree8ef")

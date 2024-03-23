@@ -5182,7 +5182,6 @@ function renderSeries(response, id) {
 function renderSeason(response) {
     const { message, data: season } = response;
     const redirect = `/executive/season?id=${season.id}&series=${season.series}`;
-    // const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
     (0, _utils.alertResponse)(message);
     const card = document.querySelector(`[data-link-id='${season.id}']`);
     const next = card?.nextElementSibling;
@@ -5191,6 +5190,7 @@ function renderSeason(response) {
     if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(season, "Season ", undefined, redirect));
     else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(season, "Season ", undefined, redirect));
     else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(season, "Season ", undefined, redirect));
+    document.querySelector("body").dataset.next = +season.season + 1;
 }
 function renderDeleteSeason(id) {
     const card = document.querySelector(`[data-link-id='${id}']`);
@@ -5292,7 +5292,12 @@ function handleDeleteSeason(controlDeleteSeason) {
 }
 function initialize() {
     (0, _independent.softUpdate)("soft-update");
-    (0, _utils.fullOpenPopup)("new-season", "season-popup", clearSeasonPopup);
+    (0, _utils.fullOpenPopup)({
+        elementid: "new-season",
+        popupid: "season-popup",
+        afterclose: clearSeasonPopup,
+        afteropen: afterOpenPopup
+    });
     // changeName();
     (0, _utils.clickOtherBtn)("btn-season-alt", "btn-season");
     onEditSeason();
@@ -5306,7 +5311,7 @@ function initialize() {
 */ // ============================== NON-EXPORTING
 //
 function clearSeasonPopup() {
-    document.getElementById("season").value = "";
+    document.getElementById("season").value = document.querySelector("body").dataset.next;
     document.getElementById("season-poster").value = "";
     document.getElementById("season-released").value = "";
     currentSeason = undefined;
@@ -5324,6 +5329,11 @@ function onEditSeason() {
         editSeasonPopup(currentSeason);
         (0, _utils.openPopup)("season-popup");
     });
+}
+//
+//
+function afterOpenPopup() {
+    document.getElementById("season").focus();
 }
 
 },{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
@@ -6052,19 +6062,30 @@ function controlSidebar() {
     open.addEventListener("click", ()=>sidebar.style.left = "0");
     close.addEventListener("click", ()=>sidebar.style.left = "-100%");
 }
-function fullOpenPopup(elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = []) {
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
     const elem = document.getElementById(elementid);
     if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
     const popup = document.getElementById(popupid);
     elem.addEventListener("click", (e)=>{
-        if (beforeopen) beforeopen(...bargs);
+        beforeopen && beforeopen(...bargs);
         popup.classList.toggle("display-off");
         afteropen && afteropen(...aoargs);
     });
     popup.addEventListener("click", (ev)=>{
         if (!ev.target.classList.contains("close-popup")) return;
         popup.classList.toggle("display-off");
-        if (afterclose) afterclose(...aargs);
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
     });
 }
 function closePopup(popupid, afterclose, args = []) {
@@ -6072,10 +6093,11 @@ function closePopup(popupid, afterclose, args = []) {
     popup.classList.toggle("display-off");
     if (afterclose) afterclose(...args);
 }
-function openPopup(popupid, beforeopen, args = []) {
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
     const popup = document.getElementById(popupid);
     if (beforeopen) beforeopen(...args);
     popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["j9hIN","2Zgxn"], "2Zgxn", "parcelRequiree8ef")
