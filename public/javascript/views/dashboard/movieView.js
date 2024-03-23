@@ -245,7 +245,7 @@ function clearLinkPopup() {
 }
 
 function editLinkPopup(link) {
-  const linkNames = ['480', '720', '1080', '2160', '720x256', '1080x256', 'hdcam'];
+  const linkNames = ['480', '720', '1080', '2160', '720x265', '1080x265', 'hdcam', '720x256', '1080x256'];
   const include = linkNames.includes(link.name);
 
   document.getElementById('resolution').value = include ? link.name : 'other';
