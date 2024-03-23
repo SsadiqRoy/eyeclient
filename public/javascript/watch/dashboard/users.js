@@ -5519,6 +5519,7 @@ function dmediaCard(media, buttonType = "") {
     <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
     <i class="fas fa-trash-alt i-primary delete-media"></i>
   `;
+    const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -5526,7 +5527,7 @@ function dmediaCard(media, buttonType = "") {
     <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title">${media.title}</h4>
+        <h4 class="dmedia-card__details-title"><a href="${link}">${media.title}</a></h4>
         <ul>
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
