@@ -1,3 +1,4 @@
+import { alertResponseSmall } from '../../utils/dom';
 import { filter, initialLoad, pageLoad, search } from '../../utils/independent';
 import {
   alertResponse,
@@ -119,6 +120,7 @@ export function initialize() {
   controlSidebar();
   fullOpenPopup({ elementid: 'open-soft-add-popup', popupid: 'soft-add-popup', afteropen: afterOpenPopup });
   clickOtherBtn('btn-soft-add-alt', 'btn-soft-add');
+  copyItem();
 
   window.addEventListener('DOMContentLoaded', () => {
     initialLoad({
@@ -143,4 +145,16 @@ export function initialize() {
 // ============================== NON-EXPORTING
 function afterOpenPopup() {
   document.getElementById('imdb-id').focus();
+}
+
+function copyItem() {
+  document.addEventListener('click', (ev) => {
+    if (!ev.target.classList.contains('fa-copy')) return;
+
+    const { link } = ev.target.dataset;
+    if (!link) return;
+
+    window.navigator.clipboard.write(link);
+    alertResponseSmall('copied', 'success', 2);
+  });
 }

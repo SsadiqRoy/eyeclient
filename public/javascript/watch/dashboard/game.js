@@ -5624,8 +5624,9 @@ function dmediaCard(media, buttonType = "") {
     <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
     <i class="fas fa-trash-alt i-primary delete-media"></i>
   `;
+    const imdbPath = `https://www.imdb.com/title/${media.imdbId}`;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="https://www.imdb.com/title/${media.imdbId}">imdb</a></li>` : "";
+    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="${imdbPath}">imdb</a> &nbsp; <i class="fas fa-copy" data-link="${imdbPath}"></i></li>` : "";
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -5633,7 +5634,7 @@ function dmediaCard(media, buttonType = "") {
     <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title"><a href="${link}">${media.title}</a></h4>
+        <h4 class="dmedia-card__details-title"><a href="${link}">${media.title}</a> &nbsp; <i class="fas fa-copy" data-link="${link}"></i></h4>
         <ul>
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
@@ -5918,6 +5919,7 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 //
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
+parcelHelpers.export(exports, "alertResponseSmall", ()=>alertResponseSmall);
 //
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 //
@@ -5991,6 +5993,42 @@ function alertResponse(message, type = "", duration = 4) {
     }
     duration = (duration + 0.2) * 1000 + waitTime;
     const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
+    // Creating the message
+    to1 = setTimeout(()=>{
+        body.insertAdjacentHTML("afterbegin", markup);
+    }, waitTime + 10);
+    // // Sending the message down
+    to2 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.add("am-in");
+    }, waitTime + 200);
+    // Sending the message back up
+    to3 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.remove("am-in");
+    }, duration + 30);
+    // Removing the error card from document
+    to4 = setTimeout(()=>{
+        const card = body.querySelector(".alert-message");
+        body.removeChild(card);
+    }, duration + 1500);
+}
+function alertResponseSmall(message, type = "", duration = 4) {
+    const body = document.querySelector("body");
+    const alertCard = document.querySelector(".alert-message");
+    let waitTime = 0;
+    // Removing message if there is already one
+    if (alertCard) {
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, waitTime);
+    }
+    duration = (duration + 0.2) * 1000 + waitTime;
+    const markup = `<div class="alert-message alert-message--${type} alert-message--small">${message}<i class="fas fa-times close-alert-message"></i></div>`;
     // Creating the message
     to1 = setTimeout(()=>{
         body.insertAdjacentHTML("afterbegin", markup);

@@ -630,6 +630,7 @@ parcelHelpers.export(exports, "handleSoftAdd", ()=>handleSoftAdd);
 
 */ // ============================== INITIALIZER
 parcelHelpers.export(exports, "initialize", ()=>initialize);
+var _dom = require("../../utils/dom");
 var _independent = require("../../utils/independent");
 var _utils = require("../../utils/utils");
 // ============================= CONSTANT VARIABLES
@@ -688,6 +689,7 @@ function initialize() {
         afteropen: afterOpenPopup
     });
     (0, _utils.clickOtherBtn)("btn-soft-add-alt", "btn-soft-add");
+    copyItem();
     window.addEventListener("DOMContentLoaded", ()=>{
         (0, _independent.initialLoad)({
             containerid: "cards-container",
@@ -723,8 +725,287 @@ function initialize() {
 function afterOpenPopup() {
     document.getElementById("imdb-id").focus();
 }
+function copyItem() {
+    document.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("fa-copy")) return;
+        const { link } = ev.target.dataset;
+        if (!link) return;
+        window.navigator.clipboard.write(link);
+        (0, _dom.alertResponseSmall)("copied", "success", 2);
+    });
+}
 
-},{"../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0IDO":[function(require,module,exports) {
+},{"../../utils/dom":"kc1Pc","../../utils/independent":"e0IDO","../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kc1Pc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
+//
+parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
+//
+parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
+parcelHelpers.export(exports, "alertResponseSmall", ()=>alertResponseSmall);
+//
+parcelHelpers.export(exports, "displayError", ()=>displayError);
+//
+parcelHelpers.export(exports, "querMeta", ()=>querMeta);
+//
+parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
+/**
+ * Inserts a loading spinner in before loading the content
+ * @param {String} id the id of the container that will contain the content
+ */ parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
+/**
+ * displays a no data of search result or any message to the client instead of cards
+ * @param {String} id id of the cards container element
+ * @param {String} message message to display in the container
+ */ parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
+/**
+ * Clicks the hidden main submit btn in a form when a representative visible btn is clicked.
+ *
+ * Mostly used in popup forms
+ * @param {String} visibleId id of the visible btn
+ * @param {String} hiddenId id of the main btn in the form
+ */ parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
+//
+parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
+parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
+//
+parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
+parcelHelpers.export(exports, "closePopup", ()=>closePopup);
+parcelHelpers.export(exports, "openPopup", ()=>openPopup);
+let to1, to2, to3, to4;
+(function removeAlertResponse() {
+    const body = document.querySelector("body");
+    body.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("close-alert-message")) return;
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        const alertCard = document.querySelector(".alert-message");
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, 400); // 400ms is to allow the elemet to go back up with 300ms (in css transition)
+    });
+})();
+function rotateBtn(btnid) {
+    const btn = document.getElementById(btnid);
+    btn && btn.insertAdjacentHTML("beforeend", ` <i class="fas fa-spinner"></i>`);
+}
+function stopRotateBtn(btnid) {
+    const btn = document.getElementById(btnid);
+    if (!btn) return console.log("No button found", btnid);
+    const i = btn.querySelector(".fa-spinner");
+    i && btn.removeChild(i);
+}
+function alertResponse(message, type = "", duration = 4) {
+    const body = document.querySelector("body");
+    const alertCard = document.querySelector(".alert-message");
+    let waitTime = 0;
+    // Removing message if there is already one
+    if (alertCard) {
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, waitTime);
+    }
+    duration = (duration + 0.2) * 1000 + waitTime;
+    const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
+    // Creating the message
+    to1 = setTimeout(()=>{
+        body.insertAdjacentHTML("afterbegin", markup);
+    }, waitTime + 10);
+    // // Sending the message down
+    to2 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.add("am-in");
+    }, waitTime + 200);
+    // Sending the message back up
+    to3 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.remove("am-in");
+    }, duration + 30);
+    // Removing the error card from document
+    to4 = setTimeout(()=>{
+        const card = body.querySelector(".alert-message");
+        body.removeChild(card);
+    }, duration + 1500);
+}
+function alertResponseSmall(message, type = "", duration = 4) {
+    const body = document.querySelector("body");
+    const alertCard = document.querySelector(".alert-message");
+    let waitTime = 0;
+    // Removing message if there is already one
+    if (alertCard) {
+        clearTimeout(to1);
+        clearTimeout(to2);
+        clearTimeout(to3);
+        clearTimeout(to4);
+        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
+        alertCard.classList.remove("am-in");
+        setTimeout(()=>{
+            body.removeChild(alertCard);
+        }, waitTime);
+    }
+    duration = (duration + 0.2) * 1000 + waitTime;
+    const markup = `<div class="alert-message alert-message--${type} alert-message--small">${message}<i class="fas fa-times close-alert-message"></i></div>`;
+    // Creating the message
+    to1 = setTimeout(()=>{
+        body.insertAdjacentHTML("afterbegin", markup);
+    }, waitTime + 10);
+    // // Sending the message down
+    to2 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.add("am-in");
+    }, waitTime + 200);
+    // Sending the message back up
+    to3 = setTimeout(()=>{
+        body.querySelector(".alert-message").classList.remove("am-in");
+    }, duration + 30);
+    // Removing the error card from document
+    to4 = setTimeout(()=>{
+        const card = body.querySelector(".alert-message");
+        body.removeChild(card);
+    }, duration + 1500);
+}
+function displayError(error, btnid, type = "failed", duration = 10) {
+    if (!error.isOperational) {
+        console.error("\uD83C\uDF7Feyeclient: ", error);
+        alertResponse("Sorry something went wrong from our side", type, duration);
+    } else alertResponse(error.message || error._message, type, duration);
+    if (btnid) stopRotateBtn(btnid);
+}
+function querMeta(query, metaName = "meta") {
+    const body = document.querySelector("body");
+    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
+    body.dataset[metaName] = JSON.stringify(query);
+}
+function querMetaMain(query, metaName = "meta") {
+    metaName = metaName + "Main";
+    const body = document.querySelector("body");
+    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
+    body.dataset[metaName] = JSON.stringify(query);
+}
+function loadingContent(id) {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    const markup = `
+      <div class="center-element">
+        <i class='fa-solid fa-spinner'></i>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", markup);
+}
+function noSearchContent(id, message) {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    const markup = `
+      <div class="center-element" style='font-size: 1.6rem'>
+        <h3>${message}</h3>
+      </div>
+    `;
+    container.insertAdjacentHTML("beforeend", markup);
+}
+function clickOtherBtn(visibleId, hiddenId) {
+    const visible = document.getElementById(visibleId);
+    if (!visible) return console.warn("\u26A0\uFE0Feyeclient: NO VISIBLE BUTTION FOUND");
+    const hidden = document.getElementById(hiddenId);
+    visible.addEventListener("click", ()=>hidden.click());
+}
+function expandSearchBar(formid) {
+    const form = document.getElementById(formid);
+    // form.style.border = '1px solid salmon';
+    const search = form.querySelector("input");
+    search.addEventListener("focus", ()=>{
+        if (window.innerWidth > 600) return;
+        if (form.previousElementSibling) form.previousElementSibling.style.display = "none";
+        if (form.nextElementSibling) form.nextElementSibling.style.display = "none";
+    });
+    search.addEventListener("blur", ()=>{
+        if (window.innerWidth > 600) return;
+        if (form.previousElementSibling) form.previousElementSibling.style.display = "initial";
+        if (form.nextElementSibling) form.nextElementSibling.style.display = "initial";
+    });
+}
+function controlSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const open = document.getElementById("open-sidebar");
+    const close = document.getElementById("close-sidebar");
+    open.addEventListener("click", ()=>sidebar.style.left = "0");
+    close.addEventListener("click", ()=>sidebar.style.left = "-100%");
+}
+function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
+    const elem = document.getElementById(elementid);
+    if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
+    const popup = document.getElementById(popupid);
+    elem.addEventListener("click", (e)=>{
+        beforeopen && beforeopen(...bargs);
+        popup.classList.toggle("display-off");
+        afteropen && afteropen(...aoargs);
+    });
+    popup.addEventListener("click", (ev)=>{
+        if (!ev.target.classList.contains("close-popup")) return;
+        popup.classList.toggle("display-off");
+        afterclose && afterclose(...aargs);
+    });
+    window.addEventListener("keydown", (ev)=>{
+        if (ev.code === "Escape") {
+            !popup.classList.contains("display-off") && popup.classList.add("display-off");
+            afterclose && afterclose(...aargs);
+        }
+        if (ev.ctrlKey && ev.code === openkey) {
+            beforeopen && beforeopen(...bargs);
+            popup.classList.remove("display-off");
+            afteropen && afteropen(...aoargs);
+        }
+    });
+}
+function closePopup(popupid, afterclose, args = []) {
+    const popup = document.getElementById(popupid);
+    popup.classList.toggle("display-off");
+    if (afterclose) afterclose(...args);
+}
+function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
+    const popup = document.getElementById(popupid);
+    if (beforeopen) beforeopen(...args);
+    popup.classList.toggle("display-off");
+    afteropen && afteropen(...aoargs);
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"e0IDO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "pageButtons", ()=>pageButtons);
@@ -1762,37 +2043,7 @@ function bind(fn, thisArg) {
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"cpqD8":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cpqD8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _utilsJs = require("./../utils.js");
@@ -5525,8 +5776,9 @@ function dmediaCard(media, buttonType = "") {
     <a href="/executive/${media.type}?id=${media.id}"><i class="fas fa-edit i-secondary"></i></a>
     <i class="fas fa-trash-alt i-primary delete-media"></i>
   `;
+    const imdbPath = `https://www.imdb.com/title/${media.imdbId}`;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="https://www.imdb.com/title/${media.imdbId}">imdb</a></li>` : "";
+    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="${imdbPath}">imdb</a> &nbsp; <i class="fas fa-copy" data-link="${imdbPath}"></i></li>` : "";
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -5534,7 +5786,7 @@ function dmediaCard(media, buttonType = "") {
     <div class="dmedia-card" data-media-id="${media.id}" data-action='${action}'>
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
-        <h4 class="dmedia-card__details-title"><a href="${link}">${media.title}</a></h4>
+        <h4 class="dmedia-card__details-title"><a href="${link}">${media.title}</a> &nbsp; <i class="fas fa-copy" data-link="${link}"></i></h4>
         <ul>
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
@@ -5811,209 +6063,6 @@ const mediaCard = _markup.mediaCard;
 const dmediaCard = _markup.dmediaCard;
 const dlinkCard = _markup.dlinkCard;
 
-},{"./dom":"kc1Pc","./env":"78DsC","./functions":"hZORM","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kc1Pc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
-//
-parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
-//
-parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
-//
-parcelHelpers.export(exports, "displayError", ()=>displayError);
-//
-parcelHelpers.export(exports, "querMeta", ()=>querMeta);
-//
-parcelHelpers.export(exports, "querMetaMain", ()=>querMetaMain);
-/**
- * Inserts a loading spinner in before loading the content
- * @param {String} id the id of the container that will contain the content
- */ parcelHelpers.export(exports, "loadingContent", ()=>loadingContent);
-/**
- * displays a no data of search result or any message to the client instead of cards
- * @param {String} id id of the cards container element
- * @param {String} message message to display in the container
- */ parcelHelpers.export(exports, "noSearchContent", ()=>noSearchContent);
-/**
- * Clicks the hidden main submit btn in a form when a representative visible btn is clicked.
- *
- * Mostly used in popup forms
- * @param {String} visibleId id of the visible btn
- * @param {String} hiddenId id of the main btn in the form
- */ parcelHelpers.export(exports, "clickOtherBtn", ()=>clickOtherBtn);
-//
-parcelHelpers.export(exports, "expandSearchBar", ()=>expandSearchBar);
-parcelHelpers.export(exports, "controlSidebar", ()=>controlSidebar);
-//
-parcelHelpers.export(exports, "fullOpenPopup", ()=>fullOpenPopup);
-parcelHelpers.export(exports, "closePopup", ()=>closePopup);
-parcelHelpers.export(exports, "openPopup", ()=>openPopup);
-let to1, to2, to3, to4;
-(function removeAlertResponse() {
-    const body = document.querySelector("body");
-    body.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("close-alert-message")) return;
-        clearTimeout(to1);
-        clearTimeout(to2);
-        clearTimeout(to3);
-        clearTimeout(to4);
-        const alertCard = document.querySelector(".alert-message");
-        alertCard.classList.remove("am-in");
-        setTimeout(()=>{
-            body.removeChild(alertCard);
-        }, 400); // 400ms is to allow the elemet to go back up with 300ms (in css transition)
-    });
-})();
-function rotateBtn(btnid) {
-    const btn = document.getElementById(btnid);
-    btn && btn.insertAdjacentHTML("beforeend", ` <i class="fas fa-spinner"></i>`);
-}
-function stopRotateBtn(btnid) {
-    const btn = document.getElementById(btnid);
-    if (!btn) return console.log("No button found", btnid);
-    const i = btn.querySelector(".fa-spinner");
-    i && btn.removeChild(i);
-}
-function alertResponse(message, type = "", duration = 4) {
-    const body = document.querySelector("body");
-    const alertCard = document.querySelector(".alert-message");
-    let waitTime = 0;
-    // Removing message if there is already one
-    if (alertCard) {
-        clearTimeout(to1);
-        clearTimeout(to2);
-        clearTimeout(to3);
-        clearTimeout(to4);
-        waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
-        alertCard.classList.remove("am-in");
-        setTimeout(()=>{
-            body.removeChild(alertCard);
-        }, waitTime);
-    }
-    duration = (duration + 0.2) * 1000 + waitTime;
-    const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
-    // Creating the message
-    to1 = setTimeout(()=>{
-        body.insertAdjacentHTML("afterbegin", markup);
-    }, waitTime + 10);
-    // // Sending the message down
-    to2 = setTimeout(()=>{
-        body.querySelector(".alert-message").classList.add("am-in");
-    }, waitTime + 200);
-    // Sending the message back up
-    to3 = setTimeout(()=>{
-        body.querySelector(".alert-message").classList.remove("am-in");
-    }, duration + 30);
-    // Removing the error card from document
-    to4 = setTimeout(()=>{
-        const card = body.querySelector(".alert-message");
-        body.removeChild(card);
-    }, duration + 1500);
-}
-function displayError(error, btnid, type = "failed", duration = 10) {
-    if (!error.isOperational) {
-        console.error("\uD83C\uDF7Feyeclient: ", error);
-        alertResponse("Sorry something went wrong from our side", type, duration);
-    } else alertResponse(error.message || error._message, type, duration);
-    if (btnid) stopRotateBtn(btnid);
-}
-function querMeta(query, metaName = "meta") {
-    const body = document.querySelector("body");
-    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
-    body.dataset[metaName] = JSON.stringify(query);
-}
-function querMetaMain(query, metaName = "meta") {
-    metaName = metaName + "Main";
-    const body = document.querySelector("body");
-    if (!query) return JSON.parse(body.dataset[metaName] || JSON.stringify({}));
-    body.dataset[metaName] = JSON.stringify(query);
-}
-function loadingContent(id) {
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    const markup = `
-      <div class="center-element">
-        <i class='fa-solid fa-spinner'></i>
-      </div>
-    `;
-    container.insertAdjacentHTML("beforeend", markup);
-}
-function noSearchContent(id, message) {
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    const markup = `
-      <div class="center-element" style='font-size: 1.6rem'>
-        <h3>${message}</h3>
-      </div>
-    `;
-    container.insertAdjacentHTML("beforeend", markup);
-}
-function clickOtherBtn(visibleId, hiddenId) {
-    const visible = document.getElementById(visibleId);
-    if (!visible) return console.warn("\u26A0\uFE0Feyeclient: NO VISIBLE BUTTION FOUND");
-    const hidden = document.getElementById(hiddenId);
-    visible.addEventListener("click", ()=>hidden.click());
-}
-function expandSearchBar(formid) {
-    const form = document.getElementById(formid);
-    // form.style.border = '1px solid salmon';
-    const search = form.querySelector("input");
-    search.addEventListener("focus", ()=>{
-        if (window.innerWidth > 600) return;
-        if (form.previousElementSibling) form.previousElementSibling.style.display = "none";
-        if (form.nextElementSibling) form.nextElementSibling.style.display = "none";
-    });
-    search.addEventListener("blur", ()=>{
-        if (window.innerWidth > 600) return;
-        if (form.previousElementSibling) form.previousElementSibling.style.display = "initial";
-        if (form.nextElementSibling) form.nextElementSibling.style.display = "initial";
-    });
-}
-function controlSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const open = document.getElementById("open-sidebar");
-    const close = document.getElementById("close-sidebar");
-    open.addEventListener("click", ()=>sidebar.style.left = "0");
-    close.addEventListener("click", ()=>sidebar.style.left = "-100%");
-}
-function fullOpenPopup({ elementid, popupid, afterclose, beforeopen, aargs = [], bargs = [], afteropen, aoargs = [], openkey = "Period" }) {
-    const elem = document.getElementById(elementid);
-    if (!elem) return console.warn(`\u{26A0}\u{FE0F}eyeclient: NO ELEMENT FOUND WITH ID -> ${elementid}`);
-    const popup = document.getElementById(popupid);
-    elem.addEventListener("click", (e)=>{
-        beforeopen && beforeopen(...bargs);
-        popup.classList.toggle("display-off");
-        afteropen && afteropen(...aoargs);
-    });
-    popup.addEventListener("click", (ev)=>{
-        if (!ev.target.classList.contains("close-popup")) return;
-        popup.classList.toggle("display-off");
-        afterclose && afterclose(...aargs);
-    });
-    window.addEventListener("keydown", (ev)=>{
-        if (ev.code === "Escape") {
-            !popup.classList.contains("display-off") && popup.classList.add("display-off");
-            afterclose && afterclose(...aargs);
-        }
-        if (ev.ctrlKey && ev.code === openkey) {
-            beforeopen && beforeopen(...bargs);
-            popup.classList.remove("display-off");
-            afteropen && afteropen(...aoargs);
-        }
-    });
-}
-function closePopup(popupid, afterclose, args = []) {
-    const popup = document.getElementById(popupid);
-    popup.classList.toggle("display-off");
-    if (afterclose) afterclose(...args);
-}
-function openPopup(popupid, beforeopen, args = [], afteropen, aoargs = []) {
-    const popup = document.getElementById(popupid);
-    if (beforeopen) beforeopen(...args);
-    popup.classList.toggle("display-off");
-    afteropen && afteropen(...aoargs);
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["44Tjg","3d6UO"], "3d6UO", "parcelRequiree8ef")
+},{"./dom":"kc1Pc","./env":"78DsC","./functions":"hZORM","./markup":"kNRSi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["44Tjg","3d6UO"], "3d6UO", "parcelRequiree8ef")
 
 //# sourceMappingURL=media.js.map

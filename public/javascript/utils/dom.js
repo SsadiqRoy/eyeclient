@@ -83,6 +83,52 @@ export function alertResponse(message, type = '', duration = 4) {
   }, duration + 1500);
 }
 
+export function alertResponseSmall(message, type = '', duration = 4) {
+  const body = document.querySelector('body');
+  const alertCard = document.querySelector('.alert-message');
+
+  let waitTime = 0;
+
+  // Removing message if there is already one
+  if (alertCard) {
+    clearTimeout(to1);
+    clearTimeout(to2);
+    clearTimeout(to3);
+    clearTimeout(to4);
+
+    waitTime = 1010; // this is to allow for the 300ms that the element would use to return back up
+    alertCard.classList.remove('am-in');
+
+    setTimeout(() => {
+      body.removeChild(alertCard);
+    }, waitTime);
+  }
+
+  duration = (duration + 0.2) * 1000 + waitTime;
+  const markup = `<div class="alert-message alert-message--${type} alert-message--small">${message}<i class="fas fa-times close-alert-message"></i></div>`;
+
+  // Creating the message
+  to1 = setTimeout(() => {
+    body.insertAdjacentHTML('afterbegin', markup);
+  }, waitTime + 10);
+
+  // // Sending the message down
+  to2 = setTimeout(() => {
+    body.querySelector('.alert-message').classList.add('am-in');
+  }, waitTime + 200);
+
+  // Sending the message back up
+  to3 = setTimeout(() => {
+    body.querySelector('.alert-message').classList.remove('am-in');
+  }, duration + 30);
+
+  // Removing the error card from document
+  to4 = setTimeout(() => {
+    const card = body.querySelector('.alert-message');
+    body.removeChild(card);
+  }, duration + 1500);
+}
+
 //
 
 export function displayError(error, btnid, type = 'failed', duration = 10) {

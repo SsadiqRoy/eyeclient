@@ -268,3 +268,13 @@ i.fa-spinner {
 .am-in {
   top: 1rem;
 }
+
+.alert-message--small {
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+
+  i {
+    display: none;
+  }
+}

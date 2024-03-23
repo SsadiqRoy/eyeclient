@@ -31,6 +31,10 @@
       font-size: $fs-big;
     }
 
+    i.fa-copy {
+      cursor: pointer;
+    }
+
     ul {
       list-style-type: disc;
 
