@@ -148,13 +148,13 @@ function afterOpenPopup() {
 }
 
 function copyItem() {
-  document.addEventListener('click', (ev) => {
+  document.addEventListener('click', async (ev) => {
     if (!ev.target.classList.contains('fa-copy')) return;
 
     const { link } = ev.target.dataset;
     if (!link) return;
 
-    window.navigator.clipboard.write(link);
+    await window.navigator.clipboard.writeText(link);
     alertResponseSmall('copied', 'success', 2);
   });
 }
