@@ -1401,6 +1401,7 @@ function dmediaCard(media, buttonType = "") {
     <i class="fas fa-trash-alt i-primary delete-media"></i>
   `;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
+    const imdbLink = media.imdbId ? `<li><a href="https://www.imdb.com/title/${media.imdbId}">imdb</a></li>` : "";
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -1413,6 +1414,7 @@ function dmediaCard(media, buttonType = "") {
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
           <li>${(0, _functions.getTime)(media.released).date}</li>
+          ${imdbLink}
         </ul>
 
         <div class="dmedia-card__details-button">
