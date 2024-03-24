@@ -688,7 +688,7 @@ const sliders = {
         },
         {
             title: "Prime Video",
-            query: "?search=prime video"
+            query: "?search=amazon"
         },
         {
             title: "Apple Tv",
@@ -738,7 +738,7 @@ const sliders = {
         },
         {
             title: "Prime Video",
-            query: "?type=movie&search=Prime Video"
+            query: "?type=movie&search=amazon"
         },
         {
             title: "Apple Tv",
@@ -792,7 +792,7 @@ const sliders = {
         },
         {
             title: "Prime Video",
-            query: "?type=series&search=Prime Video"
+            query: "?type=series&search=amazon"
         },
         {
             title: "Apple Tv",

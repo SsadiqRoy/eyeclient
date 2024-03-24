@@ -49,7 +49,7 @@ block content
   main.main
     section.main__heading
       .main__heading-image
-        img(src=`${media.poster}`, alt=`${media.title} Poster`)
+        img(src=`${season && season.poster || media.poster}`, alt=`${media.title} Poster`)
       .main__heading-details
         h1 #{media.title} #{season && `- Season ${season.season}`}
         .main__heading-details__short
