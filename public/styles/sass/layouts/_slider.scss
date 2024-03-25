@@ -15,16 +15,25 @@
   }
 
   &__content {
-    width: 100%;
-
+    // width: 100%;
     display: flex;
     gap: 1.5rem;
-
-    overflow-y: auto;
+    overflow-x: auto;
 
     & > * {
       flex-shrink: 0;
     }
+
+    // &-slide {
+    //   // width: max-content;
+    //   display: flex;
+    //   gap: 1.5rem;
+    //   overflow-x: auto;
+
+    //   & > * {
+    //     flex-shrink: 0;
+    //   }
+    // }
 
     @include scroll-bar;
     @include no-scroll-bar;
@@ -50,6 +59,10 @@
     &:hover {
       color: white;
       background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    @include respond(phone) {
+      display: none;
     }
   }
 

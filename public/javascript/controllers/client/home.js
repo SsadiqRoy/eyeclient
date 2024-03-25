@@ -13,6 +13,7 @@ async function controlInitialLoad(slider) {
 async function init() {
   view.initialize();
 
+  // window.setTimeout(() => view.handleInitialLoad(controlInitialLoad), 3000);
   view.handleInitialLoad(controlInitialLoad);
 }
 

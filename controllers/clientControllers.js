@@ -52,7 +52,7 @@ exports.details = catchAsync(async (req, res, next) => {
 
   const ext = {
     page: 'details',
-    title: `${media.title}${season && ' Season ' + season.season}`,
+    title: `${media.title}${season ? ` Season ${season.season}` : ''}`,
     css: 'details',
     js: `${js_path}/client/details`,
   };

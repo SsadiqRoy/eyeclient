@@ -3,63 +3,69 @@ import { expandSearchBar, mediaCard, parseQuery, stringifyQuery } from '../../ut
 
 const sliders = {
   home: [
-    { title: 'In Theathers', query: '?type[or]=series,movie&imdbRating[gt]=7&order=-released' },
-    { title: 'New Episodes', query: '?type=series&order=-lastEpisodeOn' },
-    { title: 'New Movies', query: '?type=movie&order=-released' },
-    { title: 'New Tv Series', query: '?type=series&order=-released' },
-    { title: 'Top Games', query: '?type=game&imdbRating[gt]=6.9' },
-    { title: 'Highly Rated Movies', query: '?type=movie&imdbRating[gt]=6.9' },
-    { title: 'Highly Rated Series', query: '?type=series&imdbRating[gt]=6.9' },
-    { title: 'Major collections', query: '?type=collection&imdbRating[gt]=6.9' },
-    { title: 'Animation', query: '?search=animation' },
-    { title: 'Action & Adventure Games', query: '?search=action,adventure&type=game' },
-    { title: 'Drama Series & Movies', query: '?search=drama&type[ne]=collection' },
-    { title: 'Korean', query: '?search=korea' },
-    { title: 'Netflix', query: '?search=netflix' },
-    { title: 'Prime Video', query: '?search=amazon' },
-    { title: 'Apple Tv', query: '?search=apple' },
-    { title: 'HBO', query: '?search=hbo' },
+    { title: 'In Theathers <i class="fa-solid fa-angles-right"></i>', query: '?type[or]=series,movie&imdbRating[gt]=7&order=-released' },
+    { title: 'New Episodes <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-lastEpisodeOn' },
+    { title: 'New Movies <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&order=-released' },
+    { title: 'New Tv Series <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-released' },
+    { title: 'Top Games <i class="fa-solid fa-angles-right"></i>', query: '?type=game&imdbRating[gt]=6.9' },
+    { title: 'Highly Rated Movies <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&imdbRating[gt]=6.9' },
+    { title: 'Highly Rated Series <i class="fa-solid fa-angles-right"></i>', query: '?type=series&imdbRating[gt]=6.9' },
+    { title: 'Major collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&imdbRating[gt]=6.9' },
+    { title: 'Animation <i class="fa-solid fa-angles-right"></i>', query: '?search=animation' },
+    { title: 'Action & Adventure Games <i class="fa-solid fa-angles-right"></i>', query: '?search=action,adventure&type=game' },
+    { title: 'Drama Series & Movies <i class="fa-solid fa-angles-right"></i>', query: '?search=drama&type[ne]=collection' },
+    { title: 'Korean <i class="fa-solid fa-angles-right"></i>', query: '?search=korea' },
+    { title: 'Netflix <i class="fa-solid fa-angles-right"></i>', query: '?search=netflix' },
+    { title: 'Prime Video <i class="fa-solid fa-angles-right"></i>', query: '?search=amazon' },
+    { title: 'Apple Tv <i class="fa-solid fa-angles-right"></i>', query: '?search=apple' },
+    { title: 'HBO <i class="fa-solid fa-angles-right"></i>', query: '?search=hbo' },
   ],
   movies: [
-    { title: 'New Release', query: '?type=movie&order=-released' },
-    { title: 'In Theaters', query: '?type=movie&imdbRating[gt]=7&order=-released' },
-    { title: 'Top - This Year', query: '?type=movie&imdbRating[gt]=7.5&released[gte]=2024-01-01' },
-    { title: 'Top - Previous Years', query: '?type=movie&imdbRating[gt]=7.5&released[gte]=2020-01-01&released[lt]=2024-01-01' },
-    { title: 'Top All Time', query: '?type=movie&imdbRating[gt]=7.5' },
-    { title: 'animation', query: '?type=movie&search=animation' },
-    { title: 'comedy', query: '?type=movie&search=comedy' },
-    { title: 'action', query: '?type=movie&search=action' },
-    { title: 'netflix', query: '?type=movie&search=netflix' },
-    { title: 'Prime Video', query: '?type=movie&search=amazon' },
-    { title: 'Apple Tv', query: '?type=movie&search=Apple Tv' },
-    { title: 'disney', query: '?type=movie&search=disney' },
+    { title: 'New Release <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&order=-released' },
+    { title: 'In Theaters <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&imdbRating[gt]=7&order=-released' },
+    { title: 'Top - This Year <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&imdbRating[gt]=7.5&released[gte]=2024-01-01' },
+    {
+      title: 'Top - Previous Years <i class="fa-solid fa-angles-right"></i>',
+      query: '?type=movie&imdbRating[gt]=7.5&released[gte]=2020-01-01&released[lt]=2024-01-01',
+    },
+    { title: 'Top All Time <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&imdbRating[gt]=7.5' },
+    { title: 'animation <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=animation' },
+    { title: 'comedy <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=comedy' },
+    { title: 'action <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=action' },
+    { title: 'netflix <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=netflix' },
+    { title: 'Prime Video <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=amazon' },
+    { title: 'Apple Tv <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=Apple Tv' },
+    { title: 'disney <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&search=disney' },
   ],
   series: [
-    { title: 'Trending now', query: '?type=series&imdbRating[gt]=7&order=-released' },
-    { title: 'New Episodes', query: '?type=series&order=-lastEpisodeOn' },
-    { title: 'New Release', query: '?type=series&order=-released' },
-    { title: 'Top - This Year', query: '?type=series&imdbRating[gt]=7.5&released[gte]=2024-01-01' },
-    { title: 'Top - Previous Years', query: '?type=series&imdbRating[gt]=7.5&released[gte]=2020-01-01&released[lt]=2024-01-01' },
-    { title: 'Top All Time', query: '?type=series&imdbRating[gt]=7.5' },
-    { title: 'animation', query: '?type=series&search=animation' },
-    { title: 'comedy', query: '?type=series&search=comedy' },
-    { title: 'action', query: '?type=series&search=action' },
-    { title: 'netflix', query: '?type=series&search=netflix' },
-    { title: 'Prime Video', query: '?type=series&search=amazon' },
-    { title: 'Apple Tv', query: '?type=series&search=Apple Tv' },
-    { title: 'HBO', query: '?type=series&search=hbo' },
+    { title: 'Trending now <i class="fa-solid fa-angles-right"></i>', query: '?type=series&imdbRating[gt]=7&order=-released' },
+    { title: 'New Episodes <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-lastEpisodeOn' },
+    { title: 'New Release <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-released' },
+    { title: 'Top - This Year <i class="fa-solid fa-angles-right"></i>', query: '?type=series&imdbRating[gt]=7.5&released[gte]=2024-01-01' },
+    {
+      title: 'Top - Previous Years <i class="fa-solid fa-angles-right"></i>',
+      query: '?type=series&imdbRating[gt]=7.5&released[gte]=2020-01-01&released[lt]=2024-01-01',
+    },
+    { title: 'Top All Time <i class="fa-solid fa-angles-right"></i>', query: '?type=series&imdbRating[gt]=7.5' },
+    { title: 'animation <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=animation' },
+    { title: 'comedy <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=comedy' },
+    { title: 'action <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=action' },
+    { title: 'netflix <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=netflix' },
+    { title: 'Prime Video <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=amazon' },
+    { title: 'Apple Tv <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=Apple Tv' },
+    { title: 'HBO <i class="fa-solid fa-angles-right"></i>', query: '?type=series&search=hbo' },
   ],
   games: [
-    { title: 'New Release', query: '?type=game&order=-released' },
-    { title: 'Top Games', query: '?type=game&imdbRating[gt]=6.9' },
-    { title: 'Action & Adventure Games', query: '?search=action,adventure&type=game' },
-    { title: 'Collections', query: '?type=collection&collectionType=game&order=-released' },
+    { title: 'New Release <i class="fa-solid fa-angles-right"></i>', query: '?type=game&order=-released' },
+    { title: 'Top Games <i class="fa-solid fa-angles-right"></i>', query: '?type=game&imdbRating[gt]=6.9' },
+    { title: 'Action & Adventure Games <i class="fa-solid fa-angles-right"></i>', query: '?search=action,adventure&type=game' },
+    { title: 'Collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&collectionType=game&order=-released' },
   ],
   collections: [
-    { title: 'movie Collections', query: '?type=collection&collectionType=movie&order=-released' },
-    { title: 'series Collections', query: '?type=collection&collectionType=series&order=-released' },
-    { title: 'game Collections', query: '?type=collection&collectionType=game&order=-released' },
-    { title: 'Major Collections', query: '?type=collection&imdbRating[gte]=7.5&order=-released' },
+    { title: 'movie Collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&collectionType=movie&order=-released' },
+    { title: 'series Collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&collectionType=series&order=-released' },
+    { title: 'game Collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&collectionType=game&order=-released' },
+    { title: 'Major Collections <i class="fa-solid fa-angles-right"></i>', query: '?type=collection&imdbRating[gte]=7.5&order=-released' },
   ],
 };
 /*
@@ -74,6 +80,8 @@ const sliders = {
 
 export function renderSlider(data, slider) {
   if (!data.length) return;
+  const placehoders = document.getElementById('sliders-container');
+  if (placehoders) document.body.removeChild(placehoders);
 
   const footer = document.querySelector('footer');
 
@@ -83,9 +91,9 @@ export function renderSlider(data, slider) {
   <h3 class="slider__heading">${slider.title}</h3>
 
   <div class="slider__container">
-    <div class="slider__button slider__button--left"><i class="fas fa-angle-left"></i></div>
+    <div class="slider__button slider__button--left d-left slider-arrow"><i class="fas fa-angle-left d-left slider-arrow"></i></div>
     <div class="slider__content" id='${id}'></div>
-    <div class="slider__button slider__button--right"><i class="fas fa-angle-right"></i></div>
+    <div class="slider__button slider__button--right slider-arrow d-right"><i class="fas fa-angle-right slider-arrow d-right"></i></div>
   </div>
 </section>
   `;
@@ -134,15 +142,6 @@ export function handleInitialLoad(controlInitialLoad) {
     const pageSliders = sliders[page];
     const extraQuery = '?limit=15&fields=id,poster,title,imdbRating,type,year';
 
-    // pageSliders.forEach(async (slider) => {
-    //   try {
-    //     slider.query = stringifyQuery({ ...parseQuery(slider.query), ...parseQuery(extraQuery) });
-
-    //     await controlInitialLoad(slider);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // });
     for (let i = 0; i < pageSliders.length; i++) {
       const slider = pageSliders[i];
 
@@ -169,6 +168,7 @@ export function handleInitialLoad(controlInitialLoad) {
 
 export function initialize() {
   expandSearchBar('form-search');
+  scrollSlider();
 }
 
 /*
@@ -180,3 +180,17 @@ export function initialize() {
 */
 
 // ============================== NON-EXPORTING
+
+export function scrollSlider() {
+  document.body.addEventListener('click', (ev) => {
+    if (!ev.target.classList.contains('slider-arrow')) return;
+    const container = ev.target.closest('.slider__container');
+    const content = container.querySelector('.slider__content');
+
+    const toRight = ev.target.classList.contains('d-right');
+    const distance = container.clientWidth;
+    const direction = toRight ? +distance : -distance;
+
+    content.scrollBy({ left: direction, behavior: 'smooth' });
+  });
+}

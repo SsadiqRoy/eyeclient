@@ -5911,7 +5911,7 @@ function loadingContent(id) {
     const container = document.getElementById(id);
     container.innerHTML = "";
     const markup = `
-      <div class="center-element">
+      <div class="center-element" style="font-size: 2.6rem">
         <i class='fa-solid fa-spinner'></i>
       </div>
     `;
