@@ -681,7 +681,7 @@ var _model = require("../models/model");
 var _markup = require("./markup");
 var _utils = require("./utils");
 function pageButtons(containerid, metaName = "meta") {
-    const { total, limit, page, available } = (0, _utils.querMeta)(undefined, metaName);
+    const { total, limit, page, available, length } = (0, _utils.querMeta)(undefined, metaName);
     const pages = Math.ceil(total / limit);
     const viewPrev = page > 1 ? "" : "display-off";
     const viewNext = available ? "" : "display-off";
@@ -694,7 +694,7 @@ function pageButtons(containerid, metaName = "meta") {
     const parent = document.getElementById(containerid).parentElement;
     const npButtons = parent.querySelector(".np-buttons");
     npButtons && parent.removeChild(npButtons);
-    parent.insertAdjacentHTML("beforeend", markup);
+    length && parent.insertAdjacentHTML("beforeend", markup);
 }
 //
 async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain = false, scroll = false }) {
@@ -703,13 +703,19 @@ async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain 
         const { data, meta } = await (0, _model.getFull)(url);
         (0, _utils.querMeta)(meta);
         toMetaMain && (0, _utils.querMetaMain)(meta);
-        if (!meta.length) return (0, _utils.noSearchContent)(containerid, "No results found"), aftercall && aftercall({
-            data,
-            meta,
-            card,
-            args,
-            containerid
-        });
+        console.log(meta);
+        if (!meta.length) {
+            (0, _utils.noSearchContent)(containerid, "No results found");
+            pageButtons(containerid);
+            aftercall && aftercall({
+                data,
+                meta,
+                card,
+                args,
+                containerid
+            });
+            return;
+        }
         container.innerHTML = "";
         data.forEach((item)=>container.insertAdjacentHTML("beforeend", _markup[card](item, ...args)));
         pageButtons(containerid);
@@ -765,17 +771,17 @@ function search({ containerid, url, card, formid, args = [], tagsid, tagclass, a
         ev.preventDefault();
         const { value: search } = form.querySelector("input");
         const oldquery = (0, _utils.querMetaMain)();
-        let query = urlQuery ? (0, _utils.stringifyQuery)({
+        let query = urlQuery ? {
             ...urlQuery,
             search
-        }) : (0, _utils.stringifyQuery)({
+        } : {
             search
-        });
+        };
         if (!search) query = urlQuery ? {
             ...urlQuery,
             ...oldquery
         } : oldquery;
-        if (search.startsWith("??")) query = (0, _utils.stringifyQuery)((0, _utils.parseQuery)(search.slice(1)));
+        if (search.startsWith("??")) query = (0, _utils.parseQuery)(search.slice(1));
         if (oldquery.fields) query.fields = oldquery.fields;
         let newAftercall = aftercall;
         if (tagsid && tagclass) newAftercall = (options)=>{
@@ -784,6 +790,7 @@ function search({ containerid, url, card, formid, args = [], tagsid, tagclass, a
             tags.forEach((t)=>t.classList.remove("tag-primary"));
             aftercall && aftercall(options);
         };
+        query = (0, _utils.stringifyQuery)(query);
         const newurl = original + query;
         makeSearch({
             url: newurl,

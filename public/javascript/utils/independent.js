@@ -15,7 +15,7 @@ import {
 } from './utils';
 
 export function pageButtons(containerid, metaName = 'meta') {
-  const { total, limit, page, available } = querMeta(undefined, metaName);
+  const { total, limit, page, available, length } = querMeta(undefined, metaName);
   const pages = Math.ceil(total / limit);
 
   const viewPrev = page > 1 ? '' : 'display-off';
@@ -32,7 +32,7 @@ export function pageButtons(containerid, metaName = 'meta') {
   const npButtons = parent.querySelector('.np-buttons');
   npButtons && parent.removeChild(npButtons);
 
-  parent.insertAdjacentHTML('beforeend', markup);
+  length && parent.insertAdjacentHTML('beforeend', markup);
 }
 
 //
@@ -46,7 +46,13 @@ async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain 
     querMeta(meta);
     toMetaMain && querMetaMain(meta);
 
-    if (!meta.length) return noSearchContent(containerid, 'No results found'), aftercall && aftercall({ data, meta, card, args, containerid });
+    console.log(meta);
+    if (!meta.length) {
+      noSearchContent(containerid, 'No results found');
+      pageButtons(containerid);
+      aftercall && aftercall({ data, meta, card, args, containerid });
+      return;
+    }
 
     container.innerHTML = '';
     data.forEach((item) => container.insertAdjacentHTML('beforeend', markups[card](item, ...args)));
@@ -97,10 +103,10 @@ export function search({ containerid, url, card, formid, args = [], tagsid, tagc
     const { value: search } = form.querySelector('input');
 
     const oldquery = querMetaMain();
-    let query = urlQuery ? stringifyQuery({ ...urlQuery, search }) : stringifyQuery({ search });
+    let query = urlQuery ? { ...urlQuery, search } : { search };
 
     if (!search) query = urlQuery ? { ...urlQuery, ...oldquery } : oldquery;
-    if (search.startsWith('??')) query = stringifyQuery(parseQuery(search.slice(1)));
+    if (search.startsWith('??')) query = parseQuery(search.slice(1));
 
     if (oldquery.fields) query.fields = oldquery.fields;
 
@@ -115,6 +121,7 @@ export function search({ containerid, url, card, formid, args = [], tagsid, tagc
       };
     }
 
+    query = stringifyQuery(query);
     const newurl = original + query;
     makeSearch({ url: newurl, containerid, card, args, aftercall: newAftercall });
   });
