@@ -102,6 +102,8 @@ export function search({ containerid, url, card, formid, args = [], tagsid, tagc
     ev.preventDefault();
     const { value: search } = form.querySelector('input');
 
+    loadingContent(containerid);
+
     const oldquery = querMetaMain();
     let query = urlQuery ? { ...urlQuery, search } : { search };
 
