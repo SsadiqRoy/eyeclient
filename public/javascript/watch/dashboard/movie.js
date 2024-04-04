@@ -5213,7 +5213,7 @@ function getData() {
     const country = document.getElementById("country").value;
     const runtime = document.getElementById("runtime").value;
     const imdbRating = document.getElementById("imdb-rating").value;
-    const keywords = document.getElementById("keywords").value;
+    const keywords = document.getElementById("keywords").value?.trim();
     return {
         imdbId,
         type,
