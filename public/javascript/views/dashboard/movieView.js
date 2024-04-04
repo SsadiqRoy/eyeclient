@@ -112,15 +112,13 @@ export function getLinkData() {
   let name = document.getElementById('resolution').value;
   let resolution = name;
   if (name === 'hdcam') resolution = 10;
-  if (name === '720x256') resolution = 800;
-  if (name === '1080x256') resolution = 1090;
+  if (name === '720x265') resolution = 800;
+  if (name === '1080x265') resolution = 1090;
   if (name === 'other') {
     name = document.getElementById('other-name').value;
     resolution = 10000;
   }
 
-  // const resolution = name === 'other' ? 10000 : name === 'hdcam' ? 10 : name.split('x')[0];
-  // if (name === 'other')
   const link = document.getElementById('link').value;
 
   return { media: id, name, resolution, link };
