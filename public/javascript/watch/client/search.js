@@ -5483,7 +5483,9 @@ function dmediaCard(media, buttonType = "") {
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
         <h4 class="dmedia-card__details-title">
-          <a href="${link}">${media.title}</a> &nbsp; <i class="fas fa-copy" data-link="https://eyeclient.com${link}"></i>
+          <i class="fas fa-copy" data-link="${media.title}" style="font-size: 1rem;"></i> &nbsp; 
+          <a href="${link}">${media.title}</a> &nbsp; 
+          <i class="fas fa-copy" data-link="https://eyeclient.com${link}"></i>
         </h4>
         <ul>
           <li>${media.type}</li>
