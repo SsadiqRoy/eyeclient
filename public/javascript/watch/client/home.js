@@ -1463,9 +1463,7 @@ function dmediaCard(media, buttonType = "") {
   `;
     const imdbPath = `https://www.imdb.com/title/${media.imdbId}`;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="${imdbPath}">imdb</a></li>` : "";
-    // <i class="fas fa-copy" data-link="${imdbPath}"></i>
-    // <i class="fas fa-copy" data-link="https://eyeclient.com${link}"></i></h4>
+    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="${imdbPath}">imdb</a> &nbsp; <i class="fas fa-copy" data-link="${imdbPath}"></i></li>` : "";
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -1474,7 +1472,8 @@ function dmediaCard(media, buttonType = "") {
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
         <h4 class="dmedia-card__details-title">
-          <a href="${link}">${media.title}</a> 
+          <a href="${link}">${media.title}</a> <i class="fas fa-copy" data-link="https://eyeclient.com${link}"></i>
+        </h4>
         <ul>
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
