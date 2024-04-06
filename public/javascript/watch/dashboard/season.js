@@ -5452,7 +5452,8 @@ function search({ containerid, url, card, formid, args = [], tagsid, tagclass, a
     const urlQuery = urlQ ? (0, _utils.parseQuery)("?" + urlQ) : undefined;
     form.addEventListener("submit", (ev)=>{
         ev.preventDefault();
-        const { value: search } = form.querySelector("input");
+        const { value } = form.querySelector("input");
+        const search = value.trim();
         (0, _utils.loadingContent)(containerid);
         const oldquery = (0, _utils.querMetaMain)();
         let query = urlQuery ? {

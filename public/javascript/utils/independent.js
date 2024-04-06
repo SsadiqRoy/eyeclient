@@ -100,7 +100,8 @@ export function search({ containerid, url, card, formid, args = [], tagsid, tagc
 
   form.addEventListener('submit', (ev) => {
     ev.preventDefault();
-    const { value: search } = form.querySelector('input');
+    const { value } = form.querySelector('input');
+    const search = value.trim();
 
     loadingContent(containerid);
 
