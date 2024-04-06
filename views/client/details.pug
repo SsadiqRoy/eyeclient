@@ -2,7 +2,7 @@ extends ../externals/clientBase
 
 block metaTags
   meta(name="description" content=`Download Movies, TV Series and Games on Eye Client for free and fast. Free Direct Download links. Index of Movies. Index of Tv Series. Index of Games`)
-  meta(name="keywords" content=`index of movies,index of movies 2024, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links, Free Direct Download links, New Movies, Trending Movies, Top Rated Movies`)
+  meta(name="keywords" content=`Eye Client, eyeclient, eyeclient.com, index of movies,index of movies 2024, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links, Free Direct Download links, New Movies, Trending Movies, Top Rated Movies`)
 
   meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
   meta(name="copyright" content="eyeclient")
@@ -21,7 +21,7 @@ block metaTags
   meta(name="MobileOptimized" content="320")
   meta(name="pageKey" content=`${media.type} Page`)
 
-  meta(name="og:title" content=`${media.title} | ${media.type} | ${media.imdbRating}⭐`)
+  meta(name="og:title" content=`${media.title} | ${media.type} | Free Download`)
   meta(name="og:type" content=`${media.type}`)
   meta(name="og:url" content=`https://wwww.eyeclient.com/detail/${media.id}`)
   meta(name="og:image" content=`${media.poster}`)
@@ -31,12 +31,13 @@ block metaTags
   meta(name="og:description" content=`${media.plot}`)
   meta(name="og:country-name" content=`${media.country}`)
 
-  meta(name="twitter:title" content=`${media.title}`)
+  meta(name="twitter:title" content=`${media.title} | ${media.type} | Free Download`)
   meta(name="twitter:description" content=`${media.plot}`)
   meta(name="twitter:image" content=`${media.poster}`)
+  meta(name="twitter:image:alt" content=`${media.title}`)
   meta(name="twitter:card" content=`summery_large_image`)
-  meta(name="twitter:site" content=`Eye Client`)
-  meta(name="twitter:creator" content=`@eyeclient`)
+  meta(name="twitter:site" content=`@eyeclient`)
+  //- meta(name="twitter:site" content=`Eye Client`)
   
   meta(name="imdb:pageType" content=`title`)
   meta(name="imdb:subPageType" content=`main`)
