@@ -41,10 +41,22 @@
     font-size: $fs-large;
 
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
     gap: 2rem;
-    flex-wrap: wrap;
+
+    &-request {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-contact {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
 
     &-socials {
       display: flex;
@@ -52,12 +64,12 @@
       flex-wrap: wrap;
     }
 
-    @include respond(land) {
-      display: block;
+    // @include respond(land) {
+    //   display: block;
 
-      strong {
-        display: block;
-      }
-    }
+    //   strong {
+    //     display: block;
+    //   }
+    // }
   }
 }
