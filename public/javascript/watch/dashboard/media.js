@@ -693,7 +693,7 @@ function initialize() {
     window.addEventListener("DOMContentLoaded", ()=>{
         (0, _independent.initialLoad)({
             containerid: "cards-container",
-            url: "/media?fields=title,type,imdbRating,released,poster,id,imdbId,plot&order=-createdAt",
+            url: "/media?fields=title,type,imdbRating,released,poster,id,imdbId,plot,genre&order=-createdAt",
             card: "dmediaCard"
         });
         (0, _independent.pageLoad)({
@@ -5787,7 +5787,8 @@ function dmediaCard(media, buttonType = "") {
   `;
     const imdbPath = `https://www.imdb.com/title/${media.imdbId}`;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ""}
+    const genre = media.genre && media.genre !== "N/A" && media.genre.split(",").map((g)=>`#${g.trim()}`).join(" ");
+    const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ""}\n${genre}
 
 
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
