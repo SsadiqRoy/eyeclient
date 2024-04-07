@@ -46,7 +46,7 @@ async function makeSearch({ url, containerid, card, args, aftercall, toMetaMain 
     querMeta(meta);
     toMetaMain && querMetaMain(meta);
 
-    console.log(meta);
+    // console.log(meta);
     if (!meta.length) {
       noSearchContent(containerid, 'No results found');
       pageButtons(containerid);

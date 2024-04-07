@@ -1463,7 +1463,11 @@ function dmediaCard(media, buttonType = "") {
   `;
     const imdbPath = `https://www.imdb.com/title/${media.imdbId}`;
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
-    const imdbLink = media.imdbId ? `<li class="i-primary"><a href="${imdbPath}">imdb</a> &nbsp; <i class="fas fa-copy" data-link="${imdbPath}"></i></li>` : "";
+    const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ""}
+
+
+\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
+https://eyeclient.com${link}\n\n\n.\n${imdbPath}`;
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -1472,15 +1476,13 @@ function dmediaCard(media, buttonType = "") {
       <div class="dmedia-card__image"><img src="${media.poster}" alt="${media.title}" /></div>
       <div class="dmedia-card__details">
         <h4 class="dmedia-card__details-title">
-          <i class="fas fa-copy" data-link="${media.title}" style="font-size: 1rem;"></i> &nbsp; 
           <a href="${link}">${media.title}</a> &nbsp; 
-          <i class="fas fa-copy" data-link="https://eyeclient.com${link}"></i>
         </h4>
-        <ul>
+        <ul style="margin-top: 1rem;">
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
           <li>${(0, _functions.getTime)(media.released).date}</li>
-          ${imdbLink}
+          <div><i class="fas fa-copy i-primary" data-link="${fullContent}" style="font-size: 2rem;"></i></div>
         </ul>
 
         <div class="dmedia-card__details-button">

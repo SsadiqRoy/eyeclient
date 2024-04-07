@@ -125,7 +125,7 @@ export function initialize() {
   window.addEventListener('DOMContentLoaded', () => {
     initialLoad({
       containerid: 'cards-container',
-      url: '/media?fields=title,type,imdbRating,released,poster,id,imdbId&order=-createdAt',
+      url: '/media?fields=title,type,imdbRating,released,poster,id,imdbId,plot&order=-createdAt',
       card: 'dmediaCard',
     });
     pageLoad({ containerid: 'cards-container', url: '/media', card: 'dmediaCard' });

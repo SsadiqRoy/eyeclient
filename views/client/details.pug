@@ -67,36 +67,44 @@ block content
         .main__heading-details__plot= media.plot || 'N/A'
 
     section.main__details
-      .main__details-item
-        span.main__details-item__key Directors
-        span.main__details-item__value
-          each director in media.directors ? media.directors.split(',') : []
-            if(director !== 'N/A')
+      if(media.directors && media.directors !== 'N/A')
+        .main__details-item
+          span.main__details-item__key Directors
+          span.main__details-item__value
+            each director in media.directors.split(',')
               a(href=`/media?search=${director.trim()}`) #{director.trim()}
               |, 
           
-      .main__details-item
-        span.main__details-item__key Writers
-        span.main__details-item__value
-          each writer in media.writers ? media.writers.split(',') : []
-            if(writer !== 'N/A')
+      if(media.writers && media.writers !== 'N/A')
+        .main__details-item
+          span.main__details-item__key Writers
+          span.main__details-item__value
+            each writer in media.writers.split(',')
               a(href=`/media?search=${writer.trim()}`) #{writer.trim()}
               |, 
 
-      .main__details-item
-        span.main__details-item__key actors
-        span.main__details-item__value
-          each actor in media.actors ? media.actors.split(',') : []
-            if(actor !== 'N/A')
+      if(media.actors && media.actors !== 'N/A')
+        .main__details-item
+          span.main__details-item__key actors
+          span.main__details-item__value
+            each actor in media.actors.split(',')
               a(href=`/media?search=${actor.trim()}`) #{actor.trim()}
               |, 
 
-      .main__details-item
-        span.main__details-item__key Country
-        span.main__details-item__value
-          each country in media.country ? media.country.split(',') : []
-            if(country !== 'N/A')
+      if(media.country && media.country !== 'N/A')
+        .main__details-item
+          span.main__details-item__key Country
+          span.main__details-item__value
+            each country in media.country.split(',')
               a(href=`/media?search=${country.trim()}`) #{country.trim()}
+              |, 
+
+      if(media.keywords && media.keywords !== 'N/A')
+        .main__details-item
+          span.main__details-item__key Keywords
+          span.main__details-item__value
+            each keyword in media.keywords.split(',')
+              a(href=`/media?search=${keyword.trim()}`) #{keyword.trim()}
               |, 
 
       if(media.about)
