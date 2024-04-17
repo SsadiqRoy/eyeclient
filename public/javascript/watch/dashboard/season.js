@@ -5638,6 +5638,10 @@ function dmediaCard(media, buttonType = "") {
 
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
 https://eyeclient.com${link}\n\n\n.\n${imdbPath}`;
+    const facebook = `.\nTitle: ${media.title}\n${genre} #${media.type} #new #trending\n${media.plot || ""}
+
+\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
+https://eyeclient.com${link}`;
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
     if (buttonType === "negative") buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
     const action = buttonType === "positive" ? "add" : buttonType === "negative" ? "remove" : "";
@@ -5652,7 +5656,8 @@ https://eyeclient.com${link}\n\n\n.\n${imdbPath}`;
           <li>${media.type}</li>
           <li>${media.imdbRating} <i class="fas fa-star i-primary"></i></li>
           <li>${(0, _functions.getTime)(media.released).date}</li>
-          <div><i class="fas fa-copy i-primary" data-link="${fullContent}" style="font-size: 2rem;"></i></div>
+          <div><i class="fas fa-copy i-primary" data-link="${fullContent}" style="font-size: 2rem;" title="Telegram"></i></div>
+          <div><i class="fas fa-copy" data-link="${facebook}" style="font-size: 2rem;" title="Facebook"></i></div>
         </ul>
 
         <div class="dmedia-card__details-button">
