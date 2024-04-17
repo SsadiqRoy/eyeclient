@@ -5,9 +5,9 @@ html
     meta(name="viewport", content="width=device-width,initial-scale=1")
     link(rel="stylesheet", href="/assets/fontawesome/css/all.min.css")
     link(rel="stylesheet", href="/styles/css/form.css")
-    title 🍿Eye Client - Dashboard | #{ext.title || ''}
+    title Eye Client - Dashboard | #{ext.title || ''}
 
-  body(data-next=`${series.Seasons.length+1}`)
+  body(data-next=`${series && series.Seasons.length+1 || 1}`)
     include ../externals/functions
     include ../externals/cards
 
