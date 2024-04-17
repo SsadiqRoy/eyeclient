@@ -5109,10 +5109,14 @@ exports.default = HttpStatusCode;
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78DsC":[function(require,module,exports) {
 // export const api_url = 'http://localhost:3000/v1';
 // export const client_url = 'http://localhost:3100';
-// export const api_url = 'https://api.eyeclient.com/v1';
-// export const client_url = 'https://eyeclient.com';
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "client_url", ()=>client_url);
+const api_url = "https://api.eyeclient.com/v1";
+const client_url = "https://eyeclient.com";
 
-},{}],"3o8Fn":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3o8Fn":[function(require,module,exports) {
 // ============================= CONSTANT VARIABLES
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
