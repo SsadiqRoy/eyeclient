@@ -5327,8 +5327,8 @@ function initialize() {
 function clearEpisodePopup(action = "soft") {
     document.getElementById("imdb-id").value = "";
     if (action === "soft") return;
-    // document.getElementById('poster').value = '';
-    // document.getElementById('released').value = '';
+    document.getElementById("episode-poster").value = "";
+    document.getElementById("episode-released").value = "";
     document.getElementById("imdb-id-hard").value = "";
     document.getElementById("imdb-series").value = "";
     document.getElementById("rated").value = "";
