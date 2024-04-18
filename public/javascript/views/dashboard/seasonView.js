@@ -86,10 +86,12 @@ export function getEpisodeData(action) {
   const episode = document.getElementById('episode').value;
   const title = document.getElementById('title').value;
   const plot = document.getElementById('plot').value;
-  const poster = document.getElementById('poster').value;
+  const poster = document.getElementById('episode-poster').value;
   const runtime = document.getElementById('runtime').value;
   const imdbRating = document.getElementById('imdb-rating').value;
-  const released = document.getElementById('released').value;
+  const released = document.getElementById('episode-released').value;
+
+  // console.log({ released, poster });
 
   return { season, series, imdbId, imdbSeries, rated, episode, title, plot, poster, runtime, imdbRating, released };
 }
