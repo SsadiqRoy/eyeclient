@@ -44,8 +44,8 @@ block metaTags
 block content
   main.main
     .center-element
-      h2= linkNames.media
-      h2.margin-t2= linkNames.episode
+      h2= linkNames.media+linkNames.episode || ''
+      //- h2.margin-t2= linkNames.episode
 
     .center-element.margin-t2
       h2= linkNames.name
@@ -57,6 +57,14 @@ block content
       button.tag.tag-primary.tag-button#download(data-link-id=`${link.id}` disabled)
         | Download 
         i.fas.fa-download
+
+    .center-element-2.margin-t6
+      p Join our telegram channel
+        a(href="https://t.me/eyeclient").i-primary  Eye Client Main 
+        | For updates on movies
+    .center-element-2
+      p You can directly request a media through
+        a(href="https://t.me/eyeclient_community").i-primary  Eye Client Community
 
 
 block script 

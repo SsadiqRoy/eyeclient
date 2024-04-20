@@ -88,5 +88,5 @@ function count() {
   window.setTimeout(() => {
     window.clearInterval(interval);
     document.getElementById('download').removeAttribute('disabled');
-  }, 11000);
+  }, 7000);
 }

@@ -5188,7 +5188,7 @@ function count() {
     window.setTimeout(()=>{
         window.clearInterval(interval);
         document.getElementById("download").removeAttribute("disabled");
-    }, 11000);
+    }, 7000);
 }
 
 },{"../../utils/utils":"hiLrG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hiLrG":[function(require,module,exports) {

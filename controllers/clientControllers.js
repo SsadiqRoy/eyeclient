@@ -6,7 +6,7 @@ const { js_path, api_url } = process.env;
 exports.home = catchAsync(async (req, res, next) => {
   const ext = {
     page: 'home',
-    title: 'Download Movies, Tv Series and Games, Free High Quality Download Links',
+    title: 'Index Of Movies, Tv Series and Games, Free High Quality Download Links',
     css: 'home',
     js: `${js_path}/client/home`,
   };
@@ -48,8 +48,6 @@ exports.details = catchAsync(async (req, res, next) => {
 
   if (!media) media = (await getRequest(`${api_url}/media/full/${season.series}`, req)).data;
 
-  // console.log(media);
-
   const ext = {
     page: 'details',
     title: `${media.title}${season ? ` Season ${season.season}` : ''}`,
@@ -69,14 +67,14 @@ exports.download = catchAsync(async (req, res, next) => {
   if (season) media = (await getRequest(`${api_url}/media/full/${season.series}`, req)).data;
 
   const linkNames = {
-    media: `${media.title}${season ? ` - Season ${season.season}` : ''}`,
-    episode: episode ? `Episode ${episode.episode}: ${episode.title}` : '',
+    media: `${media.title}${season ? ` - S${String(season.season).padStart(2, '0')}` : ''}`,
+    episode: episode ? `E${String(episode.episode).padStart(2, '0')}: ${episode.title}` : '',
     name: link.resolution > 10 && link.resolution < 10000 ? `${link.name}p` : link.name,
   };
 
   const ext = {
     page: 'download',
-    title: `Donwload ${linkNames.media} ${linkNames.episode} ${linkNames.name}`,
+    title: `Donwload ${linkNames.media}${linkNames.episode}`,
     css: 'download',
     js: `${js_path}/client/download`,
   };
