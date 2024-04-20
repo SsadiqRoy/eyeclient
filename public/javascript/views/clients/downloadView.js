@@ -78,7 +78,7 @@ export function initialize() {
 // ============================== NON-EXPORTING
 function count() {
   const counter = document.getElementById('counter');
-  let countValue = 10;
+  let countValue = 6;
 
   const interval = window.setInterval(() => {
     counter.textContent = countValue;

@@ -5180,7 +5180,7 @@ function initialize() {
 */ // ============================== NON-EXPORTING
 function count() {
     const counter = document.getElementById("counter");
-    let countValue = 10;
+    let countValue = 6;
     const interval = window.setInterval(()=>{
         counter.textContent = countValue;
         countValue--;
@@ -5698,11 +5698,9 @@ function dmediaCard(media, buttonType = "") {
     const genre = media.genre && media.genre !== "N/A" && media.genre.split(",").map((g)=>`#${g.trim()}`).join(" ");
     const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ""}\n${genre}
 
-
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
-https://eyeclient.com${link}\n\n\n.\n${imdbPath}`;
-    const facebook = `.\nTitle: ${media.title}\n${genre} #${media.type} #new #trending\n${media.plot || ""}
-
+https://eyeclient.com${link}\n\n${imdbPath}`;
+    const facebook = `Title: ${media.title}\n${genre} #${media.type} #new #trending #${media.title.replaceAll(" ", "")}\n${media.plot || ""}
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
 https://eyeclient.com${link}`;
     if (buttonType === "positive") buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;

@@ -35,10 +35,10 @@ export function dmediaCard(media, buttonType = '') {
 
   const fullContent = `.\nTitle: ${media.title}\n\n${
     media.plot || ''
-  }\n${genre}\n\n\n🍿🍿🍿🍿🍿 Download Link👇\nhttps://eyeclient.com${link}\n\n\n.\n${imdbPath}`;
-  const facebook = `.\nTitle: ${media.title}\n${genre} #${media.type} #new #trending\n${
+  }\n${genre}\n\n🍿🍿🍿🍿🍿 Download Link👇\nhttps://eyeclient.com${link}\n\n${imdbPath}`;
+  const facebook = `Title: ${media.title}\n${genre} #${media.type} #new #trending #${media.title.replaceAll(' ', '')}\n${
     media.plot || ''
-  }\n\n🍿🍿🍿🍿🍿 Download Link👇\nhttps://eyeclient.com${link}`;
+  }\n🍿🍿🍿🍿🍿 Download Link👇\nhttps://eyeclient.com${link}`;
 
   if (buttonType === 'positive') buttons = `<button class="btn btn-secondary-dark add-to-collection">add to collection</button>`;
   if (buttonType === 'negative') buttons = `<button class="btn btn-primary remove-from-collection">remove</button>`;
