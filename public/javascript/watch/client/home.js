@@ -641,16 +641,20 @@ const sliders = {
             query: "?type[or]=series,movie&imdbRating[gt]=7&order=-released"
         },
         {
-            title: 'New Episodes <i class="fa-solid fa-angles-right"></i>',
-            query: "?type=series&order=-lastEpisodeOn"
-        },
-        {
             title: 'New Movies <i class="fa-solid fa-angles-right"></i>',
             query: "?type=movie&order=-released"
         },
         {
             title: 'New Tv Series <i class="fa-solid fa-angles-right"></i>',
             query: "?type=series&order=-released"
+        },
+        {
+            title: 'New Episodes <i class="fa-solid fa-angles-right"></i>',
+            query: "?type=series&order=-lastEpisodeOn"
+        },
+        {
+            title: 'Just Added <i class="fa-solid fa-angles-right"></i>',
+            query: "?order=-createdAt"
         },
         {
             title: 'Top Games <i class="fa-solid fa-angles-right"></i>',
@@ -685,19 +689,19 @@ const sliders = {
             query: "?search=korea"
         },
         {
-            title: 'Netflix <i class="fa-solid fa-angles-right"></i>',
+            title: 'On Netflix <i class="fa-solid fa-angles-right"></i>',
             query: "?search=netflix"
         },
         {
-            title: 'Prime Video <i class="fa-solid fa-angles-right"></i>',
+            title: 'On Prime Video <i class="fa-solid fa-angles-right"></i>',
             query: "?search=amazon"
         },
         {
-            title: 'Apple Tv <i class="fa-solid fa-angles-right"></i>',
+            title: 'On Apple Tv <i class="fa-solid fa-angles-right"></i>',
             query: "?search=apple"
         },
         {
-            title: 'HBO <i class="fa-solid fa-angles-right"></i>',
+            title: 'On HBO <i class="fa-solid fa-angles-right"></i>',
             query: "?search=hbo"
         }
     ],
@@ -1053,6 +1057,7 @@ function alertResponse(message, type = "", duration = 4) {
     let waitTime = 0;
     // Removing message if there is already one
     if (alertCard) {
+        console.log("wait time", waitTime);
         clearTimeout(to1);
         clearTimeout(to2);
         clearTimeout(to3);
@@ -1063,21 +1068,21 @@ function alertResponse(message, type = "", duration = 4) {
             body.removeChild(alertCard);
         }, waitTime);
     }
-    duration = (duration + 0.2) * 1000 + waitTime;
+    duration = duration * 1000 + waitTime;
     const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
     // Creating the message
     to1 = setTimeout(()=>{
         body.insertAdjacentHTML("afterbegin", markup);
-    }, waitTime + 10);
+    }, waitTime + 3);
     // // Sending the message down
     to2 = setTimeout(()=>{
         body.querySelector(".alert-message").classList.add("am-in");
-    }, waitTime + 200);
+    }, waitTime + 20);
     // Sending the message back up
     to3 = setTimeout(()=>{
         body.querySelector(".alert-message").classList.remove("am-in");
-    }, duration + 30);
-    // Removing the error card from document
+    }, duration + 20);
+    // Removing the alert card from document
     to4 = setTimeout(()=>{
         const card = body.querySelector(".alert-message");
         body.removeChild(card);

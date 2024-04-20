@@ -4,9 +4,10 @@ import { expandSearchBar, mediaCard, parseQuery, stringifyQuery } from '../../ut
 const sliders = {
   home: [
     { title: 'In Theathers <i class="fa-solid fa-angles-right"></i>', query: '?type[or]=series,movie&imdbRating[gt]=7&order=-released' },
-    { title: 'New Episodes <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-lastEpisodeOn' },
     { title: 'New Movies <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&order=-released' },
     { title: 'New Tv Series <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-released' },
+    { title: 'New Episodes <i class="fa-solid fa-angles-right"></i>', query: '?type=series&order=-lastEpisodeOn' },
+    { title: 'Just Added <i class="fa-solid fa-angles-right"></i>', query: '?order=-createdAt' },
     { title: 'Top Games <i class="fa-solid fa-angles-right"></i>', query: '?type=game&imdbRating[gt]=6.9' },
     { title: 'Highly Rated Movies <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&imdbRating[gt]=6.9' },
     { title: 'Highly Rated Series <i class="fa-solid fa-angles-right"></i>', query: '?type=series&imdbRating[gt]=6.9' },
@@ -15,10 +16,10 @@ const sliders = {
     { title: 'Action & Adventure Games <i class="fa-solid fa-angles-right"></i>', query: '?search=action,adventure&type=game' },
     { title: 'Drama Series & Movies <i class="fa-solid fa-angles-right"></i>', query: '?search=drama&type[ne]=collection' },
     { title: 'Korean <i class="fa-solid fa-angles-right"></i>', query: '?search=korea' },
-    { title: 'Netflix <i class="fa-solid fa-angles-right"></i>', query: '?search=netflix' },
-    { title: 'Prime Video <i class="fa-solid fa-angles-right"></i>', query: '?search=amazon' },
-    { title: 'Apple Tv <i class="fa-solid fa-angles-right"></i>', query: '?search=apple' },
-    { title: 'HBO <i class="fa-solid fa-angles-right"></i>', query: '?search=hbo' },
+    { title: 'On Netflix <i class="fa-solid fa-angles-right"></i>', query: '?search=netflix' },
+    { title: 'On Prime Video <i class="fa-solid fa-angles-right"></i>', query: '?search=amazon' },
+    { title: 'On Apple Tv <i class="fa-solid fa-angles-right"></i>', query: '?search=apple' },
+    { title: 'On HBO <i class="fa-solid fa-angles-right"></i>', query: '?search=hbo' },
   ],
   movies: [
     { title: 'New Release <i class="fa-solid fa-angles-right"></i>', query: '?type=movie&order=-released' },

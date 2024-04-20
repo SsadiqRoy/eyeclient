@@ -45,6 +45,7 @@ export function alertResponse(message, type = '', duration = 4) {
 
   // Removing message if there is already one
   if (alertCard) {
+    console.log('wait time', waitTime);
     clearTimeout(to1);
     clearTimeout(to2);
     clearTimeout(to3);
@@ -58,25 +59,25 @@ export function alertResponse(message, type = '', duration = 4) {
     }, waitTime);
   }
 
-  duration = (duration + 0.2) * 1000 + waitTime;
+  duration = duration * 1000 + waitTime;
   const markup = `<div class="alert-message alert-message--${type}">${message}<i class="fas fa-times close-alert-message"></i></div>`;
 
   // Creating the message
   to1 = setTimeout(() => {
     body.insertAdjacentHTML('afterbegin', markup);
-  }, waitTime + 10);
+  }, waitTime + 3);
 
   // // Sending the message down
   to2 = setTimeout(() => {
     body.querySelector('.alert-message').classList.add('am-in');
-  }, waitTime + 200);
+  }, waitTime + 20);
 
   // Sending the message back up
   to3 = setTimeout(() => {
     body.querySelector('.alert-message').classList.remove('am-in');
-  }, duration + 30);
+  }, duration + 20);
 
-  // Removing the error card from document
+  // Removing the alert card from document
   to4 = setTimeout(() => {
     const card = body.querySelector('.alert-message');
     body.removeChild(card);
