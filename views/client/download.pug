@@ -43,6 +43,11 @@ block metaTags
 
 block content
   main.main
+    .center-element.margin-b4
+      p Report link that do not work or request a Movie, Game or Tv Series on 
+        a(href="https://t.me/eyeclient_community").i-primary  Eye Client Community 
+        //- br 
+        //- | Or request a movie, game or tv series
     .center-element
       h2= linkNames.media+linkNames.episode || ''
       //- h2.margin-t2= linkNames.episode
@@ -50,21 +55,21 @@ block content
     .center-element.margin-t2
       h2= linkNames.name
       
-    .center-element.margin-t6
+    .center-element.margin-t4
       span.tag.tag-primary-alt#counter(style='display: inline;') 6
 
-    .center-element-2.margin-t6
+    .center-element-2.margin-t4
       button.tag.tag-primary.tag-button#download(data-link-id=`${link.id}` disabled)
         | Download 
         i.fas.fa-download
 
-    .center-element-2.margin-t6
+    .center-element.margin-t4
       p Join our telegram channel
         a(href="https://t.me/eyeclient").i-primary  Eye Client Main 
-        | For updates on movies
-    .center-element-2
-      p You can directly request a media through
-        a(href="https://t.me/eyeclient_community").i-primary  Eye Client Community
+        | For updates on Movies, Tv Series & Games
+    //- .center-element-2
+    //-   p You can directly request a media through
+    //-     a(href="https://t.me/eyeclient_community").i-primary  Eye Client Community
 
 
 block script 
