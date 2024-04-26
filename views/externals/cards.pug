@@ -31,7 +31,7 @@ mixin episodeItem(episode)
     .main__links-episode__details
       .main__links-episode__details-content
         .main__links-episode__details-content-image
-          img(src=`${episode.poster}`, alt=`${episode.title}`)
+          img(src=`${episode.poster || 'https://preservationde.org/images/placeholder.png'}`, alt=`${episode.title}`)
         .main__links-episode__details-content-detail
           .mledcd-heading
             h4= episode.title
