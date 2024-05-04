@@ -1,12 +1,12 @@
 const { getRequest } = require('../utils/model');
-const { catchAsync } = require('../utils/utils');
+const { catchAsync, generateKeywords } = require('../utils/utils');
 
 const { js_path, api_url } = process.env;
 
 exports.home = catchAsync(async (req, res, next) => {
   const ext = {
     page: 'home',
-    title: 'Index Of Movies, Tv Series and Games, Free High Quality Download Links',
+    title: 'Eye Client | Index Of Movies, Tv Series and Games, Free High Quality Download Links',
     css: 'home',
     js: `${js_path}/client/home`,
   };
@@ -20,7 +20,7 @@ exports.explore = catchAsync(async (req, res, next) => {
 
   const ext = {
     page: page,
-    title: `Explore More ${page.slice(0, 1).toUpperCase()}${page.slice(1)}`,
+    title: `Explore More ${page.slice(0, 1).toUpperCase()}${page.slice(1)} | Eye Client`,
     css: 'home',
     js: `${js_path}/client/home`,
     textString: `&type=${textStrings[page]}`,
@@ -32,7 +32,7 @@ exports.explore = catchAsync(async (req, res, next) => {
 exports.search = catchAsync(async (req, res, next) => {
   const ext = {
     page: 'search',
-    title: 'Find Any Movie, Game or Tv Series',
+    title: 'Find Any Movie, Game or Tv Series | Eye Client',
     css: 'search',
     js: `${js_path}/client/search`,
   };
@@ -50,13 +50,18 @@ exports.details = catchAsync(async (req, res, next) => {
 
   const ext = {
     page: 'details',
-    title: `${media.title}${season ? ` Season ${season.season}` : ''}`,
+    title: `${media.title}${season ? ` Season ${season.season}` : ''} | Eye Client`,
     css: 'details',
     js: `${js_path}/client/details`,
   };
 
-  res.status(200).render('client/details', { ext, season, media });
+  const keywords = generateKeywords({ media, season }).join(', ');
+  // console.log(keywords);
+
+  res.status(200).render('client/details', { ext, season, media, keywords });
 });
+
+//
 
 exports.download = catchAsync(async (req, res, next) => {
   const link = (await getRequest(`${api_url}/media/link/${req.params.id}`, req)).data;
@@ -74,7 +79,7 @@ exports.download = catchAsync(async (req, res, next) => {
 
   const ext = {
     page: 'download',
-    title: `Donwload ${linkNames.media}${linkNames.episode}`,
+    title: `Donwload ${linkNames.media}${linkNames.episode} | Eye Client`,
     css: 'download',
     js: `${js_path}/client/download`,
   };
