@@ -13,6 +13,7 @@ async function controlMovie(id) {
 
 async function controlLink(id) {
   const data = view.getLinkData();
+
   const response = id ? await patchFull(`/media/link/${id}`, data) : await postFull('/media/link', data);
   view.renderLink(response);
 }

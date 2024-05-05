@@ -57,8 +57,8 @@ html
     
     section.links#cards-container
       each link in episode.Links
-        - const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
-        +dlinkCard(link, undefined, ext)
+        //- - const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
+        +dlinkCard(link)
     
     section.popup#link-popup.display-off
       .popup__container.form-7
@@ -72,14 +72,29 @@ html
             .form-group
               label.label-basic(for="resolution") resolution
               select.select-basic#resolution
-                option(value="480") 480
-                option(value="720") 720
-                option(value="720x265") 720x265
-                option(value="1080") 1080
-                option(value="1080x265") 1080x265
-                option(value="2160") 2160
-                option(value="hdcam") hdcam
-                option(value="other") other
+                option(value="480p Alt 2,495") 480p Alt 2
+                  option(value="720p Alt 2,735") 720p Alt 2
+                  option(value="720p.x265 Alt 2,755") 720p.x265 Alt 2
+                  option(value="1080p Alt 2,1095") 1080p Alt 2
+                  option(value="1080p.x265 Alt 2,1115") 1080p.x265 Alt 2
+                  option(value="2160p Alt 2,2175") 2160p Alt 2
+                  optgroup 
+                  option(value="480p Alt,490") 480p Alt
+                  option(value="720p Alt,730") 720p Alt
+                  option(value="720p.x265 Alt,750") 720p.x265 Alt
+                  option(value="1080p Alt,1090") 1080p Alt
+                  option(value="1080p.x265 Alt,1110") 1080p.x265 Alt
+                  option(value="2160p Alt,2170") 2160p Alt
+                  optgroup 
+                  option(value="480p,480" selected) 480p
+                  option(value="720p,720") 720p
+                  option(value="720p.x265,740") 720p.x265
+                  option(value="1080p,1080") 1080p
+                  option(value="1080p.x265,1100") 1080p.x265
+                  option(value="2160p,2160") 2160p
+                  option(value="hdcam,10") hdcam
+                  option(value="other") other
+
             .form-group#group-other.display-off
               label.label-basic(for="link-name-other") link name other
               input#other-name.input-basic(type="text", name="link-name-other", placeholder="link name Other")

@@ -109,17 +109,16 @@ export function getData() {
 export function getLinkData() {
   const { id } = parseQuery(window.location.search);
 
-  let name = document.getElementById('resolution').value;
-  let resolution = name;
-  if (name === 'hdcam') resolution = 10;
-  if (name === '720x265') resolution = 800;
-  if (name === '1080x265') resolution = 1090;
+  const link = document.getElementById('link').value;
+  let res = document.getElementById('resolution').value?.split(',');
+  let [name, resolution] = res;
+
+  resolution = +resolution;
+
   if (name === 'other') {
     name = document.getElementById('other-name').value;
     resolution = 10000;
   }
-
-  const link = document.getElementById('link').value;
 
   return { media: id, name, resolution, link };
 }
@@ -235,7 +234,7 @@ function changeName() {
 
 //
 function clearLinkPopup() {
-  document.getElementById('resolution').value = '480';
+  document.getElementById('resolution').value = '480p,480';
   document.getElementById('link').value = '';
   document.getElementById('other-name').value = '';
   document.getElementById('group-other').classList.add('display-off');
@@ -243,13 +242,12 @@ function clearLinkPopup() {
 }
 
 function editLinkPopup(link) {
-  const linkNames = ['480', '720', '1080', '2160', '720x265', '1080x265', 'hdcam', '720x256', '1080x256'];
-  const include = linkNames.includes(link.name);
+  const { name, other } = getLinkName(link.name);
 
-  document.getElementById('resolution').value = include ? link.name : 'other';
-  document.getElementById('other-name').value = include ? '' : link.name;
+  document.getElementById('resolution').value = other ? 'other' : name;
+  document.getElementById('other-name').value = other ? name : '';
   document.getElementById('link').value = link.link;
-  if (!include) document.getElementById('group-other').classList.remove('display-off');
+  if (other) document.getElementById('group-other').classList.remove('display-off');
 }
 
 function onEditLink() {
@@ -268,4 +266,40 @@ function onEditLink() {
 //
 function afterOpenPopup() {
   document.getElementById('resolution').focus();
+}
+
+function getLinkName(name) {
+  const names = {
+    480: '480p,480',
+    720: '720p,720',
+    1080: '1080p,1080',
+    2160: '2160p,2160',
+    '720x265': '720p.x265,740',
+    '1080x265': '1080p.x265,1100',
+    '720x256': '720p.x265,740',
+    '1080x256': '1080p.x265,1100',
+
+    '480p': '480p,480',
+    '720p': '720p,720',
+    '1080p': '1080p,1080',
+    '2160p': '2160p,2160',
+    '720p.x265': '720p.x265,740',
+    '1080p.x265': '1080p.x265,1100',
+    hdcam: 'hdcam,10',
+    '480p Alt': '480p Alt,490',
+    '720p Alt': '720p Alt,730',
+    '1080p Alt': '1080p Alt,1090',
+    '2160p Alt': '2160p Alt,2170',
+    '720p.x265 Alt': '720p.x265 Alt,750',
+    '1080p.x265 Alt': '1080p.x265 Alt,1110',
+    '480p Alt 2': '480p Alt 2,495',
+    '720p Alt 2': '720p Alt 2,735',
+    '1080p Alt 2': '1080p Alt 2,1095',
+    '2160p Alt 2': '2160p Alt 2,2175',
+    '720p.x265 Alt 2': '720p.x265 Alt 2,755',
+    '1080p.x265 Alt 2': '1080p.x265 Alt 2,1115',
+  };
+  const maped = names[name];
+
+  return { name: maped || name, other: !maped };
 }
