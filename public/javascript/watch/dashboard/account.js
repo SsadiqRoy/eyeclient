@@ -1245,7 +1245,7 @@ function dmediaCard(media, buttonType = "") {
     const link = media.type === "collection" ? `/media?collection=${media.id}` : `/detail/${media.id}`;
     const genre = media.genre && media.genre !== "N/A" && media.genre.split(",").map((g)=>`#${g.trim()}`).join(" ");
     const fullContent = `.\nTitle: ${media.title}
-\u{1F37F}Download Link\u{1F37F} - https://eyeclient.com${link}\n${media.plot || ""}\n${genre}\n\n${imdbPath}`;
+\u{1F37F}Download Here\u{1F37F} - https://eyeclient.com${link}\n${media.plot || ""}\n${genre}\n\n${imdbPath}`;
     const facebook = `Title: ${media.title}\n${genre} #${media.type} #new #trending #${media.title.replaceAll(" ", "")}\n${media.plot || ""}
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
 https://eyeclient.com${link}`;
