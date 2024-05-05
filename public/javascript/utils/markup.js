@@ -33,7 +33,7 @@ export function dmediaCard(media, buttonType = '') {
       .map((g) => `#${g.trim()}`)
       .join(' ');
 
-  const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ''}\n${genre}\n\n🍿Download Link🍿 - https://eyeclient.com${link}\n${imdbPath}\n.`;
+  const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ''}\n${genre}\n\n🍿Download Link🍿 - https://eyeclient.com${link}\n${imdbPath}`;
 
   const facebook = `Title: ${media.title}\n${genre} #${media.type} #new #trending #${media.title.replaceAll(' ', '')}\n${
     media.plot || ''
