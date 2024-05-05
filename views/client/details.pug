@@ -117,8 +117,8 @@ block content
     section.main__links
       h3.center-element.links-title Download
       each link in media.Links.length ? media.Links : []
-        - const post = media.type === 'movie' & link.resolution > 10 & link.resolution < 10000 ? 'p' : ''
-        +linkItem(link, undefined, post, `/download/${link.id}`, media.type)
+        //- - const post = media.type === 'movie' & link.resolution > 10 & link.resolution < 10000 ? 'p' : ''
+        +linkItem(link, undefined, undefined, `/download/${link.id}`, media.type)
       
       if(!season)
         each season in media.Seasons
