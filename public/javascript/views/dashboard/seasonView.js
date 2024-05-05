@@ -81,19 +81,20 @@ export function getEpisodeData(action) {
   if (action === 'soft') return { season, series, imdbId };
 
   imdbId = document.getElementById('imdb-id-hard').value;
-  const imdbSeries = document.getElementById('imdb-series').value;
-  const rated = document.getElementById('rated').value;
   const episode = document.getElementById('episode').value;
   const title = document.getElementById('title').value;
   const plot = document.getElementById('plot').value;
-  const poster = document.getElementById('episode-poster').value;
-  const runtime = document.getElementById('runtime').value;
-  const imdbRating = document.getElementById('imdb-rating').value;
   const released = document.getElementById('episode-released').value;
+  // const imdbSeries = document.getElementById('imdb-series').value;
+  // const rated = document.getElementById('rated').value;
+  // const poster = document.getElementById('episode-poster').value;
+  // const runtime = document.getElementById('runtime').value;
+  // const imdbRating = document.getElementById('imdb-rating').value;
 
   // console.log({ released, poster });
+  // return { season, series, imdbId, imdbSeries, rated, episode, title, plot, poster, runtime, imdbRating, released };
 
-  return { season, series, imdbId, imdbSeries, rated, episode, title, plot, poster, runtime, imdbRating, released };
+  return { season, series, imdbId, episode, title, plot, released };
 }
 
 /*
@@ -210,17 +211,17 @@ function clearEpisodePopup(action = 'soft') {
   document.getElementById('imdb-id').value = '';
   if (action === 'soft') return;
 
-  document.getElementById('episode-poster').value = '';
+  // document.getElementById('episode-poster').value = '';
   document.getElementById('episode-released').value = '';
 
   document.getElementById('imdb-id-hard').value = '';
-  document.getElementById('imdb-series').value = '';
-  document.getElementById('rated').value = '';
+  // document.getElementById('imdb-series').value = '';
+  // document.getElementById('rated').value = '';
   document.getElementById('episode').value = document.querySelector('body').dataset.next;
   document.getElementById('title').value = '';
   document.getElementById('plot').value = '';
-  document.getElementById('runtime').value = '';
-  document.getElementById('imdb-rating').value = '';
+  // document.getElementById('runtime').value = '';
+  // document.getElementById('imdb-rating').value = '';
 }
 
 //
