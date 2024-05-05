@@ -68,6 +68,9 @@ html
         .popup__content
           form#form-hard-add
             .form-group
+              label.label-basic(for="episode") episode
+              input#episode.input-basic(type="number", name="episode", step='1' min='1' value=`${season.Episodes.length + 1}`)
+            .form-group
               label.label-basic(for="imdb-id") IMDB Id
               input#imdb-id-hard.input-basic(type="text", name="imdb-id", placeholder="IMDB Id")
             //- .form-group
@@ -76,9 +79,6 @@ html
             //- .form-group
             //-   label.label-basic(for="rated") rated
             //-   input#rated.input-basic(type="text", name="rated", placeholder="rated")
-            .form-group
-              label.label-basic(for="episode") episode
-              input#episode.input-basic(type="number", name="episode", step='1' min='1' value=`${season.Episodes.length + 1}`)
             .form-group
               label.label-basic(for="title") title
               input#title.input-basic(type="text", name="title", placeholder="title")
