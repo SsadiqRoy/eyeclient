@@ -1041,14 +1041,13 @@ exports.export = function(dest, destName, get) {
 };
 
 },{}],"78DsC":[function(require,module,exports) {
-// export const api_url = 'http://localhost:3000/v1';
-// export const client_url = 'http://localhost:3100';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "client_url", ()=>client_url);
-const api_url = "https://api.eyeclient.com/v1";
-const client_url = "https://eyeclient.com";
+const api_url = "http://localhost:3000/v1";
+const client_url = "http://localhost:3100"; // export const api_url = 'https://api.eyeclient.com/v1';
+ // export const client_url = 'https://eyeclient.com';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hZORM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

@@ -116,6 +116,8 @@
 
   background-color: $background;
 
+  @include scroll-bar;
+
   @include theme(dark) {
     background-color: $background-dark;
     color: $white;
