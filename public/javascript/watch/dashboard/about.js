@@ -5743,8 +5743,7 @@ function dmediaCard(media, buttonType = "") {
     const genre = media.genre && media.genre !== "N/A" && media.genre.split(",").map((g)=>`#${g.trim()}`).join(" ");
     const fullContent = `.\nTitle: ${media.title}\n\n${media.plot || ""}\n${genre}
 
-\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
-https://eyeclient.com${link}\n\n${imdbPath}`;
+\u{1F37F}Download Link\u{1F37F} - https://eyeclient.com${link}\n${imdbPath}\n.`;
     const facebook = `Title: ${media.title}\n${genre} #${media.type} #new #trending #${media.title.replaceAll(" ", "")}\n${media.plot || ""}
 \u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F}\u{1F37F} Download Link\u{1F447}
 https://eyeclient.com${link}`;
