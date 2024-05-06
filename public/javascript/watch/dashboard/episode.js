@@ -5188,9 +5188,9 @@ function renderLink(response) {
     const next = card?.nextElementSibling;
     const prev = card?.previousElementSibling;
     card && container.removeChild(card);
-    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data, undefined, undefined));
-    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data, undefined, undefined));
-    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data, undefined, undefined));
+    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data));
+    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data));
+    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data));
 }
 function renderDeleteLink(id) {
     const card = document.querySelector(`[data-link-id='${id}']`);
@@ -5223,7 +5223,7 @@ function getData() {
 function getLinkData() {
     const { id } = (0, _utils.parseQuery)(window.location.search);
     const link = document.getElementById("link").value;
-    let res = document.getElementById("resolution").value?.split(",");
+    let res = document.getElementById("resolution").value.split(",");
     let [name, resolution] = res;
     resolution = +resolution;
     if (name === "other") {
@@ -5231,7 +5231,7 @@ function getLinkData() {
         resolution = 10000;
     }
     return {
-        media: id,
+        episode: id,
         name,
         resolution,
         link

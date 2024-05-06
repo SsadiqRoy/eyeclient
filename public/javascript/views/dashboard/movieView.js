@@ -35,7 +35,7 @@ export function renderMovie(response, id) {
 //
 export function renderLink(response) {
   const { message, data: link } = response;
-  const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
+  // const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
   // const redirect = `/executive/season/${link.id}`;
 
   alertResponse(message);
@@ -45,9 +45,9 @@ export function renderLink(response) {
   const prev = card?.previousElementSibling;
 
   card && container.removeChild(card);
-  if (next) next.insertAdjacentHTML('beforebegin', dlinkCard(response.data, undefined, ext));
-  else if (prev) prev.insertAdjacentHTML('afterend', dlinkCard(response.data, undefined, ext));
-  else container.insertAdjacentHTML('afterbegin', dlinkCard(response.data, undefined, ext));
+  if (next) next.insertAdjacentHTML('beforebegin', dlinkCard(response.data));
+  else if (prev) prev.insertAdjacentHTML('afterend', dlinkCard(response.data));
+  else container.insertAdjacentHTML('afterbegin', dlinkCard(response.data));
 }
 
 export function renderDeleteLink(id) {

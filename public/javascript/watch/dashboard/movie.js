@@ -5181,16 +5181,16 @@ function renderMovie(response, id) {
 }
 function renderLink(response) {
     const { message, data: link } = response;
-    const ext = link.resolution < 1000 && link.resolution > 10 ? "p" : "";
+    // const ext = link.resolution < 1000 && link.resolution > 10 ? 'p' : '';
     // const redirect = `/executive/season/${link.id}`;
     (0, _utils.alertResponse)(message);
     const card = document.querySelector(`[data-link-id='${link.id}']`);
     const next = card?.nextElementSibling;
     const prev = card?.previousElementSibling;
     card && container.removeChild(card);
-    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
-    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data, undefined, ext));
-    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data, undefined, ext));
+    if (next) next.insertAdjacentHTML("beforebegin", (0, _utils.dlinkCard)(response.data));
+    else if (prev) prev.insertAdjacentHTML("afterend", (0, _utils.dlinkCard)(response.data));
+    else container.insertAdjacentHTML("afterbegin", (0, _utils.dlinkCard)(response.data));
 }
 function renderDeleteLink(id) {
     const card = document.querySelector(`[data-link-id='${id}']`);

@@ -45,9 +45,9 @@ export function renderLink(response) {
   const prev = card?.previousElementSibling;
 
   card && container.removeChild(card);
-  if (next) next.insertAdjacentHTML('beforebegin', dlinkCard(response.data, undefined, undefined));
-  else if (prev) prev.insertAdjacentHTML('afterend', dlinkCard(response.data, undefined, undefined));
-  else container.insertAdjacentHTML('afterbegin', dlinkCard(response.data, undefined, undefined));
+  if (next) next.insertAdjacentHTML('beforebegin', dlinkCard(response.data));
+  else if (prev) prev.insertAdjacentHTML('afterend', dlinkCard(response.data));
+  else container.insertAdjacentHTML('afterbegin', dlinkCard(response.data));
 }
 
 export function renderDeleteLink(id) {
@@ -85,7 +85,7 @@ export function getLinkData() {
   const { id } = parseQuery(window.location.search);
 
   const link = document.getElementById('link').value;
-  let res = document.getElementById('resolution').value?.split(',');
+  let res = document.getElementById('resolution').value.split(',');
   let [name, resolution] = res;
 
   resolution = +resolution;
@@ -95,7 +95,7 @@ export function getLinkData() {
     resolution = 10000;
   }
 
-  return { media: id, name, resolution, link };
+  return { episode: id, name, resolution, link };
 }
 
 /*
