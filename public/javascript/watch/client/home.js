@@ -674,7 +674,7 @@ const sliders = {
         },
         {
             title: 'Animation <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=animation"
+            query: "?search=animation&order=-released"
         },
         {
             title: 'Action & Adventure Games <i class="fa-solid fa-angles-right"></i>',
@@ -686,23 +686,23 @@ const sliders = {
         },
         {
             title: 'Korean <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=korea"
+            query: "?search=korea&order=-released"
         },
         {
             title: 'On Netflix <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=netflix"
+            query: "?search=netflix&order=-released"
         },
         {
             title: 'On Prime Video <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=amazon"
+            query: "?search=amazon&order=-released"
         },
         {
             title: 'On Apple Tv <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=apple"
+            query: "?search=apple&order=-released"
         },
         {
             title: 'On HBO <i class="fa-solid fa-angles-right"></i>',
-            query: "?search=hbo"
+            query: "?search=hbo&order=-released"
         }
     ],
     movies: [
